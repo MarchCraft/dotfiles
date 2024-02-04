@@ -6,23 +6,6 @@
     - ssh_key: '~/.ssh/id_ed25519'
 
   tasks:
-    - name: Tell the host about our servers it might want to ssh to
-      known_hosts:
-        path: '/etc/ssh/known_hosts'
-        name: 'github.com'
-        key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
-
-    - name: Upload sudo config for key forwarding as root
-      lineinfile:
-        dest: /etc/sudoers.d/ssh_key_forward
-        line: 'Defaults env_keep+=SSH_AUTH_SOCK'
-        create: yes
-        owner: root 
-        group: root 
-        mode: "0440"
-        state: present
-        validate: 'visudo -c -f %s'
-
     - name: "Install system packages"
       dnf: 
         name:
@@ -30,6 +13,16 @@
           - gcc
           - nodejs
           - npm
+          - hyprland
+          - gtk4
+          - kitty
+          - firefox
+          - brightnessctl
+          - waybar
+          - pipewire-pulseaudio
+          - pavucontrol
+          - pamixer
+          - btop
         state: latest
 
     - name: "Install Python packages"
@@ -45,26 +38,90 @@
         key_file: "{{ ssh_key }}"
         force: yes
       delegate_to: localhost
-      run_once: true
-      become: no
 
     - name: "Copy NeoVim config"
-      copy:
+      synchronize:
         src: ./tmp-dotfiles/nvim
         dest: "/home/{{ user }}/.config/"
-        owner: "{{ user }}"
-        group: "{{ user }}"
-        mode: '0644'
 
     - name: "Install packer.nvim"
       git:
         repo: "https://github.com/wbthomason/packer.nvim"
-        dest: "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
+        dest: "/home/{{ user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
         force: yes
       delegate_to: localhost
       run_once: true
       become: no
 
     - name: Install NeoVim plugins
-      command: 'nvim ~/.config/nvim/lua/felixnilles/packer.lua -c "so" -c "PackerSync" -c ":qa!"'
-      register: nvim_install_plugins
+      become: yes
+      become_user: felix
+      become_method: su
+      become_flags: '--login'
+      shell: "nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'"
+
+    - name: "copy Fonts"
+      copy:
+        src: ./tmp-dotfiles/.fonts
+        dest: "/home/{{ user }}/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy hyprland config"
+      copy:
+        src: ./tmp-dotfiles/hypr
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy rofi config"
+      copy:
+        src: ./tmp-dotfiles/rofi
+        dest: "/home/{{ user }}/.config"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy kitty config"
+      copy:
+        src: ./tmp-dotfiles/kitty
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy swaylock config"
+      copy:
+        src: ./tmp-dotfiles/swaylock
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy waybar config"
+      copy:
+        src: ./tmp-dotfiles/waybar
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy bashrc config"
+      copy:
+        src: ./tmp-dotfiles/.bashrc
+        dest: "/home/{{ user }}/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+         
+    - name: "copy starship config"
+      copy:
+        src: ./tmp-dotfiles/starship.toml
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+
