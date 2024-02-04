@@ -1,0 +1,70 @@
+- hosts: localhost
+  become: yes
+  vars:
+    - user: 'felix'
+    - dotfiles_repo: 'https://github.com/MarchCraft/dotfiles.git'
+    - ssh_key: '~/.ssh/id_ed25519'
+
+  tasks:
+    - name: Tell the host about our servers it might want to ssh to
+      known_hosts:
+        path: '/etc/ssh/known_hosts'
+        name: 'github.com'
+        key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+
+    - name: Upload sudo config for key forwarding as root
+      lineinfile:
+        dest: /etc/sudoers.d/ssh_key_forward
+        line: 'Defaults env_keep+=SSH_AUTH_SOCK'
+        create: yes
+        owner: root 
+        group: root 
+        mode: "0440"
+        state: present
+        validate: 'visudo -c -f %s'
+
+    - name: "Install system packages"
+      dnf: 
+        name:
+          - neovim 
+          - gcc
+          - nodejs
+          - npm
+        state: latest
+
+    - name: "Install Python packages"
+      pip:
+        name:
+          - poetry
+        state: latest
+
+    - name: "Check out dotfiles from repository"
+      git:
+        repo: "{{ dotfiles_repo }}"
+        dest: ./tmp-dotfiles
+        key_file: "{{ ssh_key }}"
+        force: yes
+      delegate_to: localhost
+      run_once: true
+      become: no
+
+    - name: "Copy NeoVim config"
+      copy:
+        src: ./tmp-dotfiles/nvim
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0644'
+
+    - name: "Install packer.nvim"
+      git:
+        repo: "https://github.com/wbthomason/packer.nvim"
+        dest: "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
+        force: yes
+      delegate_to: localhost
+      run_once: true
+      become: no
+
+    - name: Install NeoVim plugins
+      command: 'nvim ~/.config/nvim/lua/felixnilles/packer.lua -c "so" -c "PackerSync" -c ":qa!"'
+      register: nvim_install_plugins
