@@ -1,0 +1,119 @@
+- hosts: localhost
+  become: yes
+  vars:
+    - user: 'felix'
+    - dotfiles_repo: 'https://github.com/MarchCraft/dotfiles.git'
+    - ssh_key: '~/.ssh/id_ed25519'
+
+  tasks:
+    - name: "Install system packages"
+      pacman: 
+        name:
+          - neovim 
+          - gcc
+          - nodejs
+          - npm
+          - hyprland
+          - gtk4
+          - kitty
+          - firefox
+          - brightnessctl
+          - waybar
+          - pipewire-pulse
+          - pavucontrol
+          - pamixer
+          - btop
+        state: latest
+        
+    - name: "Check out dotfiles from repository"
+      git:
+        repo: "{{ dotfiles_repo }}"
+        dest: ./tmp-dotfiles
+        key_file: "{{ ssh_key }}"
+        force: yes
+      delegate_to: localhost
+
+    - name: "Copy NeoVim config"
+      synchronize:
+        src: ./tmp-dotfiles/nvim
+        dest: "/home/{{ user }}/.config/"
+
+    - name: "Install packer.nvim"
+      git:
+        repo: "https://github.com/wbthomason/packer.nvim"
+        dest: "/home/{{ user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
+        force: yes
+      delegate_to: localhost
+      run_once: true
+      become: no
+
+    - name: Install NeoVim plugins
+      become: yes
+      become_user: felix
+      become_method: su
+      become_flags: '--login'
+      shell: "nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'"
+
+    - name: "copy Fonts"
+      copy:
+        src: ./tmp-dotfiles/.fonts
+        dest: "/home/{{ user }}/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy hyprland config"
+      copy:
+        src: ./tmp-dotfiles/hypr
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy rofi config"
+      copy:
+        src: ./tmp-dotfiles/rofi
+        dest: "/home/{{ user }}/.config"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy kitty config"
+      copy:
+        src: ./tmp-dotfiles/kitty
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy swaylock config"
+      copy:
+        src: ./tmp-dotfiles/swaylock
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy waybar config"
+      copy:
+        src: ./tmp-dotfiles/waybar
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+
+    - name: "copy bashrc config"
+      copy:
+        src: ./tmp-dotfiles/.bashrc
+        dest: "/home/{{ user }}/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+         
+    - name: "copy starship config"
+      copy:
+        src: ./tmp-dotfiles/starship.toml
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
