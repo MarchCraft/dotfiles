@@ -88,7 +88,7 @@ local function get_jdtls_paths()
     -- This example assume you are using sdkman: https://sdkman.io
     {
         name = 'JavaSE-17',
-        path = vim.fn.expand('~/.sdkman/candidates/java/17.0.6-tem'),
+        path = vim.fn.expand('~/.sdkman/candidates/java/17.0.9-tem'),
     }
     -- {
     --   name = 'JavaSE-18',
