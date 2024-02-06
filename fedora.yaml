@@ -44,21 +44,12 @@
         src: ./tmp-dotfiles/nvim
         dest: "/home/{{ user }}/.config/"
 
-    - name: "Install packer.nvim"
-      git:
-        repo: "https://github.com/wbthomason/packer.nvim"
-        dest: "/home/{{ user }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
-        force: yes
-      delegate_to: localhost
-      run_once: true
-      become: no
-
     - name: Install NeoVim plugins
       become: yes
       become_user: felix
       become_method: su
       become_flags: '--login'
-      shell: "nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'"
+      shell: "https://github.com/MarchCraft/dotfiles"
 
     - name: "copy Fonts"
       copy:
@@ -123,5 +114,6 @@
         owner: "{{ user }}"
         group: "{{ user }}"
         mode: "0644"
+
 
 

@@ -31,3 +31,20 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+
+function ColorMyPencils(color)
+	color = color or "catppuccin"
+	vim.cmd.colorscheme(color)
+
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
+end
+
+require'nvim-web-devicons'.get_icons()
+require'netrw'.setup{
+  -- Put your configuration here, or leave the object empty to take the default
+  -- configuration.
+  use_devicons = true, -- Uses nvim-web-devicons if true, otherwise use the file icon specified above
+  mappings = {}, -- Custom key mappings
+}
+ColorMyPencils()
