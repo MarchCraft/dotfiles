@@ -1,4 +1,4 @@
-mkdir ~.config/dotfiles
+mkdir ~/.config/dotfiles
 os="$(uname -r)"
 echo $os
 if [[ $os == *"-arch"* ]]; then
