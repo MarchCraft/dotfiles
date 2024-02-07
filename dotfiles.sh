@@ -1,5 +1,6 @@
+mkdir ~.config/dotfiles
 os="$(uname -r)"
-if [[ $os == *"arch"* ]]; then
+if [[ $os == *"-arch"* ]]; then
     curl https://raw.githubusercontent.com/mnussbaum/ansible-yay/master/yay -o ~/.config/dotfiles/library/yay
     curl https://raw.githubusercontent.com/MarchCraft/dotfiles/master/arch.yaml -o ~/.config/dotfiles/arch.yaml
     ansible-playbook ~/.config/dotfiles/arch.yaml --ask-become-pass
