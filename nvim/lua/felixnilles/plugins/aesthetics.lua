@@ -75,7 +75,70 @@ return {
         'nvim-tree/nvim-web-devicons',
         dependencies = {
             'prichrd/netrw.nvim'
+        },
+        event = "VeryLazy"
+    },
+    {
+        "nvim-lualine/lualine.nvim",
+        event = "VeryLazy",
+        opts = {
+            sections = {
+                lualine_a = { 'mode' },
+                lualine_b = {
+                    'branch',
+                    'diff',
+                    {
+                        'diagnostics',
+                        sources = { 'nvim_lsp' },
+                        sections = { 'error', 'warn', 'info' },
+                    }
+                },
+                lualine_c = { "filename" },
+                lualine_x = {
+                    'encoding',
+                    'fileformat',
+                    'filetype'
+                },
+                lualine_y = { 'progress' },
+                lualine_z = { 'location' }
+            },
+            options = {
+                globalstatus = true,
+                theme = 'catppuccin'
+            }
+        },
+    },
+    {
+        "stevearc/dressing.nvim",
+        config = true,
+        event = "VeryLazy"
+    },
+    {
+        "h-hg/numbers.nvim",
+        config = true
+    },
+    {
+        "akinsho/bufferline.nvim",
+        version = "*",
+        dependencies = "kyazdani42/nvim-web-devicons",
+        opts = {
+            options = {
+                show_close_icon = false,
+                show_buffer_close_icons = false,
+            }
         }
-    }
+    },
+    {
+        "j-hui/fidget.nvim",
+        config = true,
+        tag = "legacy",
+        event = "LspAttach",
+    },
+    {
+        "0x5a4/oogway.nvim",
+        cmd = { "Oogway" },
+        dev = true,
+    },
+
 }
 

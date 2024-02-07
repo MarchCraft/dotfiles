@@ -14,6 +14,7 @@ return {
         "rafamadriz/friendly-snippets",
         { "lukas-reineke/lsp-format.nvim", config = true },
     },
+    event = "VeryLazy",
     config = function()
         local lsp_zero = require('lsp-zero')
 
@@ -40,7 +41,22 @@ return {
 
         require('mason').setup({})
         require('mason-lspconfig').setup({
-            ensure_installed = {'tsserver', 'rust_analyzer', 'jdtls'},
+            ensure_installed = {
+                'tsserver',
+                'rust_analyzer',
+                'jdtls',
+                'ansiblels',
+                'bashls',
+                'cmake',
+                'cssls',
+                'docker_compose_language_service',
+                'dockerls',
+                'html',
+                'jsonls',
+                'lua_ls',
+                'texlab',
+                'tsserver'
+            },
             handlers = {
                 lsp_zero.default_setup,
                 lua_ls = function()
@@ -54,6 +70,39 @@ return {
         local cmp_select = {behavior = cmp.SelectBehavior.Select}
 
         cmp.setup({
+            snippet = {
+                expand = function(args)
+                    require("luasnip").lsp_expand(args.body)
+                end,
+            },
+            -- Shamelessly stolen from the nvchad config
+            window = {
+                completion = {
+                    border = {
+                        { "╭", "CmpBorder" },
+                        { "─", "CmpBorder" },
+                        { "╮", "CmpBorder" },
+                        { "│", "CmpBorder" },
+                        { "╯", "CmpBorder" },
+                        { "─", "CmpBorder" },
+                        { "╰", "CmpBorder" },
+                        { "│", "CmpBorder" },
+                    }
+                },
+                documentation = {
+                    border = {
+                        { "╭", "CmpDocBorder" },
+                        { "─", "CmpDocBorder" },
+                        { "╮", "CmpDocBorder" },
+                        { "│", "CmpDocBorder" },
+                        { "╯", "CmpDocBorder" },
+                        { "─", "CmpDocBorder" },
+                        { "╰", "CmpDocBorder" },
+                        { "│", "CmpDocBorder" },
+                    },
+                    winhighlight = "Normal:CmpDoc",
+                },
+            },
             sources = {
                 {name = 'path'},
                 {name = 'nvim_lsp'},
@@ -74,5 +123,16 @@ return {
         lsp_zero.setup();
 
     end },
+    {
+        "saecki/crates.nvim",
+        tag = 'v0.3.0',
+        dependencies = "nvim-lua/plenary.nvim",
+        config = true,
+        event = "BufEnter Cargo.toml",
+    },
+    {
+        "theRealCarneiro/hyprland-vim-syntax",
+        ft = "hypr"
+    },
 
 }
