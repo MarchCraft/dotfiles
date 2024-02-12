@@ -64,6 +64,7 @@ return {
                     require('lspconfig').lua_ls.setup(lua_opts)
                 end,
                 jdtls = lsp_zero.noop,
+                rust_analyzer = lsp_zero.noop
             }
         })
         local cmp = require('cmp')
@@ -107,6 +108,7 @@ return {
                 {name = 'path'},
                 {name = 'nvim_lsp'},
                 {name = 'nvim_lua'},
+                {name = 'rust_analyzer'},
             },
             formatting = lsp_zero.cmp_format(),
             mapping = cmp.mapping.preset.insert({
