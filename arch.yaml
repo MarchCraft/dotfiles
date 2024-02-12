@@ -113,3 +113,11 @@
         owner: "{{ user }}"
         group: "{{ user }}"
         mode: "0644"
+
+    - name: "copy fastfetch config"
+      copy:
+        src: ./tmp-dotfiles/fastfetch/
+        dest: "/home/{{ user }}/.config/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
