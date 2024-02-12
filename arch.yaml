@@ -24,6 +24,11 @@
           - pamixer
           - btop
         state: latest
+    - name: "Install yay packages"
+      yay:
+        name:
+          - swaync
+        state: latest
         
     - name: "Check out dotfiles from repository"
       git:
