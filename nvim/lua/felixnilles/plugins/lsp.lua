@@ -14,7 +14,6 @@ return {
         "rafamadriz/friendly-snippets",
         { "lukas-reineke/lsp-format.nvim", config = true },
     },
-    event = "VeryLazy",
     config = function()
         local lsp_zero = require('lsp-zero')
 
@@ -109,6 +108,7 @@ return {
                 {name = 'nvim_lsp'},
                 {name = 'nvim_lua'},
                 {name = 'rust_analyzer'},
+                {name = 'jdtls'},
             },
             formatting = lsp_zero.cmp_format(),
             mapping = cmp.mapping.preset.insert({

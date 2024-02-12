@@ -1,6 +1,5 @@
 return {
     'mfussenegger/nvim-jdtls',
-    lazy = true,
     config = function()
 
         local java_cmds = vim.api.nvim_create_augroup('java_cmds', {clear = true})
