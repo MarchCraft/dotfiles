@@ -1,20 +1,20 @@
 - name: "Install system packages"
   package: 
-  name:
-    - neovim 
-    - gcc
-    - nodejs
-    - npm
-    - hyprland
-    - gtk4
-    - kitty
-    - firefox
-    - brightnessctl
-    - waybar
-    - pavucontrol
-    - pipewire-pulse
-    - pamixer
-    - btop
-    - swaync
+    name:
+      - neovim 
+      - gcc
+      - nodejs
+      - npm
+      - hyprland
+      - gtk4
+      - kitty
+      - firefox
+      - brightnessctl
+      - waybar
+      - pavucontrol
+      - pipewire-pulse
+      - pamixer
+      - btop
+      - swaync
   state: latest
 
