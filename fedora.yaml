@@ -117,7 +117,7 @@
 
     - name: "copy fastfetch config"
       copy:
-        src: ./tmp-dotfiles/fastfetch/
+        src: ./tmp-dotfiles/fastfetch
         dest: "/home/{{ user }}/.config/"
         owner: "{{ user }}"
         group: "{{ user }}"
