@@ -1,18 +1,3 @@
 mkdir ~/.config/dotfiles
-os="$(uname -r)"
-echo $os
-if [[ $os == *"-arch"* ]]; then
-    curl https://raw.githubusercontent.com/mnussbaum/ansible-yay/master/yay -o ~/.config/dotfiles/library/yay
-    curl https://raw.githubusercontent.com/MarchCraft/dotfiles/master/arch.yaml -o ~/.config/dotfiles/arch.yaml
-    ansible-playbook ~/.config/dotfiles/arch.yaml --ask-become-pass
-fi
-
-if [[ $os == *"fedora"* ]]; then
-    curl https://raw.githubusercontent.com/MarchCraft/dotfiles/master/fedora.yaml -o ~/.config/dotfiles/fedora.yaml
-    ansible-playbook ~/.config/dotfiles/fedora.yaml --ask-become-pass
-fi
-
-if [[ $os == *"asahi"* ]]; then
-    curl https://raw.githubusercontent.com/MarchCraft/dotfiles/master/fedora.yaml -o ~/.config/dotfiles/fedora.yaml
-    ansible-playbook ~/.config/dotfiles/fedora.yaml --ask-become-pass
-fi
+curl https://raw.githubusercontent.com/MarchCraft/dotfiles/master/playbook.yml -o ~/.config/dotfiles/playbook.yml
+ansible-playbook ~/.config/dotfiles/playbook.yml --ask-become-pass
