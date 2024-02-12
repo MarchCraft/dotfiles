@@ -1,0 +1,25 @@
+- name: "Install system packages"
+  package: 
+    name:
+      - neovim 
+      - gcc
+      - nodejs
+      - npm
+      - hyprland
+      - gtk4
+      - kitty
+      - firefox
+      - brightnessctl
+      - waybar
+      - pipewire-pulseaudio
+      - pavucontrol
+      - pamixer
+      - btop
+    state: latest
+
+- name: "Install Python packages"
+  pip:
+    name:
+      - poetry
+    state: latest
+
