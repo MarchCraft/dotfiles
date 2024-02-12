@@ -16,5 +16,5 @@
       - pamixer
       - btop
       - swaync
-  state: latest
+    state: latest
 
