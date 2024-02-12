@@ -49,7 +49,7 @@
       become_user: felix
       become_method: su
       become_flags: '--login'
-      shell: "https://github.com/MarchCraft/dotfiles"
+      shell: "nvim --headless '+Lazy! sync' +qa"
 
     - name: "copy Fonts"
       copy:
