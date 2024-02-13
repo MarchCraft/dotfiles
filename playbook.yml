@@ -22,6 +22,11 @@
         - "./tmp-dotfiles/{{ ansible_os_family }}.yaml"
         - "./tmp-dotfiles/default.yml"
 
+    - name: "install fish"
+      package:
+        name: fish
+        state: present
+
     - name: "Copy NeoVim config"
       synchronize:
         src: ./tmp-dotfiles/nvim
@@ -112,9 +117,9 @@
         owner: "{{ user }}"
         group: "{{ user }}"
         mode: "0644"
-    - name: "copy fzf.bash"
+    - name: "copy fzf.fish"
       copy:
-        src: ./tmp-dotfiles/fzf.bash
+        src: ./tmp-dotfiles/fzf.fish
         dest: "/home/{{ user }}/.config/"
         owner: "{{ user }}"
         group: "{{ user }}"
@@ -123,6 +128,21 @@
       copy:
         src: ./tmp-dotfiles/.tmux.conf
         dest: "/home/{{ user }}/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
+    - name: "Install fisher"
+      shell: "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
+      args:
+        executable: /bin/fish
+    - name: "Install fish plugins"
+      shell: "fish -c 'fisher install'"
+      args:
+        executable: /bin/fish
+    - name: "copy fish config"
+      copy:
+        src: ./tmp-dotfiles/fish
+        dest: "/home/{{ user }}/.config/"
         owner: "{{ user }}"
         group: "{{ user }}"
         mode: "0644"
