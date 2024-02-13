@@ -42,7 +42,7 @@ return {
                     gitsigns = true,
                     nvimtree = true,
                     treesitter = true,
-                    notify = false,
+                    notify = true,
                     mini = {
                         enabled = true,
                         indentscope_color = "",
@@ -52,6 +52,8 @@ return {
             })
         end,
     },
+    "loctvl842/monokai-pro.nvim",
+    "rebelot/kanagawa.nvim",
     {
 
         "lukas-reineke/indent-blankline.nvim",
