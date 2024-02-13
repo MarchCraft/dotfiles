@@ -120,10 +120,6 @@
       shell: "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
       args:
         executable: /bin/fish
-    - name: "Install fish plugins"
-      shell: "fish -c 'fisher install'"
-      args:
-        executable: /bin/fish
     - name: "copy fish config"
       copy:
         src: ./tmp-dotfiles/fish
