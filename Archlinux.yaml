@@ -16,5 +16,7 @@
       - pamixer
       - btop
       - swaync
+      - fzf
+      - fd
     state: latest
 
