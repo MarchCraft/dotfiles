@@ -16,8 +16,10 @@
       - pamixer
       - btop
       - fzf
-      - fd
+      - fd-find
     state: latest
+
+    
 
 - name: "Install Python packages"
   pip:
