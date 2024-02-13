@@ -28,5 +28,4 @@ eval "$(starship init bash)"
 
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-bind '\C-f': ~/.config/fzf.bash
-
+bind -x '"\C-f": . ~/.config/fzf.bash'
