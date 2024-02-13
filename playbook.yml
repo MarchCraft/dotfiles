@@ -119,3 +119,10 @@
         owner: "{{ user }}"
         group: "{{ user }}"
         mode: "0644"
+    - name: "copy tmux.conf"
+      copy:
+        src: ./tmp-dotfiles/.tmux.conf
+        dest: "/home/{{ user }}/"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: "0644"
