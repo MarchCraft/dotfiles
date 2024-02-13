@@ -19,3 +19,4 @@ else
 fi
 
 tmux a
+clear
