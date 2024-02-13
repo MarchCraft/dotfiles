@@ -1,5 +1,9 @@
 return {
     'mfussenegger/nvim-jdtls',
+    dependencies = {
+        'VonHeikemen/lsp-zero.nvim'
+    },
+    ft = {'java'},
     config = function()
 
         local java_cmds = vim.api.nvim_create_augroup('java_cmds', {clear = true})
