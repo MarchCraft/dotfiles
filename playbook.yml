@@ -102,13 +102,6 @@
         owner: "{{ user }}"
         group: "{{ user }}"
         mode: "0644"
-    - name: "copy bashrc config"
-      copy:
-        src: ./tmp-dotfiles/.bashrc
-        dest: "/home/{{ user }}/"
-        owner: "{{ user }}"
-        group: "{{ user }}"
-        mode: "0644"
     - name: "copy fzf.fish"
       copy:
         src: ./tmp-dotfiles/fzf.fish
