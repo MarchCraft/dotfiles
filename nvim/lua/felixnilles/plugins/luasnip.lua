@@ -9,7 +9,7 @@ return {
             region_check_events = { "InsertEnter", "CursorHold" }
         })
 
-        require("luasnip.loaders.from_lua").lazy_load({ lazy_paths = "./lua/xfaf/snippets" })
+        require("luasnip.loaders.from_lua").lazy_load({ lazy_paths = "./lua/felixnilles/snippets" })
         require("luasnip.loaders.from_vscode").lazy_load()
     end,
     dependencies = "rafamadriz/friendly-snippets",

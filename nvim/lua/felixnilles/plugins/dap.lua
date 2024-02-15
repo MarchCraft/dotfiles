@@ -14,6 +14,7 @@ return {
             dap.listeners.before.launch.dapui_config = function()
                 dapui.open()
             end
+            vim.keymap.set("n", "<C-r>", ":lua require'dap'.continue()<CR>")
             vim.keymap.set("n", "<Leader>dt", ':DapToggleBreakpoint<CR>')
             vim.keymap.set("n", "<Leader>dx", ':DapTerminate<CR>')
             vim.keymap.set("n", "<Leader>do", ':DapStepOver<CR>')

@@ -1,3 +1,10 @@
+function ColorMyPencils(color)
+    color = color or "catppuccin"
+    vim.cmd.colorscheme(color)
+
+    vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
+end
 return {
     {
         "catppuccin/nvim",
@@ -5,6 +12,10 @@ return {
         priority = 1000,
         config = function()
             require("catppuccin").setup({
+                require("notify").setup({
+                    background_colour = "#000000",
+                }),
+
                 flavour = "mocha", -- latte, frappe, macchiato, mocha
                 background = { -- :h background
                 light = "latte",
@@ -49,6 +60,7 @@ return {
                     },
                     -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
                 },
+                ColorMyPencils()
             })
         end,
     },
@@ -78,7 +90,16 @@ return {
         dependencies = {
             'prichrd/netrw.nvim'
         },
-        event = "VeryLazy"
+        event = "VeryLazy",
+        config = function ()
+            require'nvim-web-devicons'.get_icons()
+            require'netrw'.setup{
+                -- Put your configuration here, or leave the object empty to take the default
+                -- configuration.
+                use_devicons = true, -- Uses nvim-web-devicons if true, otherwise use the file icon specified above
+                mappings = {}, -- Custom key mappings
+            }
+        end
     },
     {
         "nvim-lualine/lualine.nvim",

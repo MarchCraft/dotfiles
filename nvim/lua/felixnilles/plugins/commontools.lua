@@ -21,7 +21,6 @@ return {
             vim.g.startuptime_tries = 10
         end,
     },
-    "tpope/vim-surround",
     "svermeulen/vim-cutlass",
     {
         "tpope/vim-commentary",
@@ -54,7 +53,6 @@ return {
         version = '^4', -- Recommended
         ft = { 'rust' },
         config = function ()
-            local lsp_zero = require('lsp-zero')
             local rt = require("rustaceanvim")
             local mason_registry = require("mason-registry")
             local cfg = require('rustaceanvim.config')
@@ -86,6 +84,49 @@ return {
             end
         end
 
+    },
+    {
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
+    },
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            padding = true,
+            sticky = true,
+            ignore = nil,
+            opleader = {
+                line = '<gc>',
+            },
+            mappings = {
+                basic = false,
+                extra = true,
+            },
+            post_hook = nil,
+        },
+        lazy = false,
+        config = function ()
+            require('Comment').setup()
+        end
+    },
+    'sindrets/diffview.nvim',
+    {
+        "ahmedkhalf/project.nvim",
+        config = function()
+            require("project_nvim").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
     }
 }
+
+
+
 

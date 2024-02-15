@@ -19,7 +19,7 @@ return {
 
         local features = {
             -- change this to `true` to enable codelens
-            codelens = false,
+            codelens = true,
 
             -- change this to `true` if you have `nvim-dap`,
             -- `java-test` and `java-debug-adapter` installed
@@ -219,11 +219,11 @@ return {
                         referencesCodeLens = {
                             enabled = true,
                         },
-                        -- inlayHints = {
-                            --   parameterNames = {
-                                --     enabled = 'all' -- literals, all, none
-                                --   }
-                                -- },
+                        inlayHints = {
+                            parameterNames = {
+                                enabled = 'all' -- literals, all, none
+                            }
+                        },
                                 format = {
                                     enabled = true,
                                     -- settings = {
@@ -231,9 +231,9 @@ return {
                                         -- },
                                     }
                                 },
-                                signatureHelp = {
-                                    enabled = true,
-                                },
+                                -- signatureHelp = {
+                                --     enabled = false,
+                                -- },
                                 completion = {
                                     favoriteStaticMembers = {
                                         'org.hamcrest.MatcherAssert.assertThat',
@@ -245,9 +245,9 @@ return {
                                         'org.mockito.Mockito.*',
                                     },
                                 },
-                                contentProvider = {
-                                    preferred = 'fernflower',
-                                },
+                                -- contentProvider = {
+                                --     preferred = 'fernflower',
+                                -- },
                                 extendedClientCapabilities = jdtls.extendedClientCapabilities,
                                 sources = {
                                     organizeImports = {
