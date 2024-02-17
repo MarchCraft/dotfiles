@@ -135,8 +135,8 @@ tooltip {
 
 #network {
     color: #f9e2af;
-    border-left: 0px;
-    border-right: 0px;
+    margin-left: 5px;
+    border-radius: 10px;
 }
 
 #pulseaudio {

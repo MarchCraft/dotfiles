@@ -11,7 +11,7 @@
         "custom/weather",
         "hyprland/workspaces",
         "custom/agenda",
-        "network",
+        "network"
     ],
 
     "network": {
@@ -55,24 +55,24 @@
         "interval": 30,
         "return-type": "json",
         "tooltip": "true",
-        "tooltip-format": "{tooltip}",
+        "tooltip-format": "{tooltip}"
     },
 
     "cpu": {
 	"interval": 1,
 	"format": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% ",
-	"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+	"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
     },
 
     "hyprland/window": {
         "max-length": 200,
         "format": "<span font='9' rise='-4444'>{}</span>",
-        "seperate-outputs": true,
+        "seperate-outputs": true
     },
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
-        "on-click": "activate",
+        "on-click": "activate"
         //"format": "{icon}",
     },
    "custom/weather" : {
@@ -108,7 +108,7 @@
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", "", ""],
+        "format-icons": ["", "", "", "", ""]
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
