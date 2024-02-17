@@ -42,3 +42,38 @@ require'netrw'.setup{
   mappings = {}, -- Custom key mappings
 }
 --]]
+
+local file_event = vim.api.nvim_create_augroup("UserFileEvents", {});
+
+local function runcmd(cmd, show_error)
+    if type(cmd) == "string" then cmd = { cmd } end
+    if vim.fn.has "win32" == 1 then cmd = vim.list_extend({ "cmd.exe", "/C" }, cmd) end
+    local result = vim.fn.system(cmd)
+    local success = vim.api.nvim_get_vvar "shell_error" == 0
+    if not success and (show_error == nil or show_error) then
+        vim.api.nvim_err_writeln(("Error running command %s\nError message:\n%s"):format(table.concat(cmd, " "), result))
+    end
+    return success and result:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "") or nil
+end
+
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
+    group = file_event,
+    callback = function(args)
+        if not (vim.fn.expand "%" == "" or vim.api.nvim_get_option_value("buftype", { buf = args.buf }) == "nofile") then
+            vim.api.nvim_exec_autocmds("User", {
+                pattern = "File",
+                modeline = false,
+            })
+            if
+                runcmd({ "git", "-C", vim.fn.expand "%:p:h", "rev-parse" }, false)
+            then
+                vim.api.nvim_exec_autocmds("User", {
+                    pattern = "GitFile",
+                    modeline = false,
+                })
+                vim.api.nvim_del_augroup_by_name("UserFileEvents")
+            end
+        end
+    end,
+})
+    

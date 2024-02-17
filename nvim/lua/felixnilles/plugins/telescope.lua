@@ -1,13 +1,23 @@
 return {
     'nvim-telescope/telescope.nvim', tag = '0.1.5',
-    -- or                              , branch = '0.1.x',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
+        {
+            '<leader>ff', "", callback = function()
+                require('telescope.builtin').find_files({ 
+                    hidden = true,
+                    no_ignore = true,
+                    no_parent_ignore = true,
+                })
+            end
+        }
+    },
+    cmd = 'Telescope',
     config = function ()
 
         local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<leader>pf', builtin.find_files, {  })
-        vim.api.nvim_set_keymap('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', {noremap = true, silent = true})
-        vim.keymap.set('n', '<C-f>', builtin.git_files, {})
+        -- vim.api.nvim_set_keymap('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', {noremap = true, silent = true})
+        -- vim.keymap.set('n', '<C-f>', builtin.git_files, {})
         vim.keymap.set('n', '<leader>fs', function()
             builtin.grep_string({search = vim.fn.input("Grep > ") });
         end)

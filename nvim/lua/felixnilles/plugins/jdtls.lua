@@ -231,9 +231,9 @@ return {
                                         -- },
                                     }
                                 },
-                                -- signatureHelp = {
-                                --     enabled = false,
-                                -- },
+                                signatureHelp = {
+                                    enabled = true,
+                                },
                                 completion = {
                                     favoriteStaticMembers = {
                                         'org.hamcrest.MatcherAssert.assertThat',

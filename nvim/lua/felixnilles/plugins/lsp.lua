@@ -25,7 +25,7 @@ return {
         end,
     },
     { "VonHeikemen/lsp-zero.nvim",
-    event = "VeryLazy",
+    event = "User File",
     dependencies = {
         "neovim/nvim-lspconfig",
         "williamboman/mason.nvim",
@@ -81,7 +81,8 @@ return {
                 'jsonls',
                 'lua_ls',
                 'texlab',
-                'tsserver'
+                'tsserver',
+                'jedi_language_server'
             },
             handlers = {
                 lsp_zero.default_setup,

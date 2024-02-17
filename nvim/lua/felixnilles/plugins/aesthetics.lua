@@ -1,25 +1,16 @@
-function ColorMyPencils(color)
-    color = color or "catppuccin"
-    vim.cmd.colorscheme(color)
-
-    vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
-end
 return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
+        lazy = false,
         config = function()
             require("catppuccin").setup({
-                require("notify").setup({
-                    background_colour = "#000000",
-                }),
 
                 flavour = "mocha", -- latte, frappe, macchiato, mocha
                 background = { -- :h background
-                light = "latte",
-                dark = "mocha",
+                    light = "latte",
+                    dark = "mocha",
                 },
                 transparent_background = false, -- disables setting the background color.
                 show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
@@ -60,8 +51,9 @@ return {
                     },
                     -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
                 },
-                ColorMyPencils()
+
             })
+            vim.cmd([[colorscheme catppuccin]])
         end,
     },
     "loctvl842/monokai-pro.nvim",
