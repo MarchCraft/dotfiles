@@ -1,4 +1,5 @@
 - name: "Install system packages"
+  become: yes
   package: 
     name:
       - neovim 

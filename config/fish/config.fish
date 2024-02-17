@@ -1,6 +1,6 @@
 starship init fish | source
 set fish_greeting
-bind \cf '. ~/.config/fzf.fish'
+bind \cf '. ~/dotfiles/fzf.fish'
 
 #set -x PATH "$HOME/.local/bin:$HOME/bin:$PATH"
 
@@ -59,3 +59,9 @@ end
 alias 'l'='ls -l'
 alias 'll'='l'
 alias 'la'="ll $show_all_opt"
+
+#autostart tmux
+if status is-interactive
+and not set -q TMUX
+    exec tmux
+end

@@ -10,13 +10,11 @@ set file (fd | fzf --preview "bat --color=always {}" --preview-window=right:60%:
 
 if test -d $file
     cd $file
-    tmux new-session -A -s "nvim" "nvim ."
+    tmux neww "nvim ."
 else
     cd (dirname $file)
-    tmux new-session -A -s "nvim" "nvim $file"
+    set file (basename $file)
+    tmux neww "nvim $file"
 end
 
 cd $original_dir
-clear
-fastfetch
-fish
