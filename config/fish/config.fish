@@ -60,8 +60,4 @@ alias 'l'='ls -l'
 alias 'll'='l'
 alias 'la'="ll $show_all_opt"
 
-#autostart tmux
-if status is-interactive
-and not set -q TMUX
-    exec tmux
-end
+zoxide init --cmd cd fish | source
