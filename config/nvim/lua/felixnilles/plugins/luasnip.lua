@@ -11,6 +11,9 @@ return {
 
         require("luasnip.loaders.from_lua").lazy_load({ lazy_paths = "./lua/felixnilles/snippets" })
         require("luasnip.loaders.from_vscode").lazy_load()
+        require("luasnip").filetype_extend("rust", {"rustdoc"})
+        require("luasnip").filetype_extend("java", {"javadoc"})
+
     end,
     dependencies = "rafamadriz/friendly-snippets",
     keys = {

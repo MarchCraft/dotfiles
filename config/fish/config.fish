@@ -61,3 +61,5 @@ alias 'll'='l'
 alias 'la'="ll $show_all_opt"
 
 zoxide init --cmd cd fish | source
+
+fish_ssh_agent
