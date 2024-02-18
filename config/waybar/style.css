@@ -4,7 +4,6 @@
     font-family: Symbols Nerd Font, monospace;
     font-weight: bold;
     font-size: 14px;
-    min-height: 0;
 }
 
 
@@ -67,8 +66,7 @@ tooltip {
 #custom-agenda {
     background: #1e1e2e;
     padding: 0px 10px;
-    margin: 3px 0px;
-    margin-top: 10px;
+    margin-top: 2px;
     border: 1px solid #181825;
 }
 
