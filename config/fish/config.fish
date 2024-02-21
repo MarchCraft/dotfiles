@@ -2,6 +2,10 @@ starship init fish | source
 set fish_greeting
 bind \cf '. ~/dotfiles/fzf.fish'
 
+pkill gpg-agent
+gpg-agent --pinentry-program=/usr/bin/pinentry-qt4 --daemon > /dev/null 2>&1
+set -x SSH_AUTH_SOCK $(gpgconf --list-dirs agent-ssh-socket)
+
 #set -x PATH "$HOME/.local/bin:$HOME/bin:$PATH"
 
 alias ls='ls --color=auto'
@@ -10,6 +14,7 @@ alias la='ls -a'
 alias lla='ls -la'
 alias l='ls -CF'
 alias vim='nvim'
+alias vi='nvim'
 
 
 # options that eza, exa and ls accept

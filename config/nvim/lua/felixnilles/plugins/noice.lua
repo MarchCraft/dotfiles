@@ -8,6 +8,9 @@ return {
                     enabled = false
                 }
             },
+            override = {
+                ["vim.lsp.hover.enabled"] = false
+            }
         },
         dependencies = {
             -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -24,7 +27,7 @@ return {
         config = function ()
             require("notify").setup({
                 stages = "fade",
-                timeout = 3000,
+                timeout = 1000,
                 background_colour = "#000000",
                 icons = {
                     ERROR = "",

@@ -1,5 +1,7 @@
 vim.opt.guicursor = "i:ver20"
 
+vim.loader.enable()
+
 vim.g.netrw_banner = 0
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -10,7 +12,6 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
- 
 vim.opt.wrap = false
 
 vim.opt.swapfile = false

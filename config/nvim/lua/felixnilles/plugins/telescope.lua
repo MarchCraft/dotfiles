@@ -4,23 +4,23 @@ return {
     keys = {
         {
             '<leader>ff', "", callback = function()
-                require('telescope.builtin').find_files({ 
+                require('telescope.builtin').find_files({
                     hidden = true,
                     no_ignore = true,
                     no_parent_ignore = true,
                 })
             end
+        },
+        {
+            '<leader>fs', "", callback = function()
+                require("telescope.builtin").grep_string({search = vim.fn.input("Grep > ") });
+            end
         }
     },
     cmd = 'Telescope',
     config = function ()
-
-        local builtin = require('telescope.builtin')
         -- vim.api.nvim_set_keymap('n', '<Leader>ff', ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', {noremap = true, silent = true})
         -- vim.keymap.set('n', '<C-f>', builtin.git_files, {})
-        vim.keymap.set('n', '<leader>fs', function()
-            builtin.grep_string({search = vim.fn.input("Grep > ") });
-        end)
         require('telescope').setup{
             defaults = {
                 file_ignore_patterns = { "node_modules", "dist", "build", "target", "vendor" },
@@ -44,6 +44,5 @@ return {
 
             }
         }
-        
     end
 }
