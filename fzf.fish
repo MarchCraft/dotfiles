@@ -1,7 +1,7 @@
 #!/bin/fish
 
 set original_dir (pwd)
-set file (fd | fzf --preview "bat --theme Catppuccin-mocha --color=always {}" --preview-window=right:60%:wrap)
+set file (fd . ~ | fzf --preview "bat --theme Catppuccin-mocha --color=always {}" --preview-window=right:60%:wrap)
 
 if test -d $file
     cd $file

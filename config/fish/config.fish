@@ -2,8 +2,6 @@ starship init fish | source
 set fish_greeting
 bind \cf '. ~/dotfiles/fzf.fish'
 
-pkill gpg-agent
-gpg-agent --pinentry-program=/usr/bin/pinentry-qt4 --daemon > /dev/null 2>&1
 set -x SSH_AUTH_SOCK $(gpgconf --list-dirs agent-ssh-socket)
 
 #set -x PATH "$HOME/.local/bin:$HOME/bin:$PATH"
