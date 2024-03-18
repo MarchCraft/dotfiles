@@ -131,41 +131,44 @@ return {
     end
 },
 {
-    'mhartington/formatter.nvim',
-    config = function ()
-        -- Utilities for creating configurations
-        local util = require "formatter.util"
-
-        -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
-        require("formatter").setup {
-            -- Enable or disable logging
-            logging = true,
-            -- Set the log level
-            log_level = vim.log.levels.WARN,
-            -- All formatter configurations are opt-in
-            filetype = {
-                -- Formatter configurations for filetype "lua" go here
-                -- and will be executed in order
-                css = {
-                    function()
-                        return {
-                            exe = "prettier",
-                            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0)},
-                            stdin = true
-                        }
-                    end
+    "prettier/vim-prettier",
+    pin = true,
+    ft = "javascript",
+    config = function()
+        vim.cmd([[autocmd! BufWritePre,TextChanged,InsertLeave *.js PrettierAsync]])
+    end,
+},
+{
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    lazy = false, -- specify lazy = false because some lazy.nvim distributions set lazy = true by default
+    -- tag = "*",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+        require("neorg").setup {
+            load = {
+                ["core.defaults"] = {}, -- Loads default behaviour
+                ["core.concealer"] = {}, -- Adds pretty icons to your documents
+                ["core.dirman"] = { -- Manages Neorg workspaces
+                config = {
+                    workspaces = {
+                        notes = "~/notes",
+                    },
                 },
-                -- Use the special "*" filetype for defining formatter configurations on
-                -- any filetype
-                ["*"] = {
-                    -- "formatter.filetypes.any" defines default configurations for any
-                    -- filetype
-                    require("formatter.filetypes.any").remove_trailing_whitespace
-                }
-            }
-        }
-    end
-}
+            },
+        },
+    }
+    end,
+  },
+  {
+      "letieu/harpoon-lualine",
+      dependencies = {
+          {
+              "ThePrimeagen/harpoon",
+              branch = "harpoon2",
+          }
+      },
+  }
 }
 
 

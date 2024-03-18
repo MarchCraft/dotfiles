@@ -3,9 +3,7 @@
     border-radius: 0;
     font-family: Symbols Nerd Font, monospace;
     font-weight: bold;
-    font-size: 14px;
 }
-
 
 window#waybar {
     background: rgba(21, 18, 27, 0);
@@ -66,7 +64,6 @@ tooltip {
 #custom-agenda {
     background: #1e1e2e;
     padding: 0px 10px;
-    margin-top: 2px;
     border: 1px solid #181825;
 }
 
@@ -127,7 +124,7 @@ tooltip {
 #clock {
     color: #fab387;
     border-radius: 10px 0px 0px 10px;
-    margin-left: 5px;
+    margin-left: 10px;
     border-right: 0px;
 }
 
@@ -148,7 +145,7 @@ tooltip {
     border-radius: 0px 10px 10px 0px;
     border-left: 0px;
     border-right: 0px;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 #battery {
