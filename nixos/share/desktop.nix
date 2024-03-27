@@ -47,7 +47,6 @@
     starship
     zoxide
     neovim
-    git
     librewolf
     fd
     fzf

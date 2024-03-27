@@ -62,10 +62,10 @@ in
       recursive = true;
     };
   };
-
-
-
-
-
+  programs.git = {
+    enable = true;
+    userName  = "Felix Nilles";
+    userEmail = "felix@dienilles.de";
+  };
   };
 }
