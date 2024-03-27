@@ -74,13 +74,13 @@
     wlogout
     postman
     jetbrains.datagrip
-    rofi-wayland
     pamixer
     pavucontrol
     lazygit
     armcord
     nix-search-cli
     wl-mirror
+    pinentry-curses
   ];
 
 environment.variables = {
@@ -138,6 +138,7 @@ environment.variables = {
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-curses;
   };
 
 }

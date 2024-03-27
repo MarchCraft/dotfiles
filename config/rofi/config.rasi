@@ -1,6 +1,11 @@
+/** Basic config file **/
+
 configuration {
-location: 0;
-xoffset: 0;
-yoffset: 0;
+  show-icons: true;
+  icon-theme: "Papirus";
+  display-drun: "";
+  display-window: "";
+  display-combi: "  ";
 }
-@theme "config"
+@theme "./themes/sidetab-nord.rasi"
+

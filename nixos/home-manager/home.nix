@@ -30,7 +30,6 @@ in
     enable = true;
     package = pkgs.rofi-wayland;
     plugins = [pkgs.rofi-calc];
-    theme = ../../config/rofi/config.rasi;
   };
   programs.librewolf = {
     enable = true;
@@ -51,6 +50,10 @@ in
     ".config/nvim" = {
       source = ../../config/nvim;
       recursive = true;
+    };
+    ".config/rofi" = {
+        source = ../../config/rofi;
+        recursive = true;
     };
     ".config/fastfetch/config.jsonc".source = ../../config/fastfetch/config.jsonc;
     ".config/hypr" = {
