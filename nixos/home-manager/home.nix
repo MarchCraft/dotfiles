@@ -57,7 +57,7 @@ in
     };
     ".config/fastfetch/config.jsonc".source = ../../config/fastfetch/config.jsonc;
     ".config/hypr" = {
-        source = ../../config/hypr/hyprland.conf;
+        source = ../../config/hypr;
         recursive = true;
     };
     ".config/fish" = {
