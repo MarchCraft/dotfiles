@@ -80,7 +80,7 @@
     armcord
     nix-search-cli
     wl-mirror
-    pinentry-curses
+    pinentry-qt
   ];
 
 environment.variables = {
@@ -138,7 +138,7 @@ environment.variables = {
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-curses;
+    pinentryPackage = pkgs.pinentry-qt;
   };
 
 }
