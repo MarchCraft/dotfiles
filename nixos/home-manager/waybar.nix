@@ -4,7 +4,7 @@
   inputs,
   ...
 }: let
-  sharedModules = builtins.fromJSON (builtins.readFile ../../config/waybar/config.jsonc);
+  sharedModules = builtins.fromJSON (builtins.readFile ../../config/waybar/config.json);
 in {
   home.file = {
     ".config/waybar/style.css".source = ../../config/waybar/style.css;
@@ -14,47 +14,30 @@ in {
   programs.waybar = {
     enable = true;
     settings = {
-      mainBar =
-        {
-          output = "eDP-1";
-          layer = "top";
-          position = "top";
-          height = 32;
-          modules-left = [
-            "clock"
+        mainBar = {
+            mod= "dock";
+            modules-center= [];
+            modules-left= [
+                "clock"
+            "custom/weather"
             "hyprland/workspaces"
-            "memory"
-            "cpu"
+            "custom/agenda"
             "network"
-            "bluetooth"
-          ];
-          modules-right = [
-            "hyprland/submap"
-            "custom/wlinhibit"
+            ];
+            modules-right= [
+                "tray"
+            "cpu"
+            "temperature"
+            "memory"
+            "custom/updates"
+            "custom/language"
             "battery"
             "backlight"
-            "custom/mako"
-            "wireplumber"
-            "user"
-          ];
-        }
-        // sharedModules;
-      fallback =
-        {
-          layer = "top";
-          output = "!eDP-1";
-          position = "top";
-          height = 32;
-          modules-left = [
-            "clock"
-          ];
-          modules-right = [
-            "hyprland/submap"
-            "custom/wlinhibit"
-            "battery#standalone"
-          ];
-        }
-        // sharedModules;
+            "pulseaudio"
+            "pulseaudio#microphone"
+            ];
+      }
+      // sharedModules;
     };
   };
 }

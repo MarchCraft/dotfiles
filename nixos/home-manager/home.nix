@@ -11,13 +11,14 @@ in
   home-manager.users.felix = {
     /* The home.stateVersion option does not have a default and must be set */
     home.stateVersion = "18.09";
+    home.username = "felix";
+    home.homeDirectory = "/home/felix";
     /* Here goes the rest of your home-manager config, e.g. home.packages = [ pkgs.foo ]; */
 	imports = [
 	  ./waybar.nix
 	];
         programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
-  useGlobalPkgs = true;
   programs.neovim.withPython3 = true;
   programs.neovim.viAlias = true;
   home.packages = [
@@ -43,6 +44,24 @@ in
     };
   };
   programs.home-manager.enable = true;
+  home.file = {
+    ".config/swaylock/config".source = ../../config/swaylock/config;
+    ".config/kitty/kitty.conf".source = ../../config/kitty/kitty.conf;
+    ".config/starship.toml".source = ../../config/starship.toml;
+    ".config/nvim" = {
+      source = ../../config/nvim;
+      recursive = true;
+    };
+    ".config/fastfetch/config.jsonc".source = ../../config/fastfetch/config.jsonc;
+    ".config/hypr" = {
+        source = ../../config/hypr/hyprland.conf;
+        recursive = true;
+    };
+    ".config/fish" = {
+      source = ../../config/fish;
+      recursive = true;
+    };
+  };
 
 
 
