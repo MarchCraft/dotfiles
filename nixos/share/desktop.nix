@@ -83,9 +83,20 @@
     wl-mirror
     pinentry-qt
     eza
-    xfce.thunar
-    xfce.thunar-volman
+    prismlauncher
   ];
+
+programs.thunar.enable = true;
+programs.xfconf.enable = true;
+
+programs.thunar.plugins = with pkgs.xfce; [
+  thunar-archive-plugin
+  thunar-volman
+];
+
+services.gvfs.enable = true; # Mount, trash, and other functionalities
+services.tumbler.enable = true; # Thumbnail support for images
+
 
 environment.variables = {
   EDITOR = "vi";
