@@ -13,7 +13,7 @@
                     ./nixos/macbook
                     <apple-silicon-support/apple-silicon-support>
                     ./nixos/home-manager/home.nix
-                    home-manager.nixosModules.home-manager
+                    #home-manager.nixosModules.home-manager
                     ];
             };
             nixosConfigurations.mainPc = nixpkgs.lib.nixosSystem {
