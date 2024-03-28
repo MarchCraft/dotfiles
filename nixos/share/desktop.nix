@@ -83,12 +83,15 @@
     wl-mirror
     pinentry-qt
     eza
+    xfce.thunar
+    xfce.thunar-volman
   ];
 
 environment.variables = {
   EDITOR = "vi";
   DEFAULT_BROWSER = "${pkgs.librewolf}/bin/librewolf";
   XCURSOR_SIZE = "32";
+  GTK_THEME = "Dracula";
 };
 
  security.pam.services.swaylock = {

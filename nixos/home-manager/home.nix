@@ -65,6 +65,18 @@ in
       recursive = true;
     };
   };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Dracula";
+      package = pkgs.materia-theme;
+    };
+    iconTheme = {
+        package = pkgs.gnome.adwaita-icon-theme;
+        name = "adwaita-icon-theme";
+    };
+
+  };
   programs.git = {
     enable = true;
     userName  = "Felix Nilles";
