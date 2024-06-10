@@ -1,0 +1,4 @@
+[profiles."matrix.inphima.de"]
+user_id = "@me05saq:matrix.inphima.de"
+[settings]
+username_display = "displayname"
