@@ -9,11 +9,10 @@
         ./wifi.nix
     ];
 
-    sops.age.sshKeyPaths = [ "/persist/system/etc/ssh/ssh_host_ed25519_key" ];
 
     sops.secrets.felix_pwd = {
         format = "binary";
-        sopsFile = ../../secrets_age/felix_pwd;
+        sopsFile = ../../secrets/felix_pwd;
         neededForUsers = true;
     };
 
@@ -24,12 +23,6 @@
         shell = pkgs.fish;
     };
     
-    users.users.test = {
-       isNormalUser = true;
-       extraGroups = [ "wheel" ];
-       password = "test";
-    };
-
     users.defaultUserShell = pkgs.fish;
 
     programs.neovim.enable = true;
@@ -40,7 +33,7 @@
     programs.nh = {
         enable = true;
         clean.enable = true;
-        clean.extraArgs = "--keep-since 4d --keep 10";
+        clean.extraArgs = "--keep-since 30d --keep 10";
         flake = "/home/felix/dotfiles";
     };
 
@@ -132,7 +125,6 @@
         vscode-extensions.vscjava.vscode-java-debug
         vscode-extensions.vscjava.vscode-java-test
         bat
-      
         jq
         libreoffice-qt
         hunspell

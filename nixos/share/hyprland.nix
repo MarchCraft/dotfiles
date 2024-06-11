@@ -28,6 +28,7 @@
         hyprlock
         wl-mirror
         wlinhibit
+        ags
     ];
 
     security.pam.services.swaylock = {

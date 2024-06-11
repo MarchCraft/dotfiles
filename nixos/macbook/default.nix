@@ -73,6 +73,18 @@
         openFirewall = true;
     };
 
+    services.openssh.hostKeys = [
+        {
+            bits = 4096;
+            path = "/persist/system/etc/ssh/ssh_host_rsa_key";
+            type = "rsa";
+        }
+        {
+            path = "/persist/system/etc/ssh/ssh_host_ed25519_key";
+            type = "ed25519";
+        }
+    ];
+
     services.printing.enable = true;
 
     networking.hostName = "MacBook-Pro";

@@ -15,8 +15,14 @@
             "Documents"
             ".config/ArmCord"
             ".ssh"
-            ".local/share/nvim"
-            ".local/state/nvim"
+            {
+                directory = ".local/share/nvim";
+                method = "symlink";
+            }
+            {
+                directory = ".local/state/nvim";
+                method = "symlink";
+            }
             ".local/state/wireplumber"
             ".gnupg"
 	];
@@ -65,8 +71,8 @@
 
     home.file = let 
         background = pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/MarchCraft/Wallpaper/master/Untitled.png";
-          hash = "sha256-iyH4aO4SfzkxdlpDdLH11D9iBRwIn1+nZEs9bY6ccU4=";
+          url = "https://4kwallpapers.com/images/wallpapers/bmw-m4-gt4-evo-8k-7680x5023-16981.jpg";
+          hash = "sha256-YWqygdVdoHE8CTTuhvjOEbDbM4pss7xZXNfmSvWJroc=";
         };
     in {
         ".config/swaylock/config".source = ../../config/swaylock/config;
@@ -96,6 +102,10 @@
         };
         ".icons" = {
             source = ../../config/.icons;
+            recursive = true;
+        };
+        ".config/ags" = {
+            source = ../../config/ags;
             recursive = true;
         };
     };

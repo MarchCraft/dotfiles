@@ -9,8 +9,19 @@ return {
         "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
         "MunifTanjim/nui.nvim",
         -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
-},
+        },
+    },
+    {
+        "numToStr/FTerm.nvim",
+        lazy = true,
+        keys = {
+            { "<A-t>", '<cmd>lua require("FTerm").toggle()<CR>' },
+            { "<A-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', mode = { "t" } }
+        },
+        opts = {
+            border = 'rounded'
+        }
+    },
 {
     "dstein64/vim-startuptime",
     -- lazy-load on a command
