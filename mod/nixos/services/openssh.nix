@@ -1,6 +1,5 @@
 { lib
 , config
-, sops
 , ...
 }: {
   options.marchcraft.services.openssh.enable = lib.mkEnableOption "setup impermanence";
