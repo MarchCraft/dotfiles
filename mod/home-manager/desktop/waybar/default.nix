@@ -1,0 +1,56 @@
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
+  sharedModules = builtins.fromJSON (builtins.readFile ../../../../config/waybar/config.json);
+in
+{
+  options.marchcraft.waybar.enable = lib.mkEnableOption "install waybar";
+  config = lib.mkIf config.marchcraft.waybar.enable {
+    home.packages = with pkgs; [
+      (python312.withPackages (python-pkgs: [
+        python-pkgs.requests
+      ]))
+      gcalcli
+    ];
+    home.file = {
+      ".config/waybar/style.css".source = ../../../../config/waybar/style.css;
+      ".config/waybar/scripts".source = ../../../../config/waybar/scripts;
+    };
+    programs.waybar = {
+      enable = true;
+      settings = {
+        mainBar = {
+          mod = "dock";
+          modules-center = [ ];
+          modules-left = [
+            "clock"
+            "custom/weather"
+            "hyprland/workspaces"
+            "custom/agenda"
+            "network"
+          ];
+          modules-right = [
+            "tray"
+            "cpu"
+            "temperature"
+            "memory"
+            "custom/updates"
+            "custom/language"
+            "battery"
+            "backlight"
+            "pulseaudio"
+            "pulseaudio#microphone"
+          ];
+        }
+        // sharedModules;
+      };
+    };
+    wayland.windowManager.hyprland.extraConfig = ''
+      exec-once = waybar
+    '';
+  };
+}
+

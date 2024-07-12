@@ -1,0 +1,9 @@
+keys:
+  - &yubikey BF91E7F996966393DF5992FE15215F777DC602FC
+  - &MacBook CE2048E226EC2756D7D0A302D1C088EF55AA890E
+creation_rules:
+  - path_regex: nixos/secrets/.*
+    key_groups:
+    - pgp:
+        - *yubikey
+        - *MacBook
