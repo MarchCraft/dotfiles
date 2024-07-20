@@ -25,6 +25,7 @@
       lua-language-server
       marksman
       nil
+      nixd
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
       prettierd

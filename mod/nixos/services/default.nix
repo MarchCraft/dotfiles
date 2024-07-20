@@ -5,5 +5,6 @@
     ./yubikey.nix
     ./cups.nix
     ./pika.nix
+    ./Mac-spoofing.nix
   ];
 }

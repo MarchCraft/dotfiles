@@ -8,8 +8,9 @@
     environment.systemPackages = with pkgs; [
       armcord
       zapzap
-      tidal-hifi
-      chromium
+      # tidal-hifi
+      # chromium
+      rustup
     ];
     services.pcscd.enable = true;
 

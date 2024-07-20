@@ -8,6 +8,15 @@
   boot.initrd.availableKernelModules = [ "sdhci_pci" ];
   boot.kernelModules = [ "apple_dcp.show_notch=1" ];
   boot.extraModulePackages = [ ];
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "steam"
+    "steam-original"
+    "steam-run"
+  ];
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
 
   boot.loader.grub = {
     enableCryptodisk = true;
@@ -69,7 +78,6 @@
     umount /btrfs_tmp
   '';
 
-  swapDevices = [ ];
 
   networking.useDHCP = lib.mkDefault true;
 
