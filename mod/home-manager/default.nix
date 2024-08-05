@@ -2,10 +2,10 @@
   imports = [
     ./desktop
     ./shell
-    ./git.nix
     ./btop.nix
-    ./nvim.nix
+    ./git.nix
     ./impermanence.nix
+    ./nvim.nix
     ./yazi.nix
   ];
 }

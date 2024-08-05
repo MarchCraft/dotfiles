@@ -19,9 +19,9 @@
   ];
 
   environment.systemPackages = [
-    pkgs.tailscale
-    pkgs.cinny-desktop
-    pkgs.element-desktop-wayland
+    #pkgs.tailscale
+    #pkgs.cinny-desktop
+    #pkgs.element-desktop-wayland
   ];
 
   services.tailscale.enable = true;

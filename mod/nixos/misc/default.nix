@@ -7,7 +7,7 @@
   config = lib.mkIf config.marchcraft.misc.enable {
     environment.systemPackages = with pkgs; [
       armcord
-      zapzap
+      # zapzap
       # tidal-hifi
       # chromium
       rustup

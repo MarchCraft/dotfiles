@@ -20,7 +20,7 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon?rev=216cbf0405baaff17fba5ed9d7daee61317933db";
+    apple-silicon-support.url = "github:damien-biasotto/nixos-apple-silicon/bugfix/wifi";
     impermanence.url = "github:nix-community/impermanence";
   };
 
