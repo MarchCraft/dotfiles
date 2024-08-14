@@ -10,6 +10,8 @@
     ];
 
   boot.initrd.availableKernelModules = [ "usb_storage" "sdhci_pci" ];
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];

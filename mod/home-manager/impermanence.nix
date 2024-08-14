@@ -20,6 +20,7 @@
           method = "symlink";
         }
         ".local/state/wireplumber"
+        ".local/share/PrismLauncher"
         ".gnupg"
         ".config/ZapZap"
         ".cache/ZapZap"

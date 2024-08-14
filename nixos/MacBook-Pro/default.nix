@@ -32,6 +32,8 @@
     neededForUsers = true;
   };
 
+  nixpkgs.config.allowUnsupportedSystem = true;
+
   marchcraft.bootconfig.enable = true;
   marchcraft.nixconfig.enable = true;
   security.polkit.enable = true;

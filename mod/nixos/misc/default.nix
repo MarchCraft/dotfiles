@@ -11,6 +11,9 @@
       # tidal-hifi
       # chromium
       rustup
+      prismlauncher
+      spotifyd
+      spotify-qt
     ];
     services.pcscd.enable = true;
 
