@@ -33,6 +33,9 @@
       directories = [
         "/var/lib/systemd/backlight"
         "/var/lib/tailscale"
+        "/var/lib/alsa"
+        "/var/lib/nixos"
+        "/var/lib/bluetooth"
       ];
 
     };

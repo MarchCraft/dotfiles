@@ -13,8 +13,8 @@
     programs.git = {
       enable = true;
 
-      userName = "MarchCraft";
-      userEmail = "30194994+MarchCraft@users.noreply.github.com";
+      userName = "Felix Nilles";
+      userEmail = "felix@dienilles.de";
 
 
       signing = {

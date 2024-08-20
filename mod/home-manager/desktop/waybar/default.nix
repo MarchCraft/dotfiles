@@ -24,11 +24,12 @@ in
       settings = {
         mainBar = {
           mod = "dock";
+          margin-top = 3;
           modules-center = [ ];
           modules-left = [
             "clock"
             "custom/weather"
-            "hyprland/workspaces"
+            "sway/workspaces"
             "custom/agenda"
             "network"
           ];
@@ -41,6 +42,7 @@ in
             "custom/language"
             "battery"
             "backlight"
+            "custom/wlinhibit"
             "pulseaudio"
             "pulseaudio#microphone"
           ];

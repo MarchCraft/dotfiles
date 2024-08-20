@@ -1,6 +1,7 @@
 { config
 , lib
 , pkgs
+, inputs
 , ...
 }: {
   imports = [
@@ -22,10 +23,10 @@
       xdg-desktop-portal-gnome
       xdg-desktop-portal-wlr
       wl-clipboard
+      hyprcursor
     ];
 
     wayland.windowManager.hyprland = {
-      package = pkgs.hyprland;
       extraConfig = ''
         exec-once = swaync
         exec-once = pkill gpg-agent

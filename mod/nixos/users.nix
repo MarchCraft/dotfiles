@@ -56,6 +56,10 @@
           useGlobalPkgs = true;
           useUserPackages = true;
           extraSpecialArgs = { inherit inputs; };
+          sharedModules = [
+            inputs.sops.homeManagerModules.sops
+          ];
+
           users =
             lib.attrsets.mapAttrs
               (

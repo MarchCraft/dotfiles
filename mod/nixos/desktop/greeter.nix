@@ -7,48 +7,29 @@
 
   config = lib.mkIf config.marchcraft.greeter.enable {
     environment.systemPackages = with pkgs; [
-      greetd.regreet
+      greetd.wlgreet
     ];
-
-    programs.regreet = {
-      enable = true;
-      settings = builtins.fromTOML ''
-        [background]
-        path = "/etc/greetd/background.jpg"
-        fit = "Fill"
-
-        [env]
-
-        [GTK]
-        cursor_theme_name = "Dracula"
-        font_name = "Cantarell 16"
-        icon_theme_name = "Dracula"
-        theme_name = "Dracula"
-      '';
-    };
 
     services.greetd = {
       enable = true;
       settings = {
         default_session =
           let
-            hyprlandConfig = builtins.toFile "hyprland.regreet.conf" ''
-              exec-once = regreet; hyprctl dispatch exit;
-              windowrulev2=fullscreen, title:^regreet$
-              animations {
-                  enabled = no
-              }
-              misc {
-                  disable_hyprland_logo = yes
-                  disable_splash_rendering = yes
-              }
-              input {
-                  kb_layout = de
-              }
+            hyprlandConfig = builtins.toFile "sway.regreet.conf" ''
+              exec "wlgreet --command sway; swaymsg exit"
+
+              bindsym Mod4+shift+e exec swaynag \
+              	-t warning \
+              	-m 'What do you want to do?' \
+              	-b 'Poweroff' 'systemctl poweroff' \
+              	-b 'Reboot' 'systemctl reboot'
+
+              include /etc/sway/config.d/*
+
             '';
           in
           {
-            command = "${pkgs.hyprland}/bin/Hyprland --config ${hyprlandConfig}";
+            command = "${pkgs.sway}/bin/sway --config ${hyprlandConfig}";
           };
       };
     };

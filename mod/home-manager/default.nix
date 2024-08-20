@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ./desktop
     ./shell
@@ -8,4 +8,11 @@
     ./nvim.nix
     ./yazi.nix
   ];
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.dracula-theme;
+      name = "Dracula";
+    };
+  };
 }

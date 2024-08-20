@@ -30,7 +30,6 @@ tooltip {
 
 #workspaces button.focused {
     color: #a6adc8;
-    background: #eba0ac;
     border-radius: 10px;
 }
 
@@ -61,6 +60,7 @@ tooltip {
 #temperature,
 #memory,
 #backlight,
+#custom-wlinhibit,
 #custom-agenda {
     background: #1e1e2e;
     padding: 0px 10px;

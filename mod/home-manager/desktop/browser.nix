@@ -1,6 +1,7 @@
 { config
 , lib
 , inputs
+, pkgs
 , ...
 }: {
   options.marchcraft.browser.enable = lib.mkEnableOption "install firefox with modifications";
@@ -8,6 +9,7 @@
 
     programs.firefox = {
       enable = true;
+      package = pkgs.stable.firefox;
 
       policies = {
         "DisableFormHistory" = true;

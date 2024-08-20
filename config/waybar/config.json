@@ -63,15 +63,14 @@
       "return-type": "json",
       "tooltip": true
     },
-    "hyprland/window": {
+    "sway/window": {
       "format": "<span font='9' rise='-4444'>{}</span>",
       "max-length": 200,
       "seperate-outputs": true
     },
-    "hyprland/workspaces": {
-      "all-outputs": true,
+    "sway/workspaces": {
       "disable-scroll": true,
-      "on-click": "activate"
+      "format": "{name}"
     },
     "memory": {
       "format": "{used:0.1f}G/{total:0.1f}G ",
@@ -127,5 +126,12 @@
     "tray": {
       "icon-size": 13,
       "spacing": 10
-    }
+    },
+    "custom/wlinhibit": {
+      "tooltip": false,
+      "exec": "~/.config/waybar/scripts/wlinhibit.sh",
+      "return-type": "json",
+      "restart-interval": 3,
+      "on-click": "killall wlinhibit || wlinhibit"
+  }
   }

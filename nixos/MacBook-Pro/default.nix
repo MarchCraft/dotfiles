@@ -19,9 +19,9 @@
   ];
 
   environment.systemPackages = [
-    #pkgs.tailscale
-    #pkgs.cinny-desktop
-    #pkgs.element-desktop-wayland
+    pkgs.tailscale
+    pkgs.stable.cinny-desktop
+    pkgs.stable.element-desktop
   ];
 
   services.tailscale.enable = true;
@@ -36,6 +36,7 @@
 
   marchcraft.bootconfig.enable = true;
   marchcraft.nixconfig.enable = true;
+  marchcraft.nixconfig.allowUnfree = true;
   security.polkit.enable = true;
 
   marchcraft.users.felix = {

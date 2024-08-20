@@ -2,7 +2,8 @@
   description = "MarchCraft's nixos config. ein satz mit x, das war wohl nix";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?rev=ab4f9a7058b2e359fc8ebf44b78edc3424a063df";
+    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     sops = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

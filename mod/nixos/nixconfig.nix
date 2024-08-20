@@ -1,10 +1,9 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
+{ inputs
+, outputs
+, lib
+, config
+, pkgs
+, ...
 }: {
   options.marchcraft.nixconfig = {
     enable = lib.mkOption {
@@ -16,45 +15,51 @@
     enableChannels = lib.mkEnableOption "enable channels";
   };
 
-  config = let
-    opts = config.marchcraft.nixconfig;
-  in {
-    nixpkgs = {
-      overlays = [
-        outputs.overlays.additions
-      ];
+  config =
+    let
+      opts = config.marchcraft.nixconfig;
+    in
+    {
+      nixpkgs = {
+        overlays = [
+          outputs.overlays.additions
+          outputs.overlays.stable
+        ];
 
-      config.allowUnfree = opts.allowUnfree;
-    };
-
-    nix = let
-      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-    in {
-      settings = {
-        experimental-features = "nix-command flakes";
-        flake-registry = "";
-        nix-path = config.nix.nixPath;
+        config.allowUnfree = opts.allowUnfree;
       };
-      channel.enable = opts.enableChannels;
 
-      registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+      nix =
+        let
+          flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+        in
+        {
+          settings = {
+            experimental-features = "nix-command flakes";
+            flake-registry = "";
+            nix-path = config.nix.nixPath;
+            extra-platforms = [ "x86_64-linux" ];
+          };
+          channel.enable = opts.enableChannels;
+
+          registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+          nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+        };
+
+      programs.nh.enable = true;
+      programs.command-not-found.enable = false;
+      programs.nix-index = {
+        enable = true;
+        enableFishIntegration = true;
+        enableBashIntegration = true;
+      };
+
+      environment.systemPackages = with pkgs; [
+        comma
+        hydra-check
+        nix-output-monitor
+        nixpkgs-review
+      ];
     };
-
-    programs.nh.enable = true;
-    programs.command-not-found.enable = false;
-    programs.nix-index = {
-      enable = true;
-      enableFishIntegration = true;
-      enableBashIntegration = true;
-    };
-
-    environment.systemPackages = with pkgs; [
-      comma
-      hydra-check
-      nix-output-monitor
-      nixpkgs-review
-    ];
-  };
 }
 

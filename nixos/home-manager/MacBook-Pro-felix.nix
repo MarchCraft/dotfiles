@@ -1,4 +1,5 @@
 { inputs
+, config
 , ...
 }: {
   imports = [
@@ -20,13 +21,24 @@
   marchcraft.neovim.enable = true;
 
   marchcraft.browser.enable = true;
-  marchcraft.rofi.enable = true;
+
+  sops = {
+    age.sshKeyPaths = [
+      "/persist/home/ssh_host_ed25519_key"
+    ];
+  };
+
+  marchcraft.rofi = {
+    enable = true;
+  };
   marchcraft.waybar.enable = true;
   marchcraft.impermanence_home.enable = true;
   marchcraft.yazi.enable = true;
 
+  marchcraft.misc.enable = true;
 
-  marchcraft.desktop.hyprland.enable = true;
+
+  marchcraft.desktop.sway.enable = true;
   marchcraft.desktop.swaync.enable = true;
   marchcraft.desktop.apps.kitty.enable = true;
   marchcraft.desktop.swayidle.enable = true;
