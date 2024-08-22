@@ -19,6 +19,7 @@
       wdisplays
       wl-mirror
       wlsunset
+      playerctl
     ];
 
     security.pam.services.wayvnc = {

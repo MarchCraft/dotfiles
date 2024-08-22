@@ -11,8 +11,8 @@
     wayland.windowManager.sway =
       let
         background = pkgs.fetchurl {
-          url = "https://4kwallpapers.com/images/wallpapers/bmw-m4-gt4-evo-8k-7680x5023-16981.jpg";
-          hash = "sha256-YWqygdVdoHE8CTTuhvjOEbDbM4pss7xZXNfmSvWJroc=";
+          url = "https://github.com/NixOS/nixos-artwork/blob/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png?raw=true";
+          hash = "sha256-fmKFYw2gYAYFjOv4lr8IkXPtZfE1+88yKQ4vjEcax1s=";
         };
       in
       {

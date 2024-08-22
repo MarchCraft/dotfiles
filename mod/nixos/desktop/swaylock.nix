@@ -6,9 +6,6 @@
   options.marchcraft.desktop.swaylock.enable = lib.mkEnableOption "install swaylock";
   config = lib.mkIf config.marchcraft.desktop.swaylock.enable {
 
-    security.pam.loginLimits = [
-      { domain = "@users"; item = "rtprio"; type = "-"; value = 1; }
-    ];
 
 
     security.pam.services.swaylock = {

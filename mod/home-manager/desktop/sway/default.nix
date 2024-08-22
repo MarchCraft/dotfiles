@@ -28,9 +28,10 @@
     ];
 
     home.pointerCursor = {
+      gtk.enable = true;
       package = pkgs.catppuccin-cursors.mochaMauve;
       name = "catppuccin-mocha-mauve-cursors";
-      size = 100;
+      size = 40;
       x11 = {
         enable = true;
         defaultCursor = config.home.pointerCursor.name;
@@ -50,7 +51,12 @@
         blur on
         smart_corner_radius on
         corner_radius 10
+        seat seat0 xcursor_theme ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}
       '';
+      wrapperFeatures = {
+        gtk = true;
+        base = true;
+      };
       config = {
         modifier = "Mod4";
         defaultWorkspace = "workspace number 1";
@@ -62,9 +68,35 @@
           };
         };
 
+        floating.titlebar = false;
+
         output = {
           eDP-1 = {
             scale = "1.7";
+          };
+        };
+
+        colors = {
+          focused = {
+            background = "#285577";
+            border = "#14fcf8";
+            childBorder = "#14fcf8";
+            indicator = "#14fcf8";
+            text = "#ffffff";
+          };
+          unfocused = {
+            background = "#ffffff00";
+            border = "#ffffff00";
+            childBorder = "#ffffff00";
+            indicator = "#ffffff00";
+            text = "#ffffff00";
+          };
+          focusedInactive = {
+            background = "#ffffff00";
+            border = "#ffffff00";
+            childBorder = "#ffffff00";
+            indicator = "#ffffff00";
+            text = "#ffffff00";
           };
         };
 
@@ -73,10 +105,13 @@
           { command = "swayidle"; }
           { command = "autotiling"; always = true; }
           { command = "wayvnc"; }
+          { command = "swaync"; }
+          { command = "armcord"; }
         ];
 
         window = {
           titlebar = false;
+          border = 2;
         };
 
         gaps = {
@@ -119,6 +154,8 @@
             "${modifier}+p" = "exec ${pkgs.rofi-rbw-wayland}/bin/rofi-rbw";
             "${modifier}+m" = "exec ${pkgs.wlogout}/bin/wlogout";
             "${modifier}+l" = "exec ${pkgs.swaylock-effects}/bin/swaylock -C ${swaylockConfig}";
+            "${modifier}+n" = "exec swaync-client -t";
+            "${modifier}+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
             "XF86AudioLowerVolume" = "exec pamixer -d 5";
             "XF86AudioRaiseVolume" = "exec pamixer -i 5";
             "XF86AudioMute" = "exec pamixer -t";
