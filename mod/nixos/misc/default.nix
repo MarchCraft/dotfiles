@@ -10,7 +10,6 @@
       zapzap
       tidal-hifi
       chromium
-      rustup
       prismlauncher
       spotifyd
       spotify-qt
@@ -20,7 +19,16 @@
       wl-mirror
       wlsunset
       playerctl
+      obsidian
+      parsec-bin
+      pkg-config
+      openssl
     ];
+
+    environment.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+    };
 
     security.pam.services.wayvnc = {
       text = ''

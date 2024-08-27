@@ -8,6 +8,7 @@
     home.persistence."/persist/home" = {
       directories = [
         "Documents"
+        "dev"
         ".config/ArmCord"
         ".config/pika-backup"
         ".ssh"
@@ -28,6 +29,7 @@
         ".rustup"
         ".dotfiles"
         ".mozilla"
+        ".notes"
       ];
       allowOther = true;
     };

@@ -36,7 +36,12 @@
       texlab
       vscode-langservers-extracted
       zls
+      vscode-extensions.vadimcn.vscode-lldb.adapter
       # other stuff
+      cargo
+      rustfmt
+      clippy
+      vale
       ripgrep
       lazygit
       nixpkgs-fmt

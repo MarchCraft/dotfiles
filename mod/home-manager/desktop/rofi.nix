@@ -36,7 +36,7 @@
       programs.rofi =
         {
           enable = true;
-          package = pkgs.rofi-wayland;
+          package = pkgs.rofi-wayland-unwrapped;
           theme =
             let
               inherit (config.lib.formats.rasi) mkLiteral;
@@ -160,31 +160,6 @@
                 };
 
             };
-          plugins =
-            let
-              rofi-calc-wayland =
-                pkgs.rofi-calc.overrideAttrs
-                  (finalAttrs: previousAttrs:
-                    let
-                      unRofiInputs = lib.lists.remove pkgs.rofi-unwrapped previousAttrs.buildInputs;
-                    in
-                    {
-                      buildInputs = unRofiInputs ++ [ pkgs.rofi-wayland ];
-                    });
-              rofi-rofimoji-wayland =
-                pkgs.rofimoji.overrideAttrs
-                  (finalAttrs: previousAttrs:
-                    let
-                      unRofiInputs = lib.lists.remove pkgs.rofi-unwrapped previousAttrs.buildInputs;
-                    in
-                    {
-                      buildInputs = unRofiInputs ++ [ pkgs.rofi-wayland ];
-                    });
-            in
-            [
-              rofi-calc-wayland
-              rofi-rofimoji-wayland
-            ];
         };
     };
 }
