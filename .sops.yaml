@@ -1,7 +1,7 @@
 keys:
   - &yubikey 499C66E9512BA96797CDAC410562840F5B0C9BD4
-  - &MacBook abc1ca1c95a95721a5fada00d76ed72317789c74
-  - &MacBookAge age13067h5tsqclt08x2yh7y53satt095kpaxep6jujasdthftez7vds5v3jta
+  - &MacBook 708be9ec328b14b8a2246a10c64ad1946d3c842d
+  - &MacBookAge age1d5smh54jg270ztcrr2aylz2crxxz4rp0tsz0kgj3n43ervnlwezsgnvwe0
 creation_rules:
   - path_regex: nixos/secrets/.*
     key_groups:
