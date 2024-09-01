@@ -6,7 +6,6 @@ return {
         lazy = false,   -- This plugin is already lazy
         config = function()
             local bufnr = vim.api.nvim_get_current_buf()
-            vim.cmd([[autocmd! BufWritePre,TextChanged,InsertLeave *.js Prettier]])
             vim.keymap.set(
                 "n",
                 "<leader>ca",

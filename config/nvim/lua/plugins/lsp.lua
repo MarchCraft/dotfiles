@@ -29,8 +29,15 @@ return {
     {
         "ray-x/lsp_signature.nvim",
         event = "User File",
-        opts = {},
-        config = function(_, opts) require'lsp_signature'.setup(opts) end
+        opts = {
+            always_trigger = true,
+        },
+        config = function(_, opts)
+            require 'lsp_signature'.setup(opts)
+            vim.keymap.set({ 'n' }, '<C-k>', function()
+                require('lsp_signature').toggle_float_win()
+            end, { silent = true, noremap = true, desc = 'toggle signature' })
+        end
     },
 
     ---------------------------------------------------------------------------
@@ -59,6 +66,14 @@ return {
                     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
                     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
                     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+                    local bufnr = event.buf
+                    local client = vim.lsp.get_client_by_id(event.data.client_id)
+                    if vim.tbl_contains({ 'jdtls' }, client.name) then -- blacklist lsp
+                        return
+                    end
+
+                    require("lsp_signature").on_attach({
+                    }, bufnr)
                 end,
             })
 
@@ -76,6 +91,9 @@ return {
 
             local lspconfig = require("lspconfig")
             local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+            local on_attach = function(client, bufnr)
+                require('lsp_signature').attach(client, bufnr)
+            end
 
             lspconfig.lua_ls.setup({
                 settings = {
