@@ -58,7 +58,7 @@
       "HHUD-Y"
       "iPhoneF"
       "WIFI@DB"
-      "Nothing Phone (2)"
+      "NothingPhone"
     ];
   };
   marchcraft.services.printing.enable = true;

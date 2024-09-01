@@ -32,7 +32,6 @@
         # path = "%%r/test.txt";
       };
 
-      home.file.".config/rbw/config.json".text = builtins.readFile "${config.sops.secrets.rbw.path}";
       programs.rofi =
         {
           enable = true;

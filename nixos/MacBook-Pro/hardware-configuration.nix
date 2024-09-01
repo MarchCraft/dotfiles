@@ -25,7 +25,7 @@
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/c7fb572f-aee9-474f-8850-4a6dd89d7b18";
+      device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
       options = [ "subvol=root" ];
     };
@@ -34,14 +34,14 @@
 
   fileSystems."/nix" =
     {
-      device = "/dev/disk/by-uuid/c7fb572f-aee9-474f-8850-4a6dd89d7b18";
+      device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
       options = [ "subvol=nix" ];
     };
 
   fileSystems."/persist" =
     {
-      device = "/dev/disk/by-uuid/c7fb572f-aee9-474f-8850-4a6dd89d7b18";
+      device = "/dev/disk/by-label/nixos";
       fsType = "btrfs";
       options = [ "subvol=persist" ];
       neededForBoot = true;

@@ -37,6 +37,9 @@
       vscode-langservers-extracted
       zls
       vscode-extensions.vadimcn.vscode-lldb.adapter
+      vscode-extensions.vscjava.vscode-java-debug
+      vscode-extensions.vscjava.vscode-java-test
+      jdt-language-server
       # other stuff
       cargo
       rustfmt
@@ -51,7 +54,13 @@
       zathura
       texliveFull
       nodejs
+      yarn
     ];
+
+    home.sessionVariables = {
+      JAVA_TEST = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server/";
+      JAVA_DEBUG = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server/";
+    };
 
     home.file = {
       ".config/nvim" = {
