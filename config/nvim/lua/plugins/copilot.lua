@@ -26,5 +26,41 @@ return {
         config = function()
             require("copilot_cmp").setup()
         end
+    },
+    {
+        "olimorris/codecompanion.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-telescope/telescope.nvim", -- Optional
+            {
+                "stevearc/dressing.nvim",    -- Optional: Improves the default Neovim UI
+                opts = {},
+            },
+        },
+        config = function()
+            require("codecompanion").setup({
+                strategies = {
+                    chat = {
+                        adapter = "copilot",
+                    },
+                    inline = {
+                        adapter = "copilot",
+                    },
+                    agent = {
+                        adapter = "copilot",
+                    },
+                },
+                adapters = {
+                    anthropic = function()
+                        return require("codecompanion.adapters").extend("copilot", {
+                            env = {
+                                api_key = "cmd:op read op:///persist/home/copilot --no-newline"
+                            },
+                        })
+                    end,
+                },
+            })
+        end
     }
 }

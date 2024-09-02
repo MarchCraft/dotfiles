@@ -31,6 +31,14 @@ return {
         event = "User File",
         opts = {
             always_trigger = true,
+            bind = true,
+            handler_opts = {
+                border = "rounded"
+            },
+            hint_enable = false,
+            floating_window_above_cur_line = true,
+            transparency = 50
+
         },
         config = function(_, opts)
             require 'lsp_signature'.setup(opts)
@@ -38,6 +46,12 @@ return {
                 require('lsp_signature').toggle_float_win()
             end, { silent = true, noremap = true, desc = 'toggle signature' })
         end
+    },
+    {
+        'felpafel/inlay-hint.nvim',
+        event = 'LspAttach',
+        config = true,
+        opts = {},
     },
 
     ---------------------------------------------------------------------------
@@ -62,14 +76,21 @@ return {
                     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
                     vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
                     vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-                    vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+                    vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
+                    vim.keymap.set("n", "<leader>ha", function() vim.lsp.buf.hover() end, opts)
                     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
                     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
                     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
                     local bufnr = event.buf
                     local client = vim.lsp.get_client_by_id(event.data.client_id)
-                    if vim.tbl_contains({ 'jdtls' }, client.name) then -- blacklist lsp
-                        return
+                    if client.supports_method('textDocument/inlayHint') then
+                        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                        vim.keymap.set('n', '<leader>i', function()
+                            vim.lsp.inlay_hint.enable(
+                                not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }),
+                                { bufnr = bufnr }
+                            )
+                        end, { buffer = bufnr })
                     end
 
                     require("lsp_signature").on_attach({

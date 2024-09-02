@@ -28,10 +28,10 @@ return {
                 end,
             }
 
-            vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
-            vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
+            vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint)
+            vim.keymap.set("n", "<leader>gb", dap.run_to_cursor)
 
-            vim.keymap.set("n", "<space>?", function()
+            vim.keymap.set("n", "<leader>?", function()
                 require("dapui").eval(nil, { enter = true })
             end)
 

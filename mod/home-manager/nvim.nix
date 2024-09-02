@@ -43,6 +43,7 @@
       # other stuff
       cargo
       rustfmt
+      rustc
       clippy
       vale
       ripgrep
@@ -55,6 +56,7 @@
       texliveFull
       nodejs
       yarn
+      openjdk17
     ];
 
     home.sessionVariables = {

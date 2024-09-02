@@ -70,6 +70,12 @@ return {
                 }),
                 ["<C-e>"] = cmp.mapping.close(),
             })
+            cmp.setup.filetype({ "sql" }, {
+                sources = {
+                    { name = "vim-dadbod-completion" },
+                    { name = "buffer" },
+                },
+            })
         end,
     }
 }

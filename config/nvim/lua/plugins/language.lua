@@ -2,18 +2,15 @@ return {
     -- Rust
     {
         'mrcjkb/rustaceanvim',
-        version = '^5', -- Recommended
-        lazy = false,   -- This plugin is already lazy
+        lazy = false,
         config = function()
-            local bufnr = vim.api.nvim_get_current_buf()
             vim.keymap.set(
                 "n",
                 "<leader>ca",
                 function()
                     vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
                     -- or vim.lsp.buf.codeAction() if you don't want grouping.
-                end,
-                { silent = true, buffer = bufnr }
+                end
             )
             vim.g.rustaceanvim = {
                 -- Plugin configuration
@@ -47,9 +44,6 @@ return {
     {
         'mfussenegger/nvim-jdtls',
         ft = 'java',
-        dependencies = {
-            'VonHeikemen/lsp-zero.nvim'
-        },
         config = function()
             local jdtls = require("jdtls")
             local jdtlsd = require("jdtls.dap")
@@ -62,6 +56,60 @@ return {
                     "com.microsoft.java.debug.plugin-*.jar", 1)
             };
 
+
+            local lsp_settings = {
+                java = {
+                    eclipse = {
+                        downloadSources = true,
+                    },
+                    configuration = {
+                        updateBuildConfiguration = 'interactive',
+                        runtimes = path.runtimes,
+                    },
+                    maven = {
+                        downloadSources = true,
+                    },
+                    implementationsCodeLens = {
+                        enabled = true,
+                    },
+                    referencesCodeLens = {
+                        enabled = true,
+                    },
+                    format = {
+                        enabled = true,
+                    }
+                },
+                signatureHelp = {
+                    enabled = false,
+                },
+                completion = {
+                    favoriteStaticMembers = {
+                        'org.hamcrest.MatcherAssert.assertThat',
+                        'org.hamcrest.Matchers.*',
+                        'org.hamcrest.CoreMatchers.*',
+                        'org.junit.jupiter.api.Assertions.*',
+                        'java.util.Objects.requireNonNull',
+                        'java.util.Objects.requireNonNullElse',
+                        'org.mockito.Mockito.*',
+                    },
+                },
+                contentProvider = {
+                    preferred = 'fernflower',
+                },
+                extendedClientCapabilities = jdtls.extendedClientCapabilities,
+                sources = {
+                    organizeImports = {
+                        starThreshold = 9999,
+                        staticStarThreshold = 9999,
+                    }
+                },
+                codeGeneration = {
+                    toString = {
+                        template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
+                    },
+                    useBlocks = true,
+                },
+            }
 
             local function jdtls_on_attach(client, bufnr)
                 jdtls.setup_dap({ hotcodereplace = 'auto' })
@@ -81,6 +129,7 @@ return {
                 init_options = {
                     bundles = path.bundles,
                 },
+                settings = lsp_settings,
                 on_attach = jdtls_on_attach,
             }
             jdtls.start_or_attach(config)
