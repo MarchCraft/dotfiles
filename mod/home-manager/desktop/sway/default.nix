@@ -25,6 +25,8 @@
       xdg-desktop-portal-wlr
       wl-clipboard
       autotiling
+      grim
+      slurp
     ];
 
     home.pointerCursor = {
@@ -158,7 +160,7 @@
               '';
             in
             lib.mkOptionDefault {
-              "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty -e tmux";
+              "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty";
               "${modifier}+c" = "kill";
               "${modifier}+w" = "exec ${pkgs.stable.firefox}/bin/firefox";
               "${modifier}+r" = "exec ${pkgs.rofi-wayland}/bin/rofi -show drun -show-icons -dpi 120";
@@ -175,6 +177,7 @@
               "XF86MonBrightnessUp" = "exec brightnessctl set 10%+";
               "${modifier}+XF86MonBrightnessDown" = "exec brightnessctl -d kbd_backlight set 10%-";
               "${modifier}+XF86MonBrightnessUp" = "exec brightnessctl -d kbd_backlight set 10%+";
+              "${modifier}+Shift+p" = "grim -g $(slurp) - | wl-copy";
             };
         };
       };

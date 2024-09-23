@@ -47,9 +47,6 @@
                 psk = "@${passwordEnvName ssid}@";
               }))
               (lib.mkIf opts.hhuEduroam {
-                "WiFi Winkler" = {
-                  auth = ''key_mgmt=NONE'';
-                };
                 eduroam =
                   let
                     cacert = builtins.toFile "ca_cert.pam" "-----BEGIN CERTIFICATE-----

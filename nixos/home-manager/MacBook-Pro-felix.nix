@@ -13,14 +13,13 @@
     installTools = true;
     fish.enable = true;
     starship.enable = true;
-    tmux.enable = true;
   };
 
   marchcraft.git.enable = true;
   marchcraft.btop.enable = true;
   marchcraft.neovim.enable = true;
 
-  marchcraft.browser.enable = true;
+  marchcraft.desktop.apps.firefox.enable = true;
 
   sops = {
     age.sshKeyPaths = [
@@ -32,7 +31,7 @@
     enable = true;
   };
   marchcraft.waybar.enable = true;
-  marchcraft.impermanence_home.enable = true;
+  #qmarchcraft.impermanence_home.enable = true;
   marchcraft.yazi.enable = true;
 
   marchcraft.misc.enable = true;

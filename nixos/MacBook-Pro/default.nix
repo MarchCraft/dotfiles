@@ -17,12 +17,14 @@
 
     outputs.nixosModules.marchcraft
   ];
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+  nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
 
   environment.systemPackages = [
     pkgs.tailscale
-    pkgs.stable.cinny-desktop
     pkgs.stable.element-desktop
   ];
+  virtualisation.docker.enable = true;
 
   services.tailscale.enable = true;
 
@@ -32,7 +34,6 @@
     neededForUsers = true;
   };
 
-  nixpkgs.config.allowUnsupportedSystem = true;
 
   marchcraft.bootconfig.enable = true;
   marchcraft.nixconfig.enable = true;
@@ -63,7 +64,7 @@
   };
   marchcraft.services.printing.enable = true;
 
-  marchcraft.impermanence_system.enable = true;
+  # marchcraft.impermanence_system.enable = true;
 
   marchcraft.greeter.enable = true;
   marchcraft.desktop.swaylock.enable = true;

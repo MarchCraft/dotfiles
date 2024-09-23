@@ -140,6 +140,7 @@ return {
             }
 
             require('lspconfig').nixd.setup {}
+            require('lspconfig').kotlin_language_server.setup {}
         end,
     },
 }

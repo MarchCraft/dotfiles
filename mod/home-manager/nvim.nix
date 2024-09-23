@@ -40,6 +40,7 @@
       vscode-extensions.vscjava.vscode-java-debug
       vscode-extensions.vscjava.vscode-java-test
       jdt-language-server
+      kotlin-language-server
       # other stuff
       cargo
       rustfmt

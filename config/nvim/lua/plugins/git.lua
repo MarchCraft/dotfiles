@@ -14,6 +14,9 @@ return {
         }
     },
     {
+        'sindrets/diffview.nvim'
+    },
+    {
         "kdheepak/lazygit.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim",

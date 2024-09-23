@@ -24,6 +24,8 @@
         overlays = [
           outputs.overlays.additions
           outputs.overlays.stable
+          outputs.overlays.master
+          inputs.nur.overlay
         ];
 
         config.allowUnfree = opts.allowUnfree;
@@ -38,7 +40,6 @@
             experimental-features = "nix-command flakes";
             flake-registry = "";
             nix-path = config.nix.nixPath;
-            extra-platforms = [ "x86_64-linux" ];
           };
           channel.enable = opts.enableChannels;
 

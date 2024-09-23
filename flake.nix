@@ -2,7 +2,8 @@
   description = "MarchCraft's nixos config. ein satz mit x, das war wohl nix";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/?rev=a32f745778c5ae72a07213503f9889ec7641939f";
+    nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     sops = {
       url = "github:Mic92/sops-nix";
@@ -17,12 +18,9 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    apple-silicon-support.url = "github:damien-biasotto/nixos-apple-silicon/bugfix/wifi";
+    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
     impermanence.url = "github:nix-community/impermanence";
+    betterfox.url = "github:HeitorAugustoLN/betterfox-nix";
   };
 
   outputs =

@@ -16,8 +16,6 @@
 
     programs.kitty = {
       enable = true;
-      # enableBashIntegration = true;
-      # enableFishIntegration = true;
 
       font.size = 9;
       font.name = "DejaVu Sans";
