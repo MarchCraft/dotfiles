@@ -8,6 +8,7 @@
     ./swayidle.nix
     ./river
     ./sway
+    ./hyprland
     ./wayvnc.nix
   ];
 }

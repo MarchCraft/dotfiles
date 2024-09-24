@@ -2,11 +2,13 @@ keys:
   - &yubikey 499C66E9512BA96797CDAC410562840F5B0C9BD4
   - &MacBook d8bd19e2c0a71fb79d879a39f894ce76e69a653a
   - &MacBookAge age16krmsamr7qhzpnah664xc8l5sq7624d5vks8qhphqm4pwwhvxdrs4eskm4
+  - &Felix-Desktop 90f10c0f273bffff541691fff10afdd5a8360aeb
 creation_rules:
   - path_regex: nixos/secrets/.*
     key_groups:
     - pgp:
         - *yubikey
         - *MacBook
+        - *Felix-Desktop
       age:
         - *MacBookAge

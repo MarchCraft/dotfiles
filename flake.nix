@@ -83,7 +83,7 @@
       nixosModules.marchcraft = import ./mod/nixos;
       homeManagerModules.marchcraft = import ./mod/home-manager;
 
-      nixosConfigurations = genSystems [ "MacBook-Pro" ];
+      nixosConfigurations = genSystems [ "MacBook-Pro" "Felix-Desktop" ];
 
       devShells = forAllSystems devShell;
     };

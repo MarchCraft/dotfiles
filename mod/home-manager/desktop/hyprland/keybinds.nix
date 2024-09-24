@@ -17,9 +17,7 @@
       settings.bind = [
         # app shortcuts
         "$mainMod, W, exec, firefox"
-        "$mainMod SHIFT, W, exec, firefox -P \"private\""
-        "$mainMod, Return, exec, kitty -e tmux"
-        "$mainMod SHIFT, Return, exec, kitty"
+        "$mainMod, Return, exec, kitty"
         "$mainMod, R, exec, killall rofi || rofi -show drun"
         "$mainMod SHIFT, C, exec, killall rofi || rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history -calc-command \"echo -n '{result}' | wl-copy\""
 
