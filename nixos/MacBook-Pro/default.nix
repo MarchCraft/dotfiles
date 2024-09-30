@@ -23,7 +23,14 @@
   environment.systemPackages = [
     pkgs.tailscale
     pkgs.stable.element-desktop
+    pkgs.cinny-desktop
   ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "cinny-unwrapped-4.1.0"
+    "cinny-4.1.0"
+  ];
+
   virtualisation.docker.enable = true;
 
   services.tailscale.enable = true;
@@ -60,6 +67,8 @@
       "iPhoneF"
       "WIFI@DB"
       "NothingPhone"
+      "FelixPhone"
+      "UdoLandenberg"
     ];
   };
   marchcraft.services.printing.enable = true;

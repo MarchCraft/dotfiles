@@ -177,7 +177,7 @@
               "XF86MonBrightnessUp" = "exec brightnessctl set 10%+";
               "${modifier}+XF86MonBrightnessDown" = "exec brightnessctl -d kbd_backlight set 10%-";
               "${modifier}+XF86MonBrightnessUp" = "exec brightnessctl -d kbd_backlight set 10%+";
-              "${modifier}+Shift+p" = "grim -g $(slurp) - | wl-copy";
+              "${modifier}+Shift+p" = "exec grim -g $(slurp) - | wl-copy";
             };
         };
       };

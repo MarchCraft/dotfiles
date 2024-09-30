@@ -36,8 +36,9 @@
 
   marchcraft.misc.enable = true;
 
+  marchcraft.desktop.hyprland.enable = true;
 
-  marchcraft.desktop.sway.enable = true;
+  marchcraft.desktop.sway.enable = false;
   marchcraft.desktop.swaync.enable = true;
   marchcraft.desktop.apps.kitty.enable = true;
   marchcraft.desktop.swayidle.enable = true;
