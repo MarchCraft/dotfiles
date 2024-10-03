@@ -31,7 +31,7 @@
     enable = true;
   };
   marchcraft.waybar.enable = true;
-  #qmarchcraft.impermanence_home.enable = true;
+
   marchcraft.yazi.enable = true;
 
   marchcraft.misc.enable = true;

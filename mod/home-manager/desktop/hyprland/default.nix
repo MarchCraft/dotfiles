@@ -12,6 +12,10 @@
   options.marchcraft.desktop.hyprland = {
     enable = lib.mkEnableOption "install the hyprland config";
     cursor_warps = lib.mkEnableOption "enable cursor warps";
+    keyboard_layout = lib.mkOption {
+      type = lib.types.str;
+      default = "de";
+    };
   };
 
   config = lib.mkIf config.marchcraft.desktop.hyprland.enable {
@@ -58,7 +62,7 @@
         };
 
         input = {
-          kb_layout = "us";
+          kb_layout = config.marchcraft.desktop.hyprland.keyboard_layout;
           kb_options = "caps:escape";
 
           follow_mouse = 1;
