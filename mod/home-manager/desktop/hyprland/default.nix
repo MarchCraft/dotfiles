@@ -1,6 +1,7 @@
 { config
 , lib
 , pkgs
+, pkgs-master
 , inputs
 , ...
 }: {
@@ -19,7 +20,7 @@
   };
 
   config = lib.mkIf config.marchcraft.desktop.hyprland.enable {
-    home.packages = with pkgs; [
+    home.packages = with pkgs-master; [
       wlinhibit
       xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
@@ -37,6 +38,7 @@
         exec-once = gpg-agent --pinentry-program=/usr/bin/pinentry-qt4 --daemon > /dev/null 2>&1
       '';
       enable = true;
+      package = pkgs-master.hyprland;
       settings = {
         "$mainMod" = "SUPER";
         bezier = [

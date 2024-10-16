@@ -1,29 +1,31 @@
 { config
 , lib
 , pkgs
+, pkgs-master
 , ...
 }: {
   options.marchcraft.misc.enable = lib.mkEnableOption "install misc";
   config = lib.mkIf config.marchcraft.misc.enable {
-    environment.systemPackages = with pkgs; [
-      armcord
-      zapzap
-      tidal-hifi
-      chromium
-      prismlauncher
-      spotifyd
-      spotify-qt
-      spot
-      wayvnc
-      wdisplays
-      wl-mirror
-      wlsunset
-      playerctl
-      obsidian
-      parsec-bin
-      pkg-config
-      openssl
+    environment.systemPackages = [
+      pkgs.armcord
+      pkgs.zapzap
+      pkgs.tidal-hifi
+      pkgs.chromium
+      pkgs.prismlauncher
+      pkgs.spotifyd
+      pkgs.spotify-qt
+      pkgs.spot
+      pkgs.wayvnc
+      pkgs.wdisplays
+      pkgs.wl-mirror
+      pkgs.wlsunset
+      pkgs.playerctl
+      pkgs.parsec-bin
+      pkgs.pkg-config
+      pkgs.openssl
+      pkgs-master.obsidian
     ];
+
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";

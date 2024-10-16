@@ -23,5 +23,26 @@ return {
             vim.keymap.set('v', '<S-j>', ':MoveBlock(1)<CR>', opts)
             vim.keymap.set('v', '<S-k>', ':MoveBlock(-1)<CR>', opts)
         end
+    },
+    {
+        "epwalsh/obsidian.nvim",
+        version = "*",
+        lazy = true,
+        ft = "markdown",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        opts = {
+            workspaces = {
+                {
+                    name = "personal",
+                    path = "~/vaults/personal",
+                },
+                {
+                    name = "uni",
+                    path = "~/vaults/uni",
+                },
+            },
+        },
     }
 }

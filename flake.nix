@@ -21,6 +21,7 @@
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
     impermanence.url = "github:nix-community/impermanence";
     betterfox.url = "github:HeitorAugustoLN/betterfox-nix";
+    templates.url = "github:nixos/templates";
   };
 
   outputs =
@@ -28,6 +29,7 @@
     , nixpkgs
     , home-manager
     , impermanence
+    , nixpkgs-master
     , sops
     , ...
     } @ inputs:
@@ -46,7 +48,13 @@
 
       mkSystem = hostname: {
         "${hostname}" = lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
+          specialArgs = {
+            inherit inputs outputs;
+            pkgs-master = import nixpkgs-master {
+              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
+          };
           modules = [ ./nixos/${hostname} ];
         };
       };

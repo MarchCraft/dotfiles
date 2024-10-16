@@ -39,7 +39,7 @@ return {
             }
         end,
     },
-    -- Flutter
+    --- Flutter
     {
         'akinsho/flutter-tools.nvim',
         lazy = false,

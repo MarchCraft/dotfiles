@@ -55,7 +55,13 @@
         {
           useGlobalPkgs = true;
           useUserPackages = true;
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = {
+            inherit inputs;
+            pkgs-master = import inputs.nixpkgs-master {
+              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
+          };
           sharedModules = [
             inputs.sops.homeManagerModules.sops
           ];
