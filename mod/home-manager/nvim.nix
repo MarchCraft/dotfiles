@@ -36,11 +36,12 @@
       texlab
       vscode-langservers-extracted
       zls
-      vscode-extensions.vadimcn.vscode-lldb.adapter
+      stable.vscode-extensions.vadimcn.vscode-lldb.adapter
       vscode-extensions.vscjava.vscode-java-debug
       vscode-extensions.vscjava.vscode-java-test
       jdt-language-server
       kotlin-language-server
+      gdb
       # other stuff
       cargo
       rustfmt
@@ -52,6 +53,7 @@
       nixpkgs-fmt
       gcc
       git # for lazy
+      python312Packages.six
       # for tex preview
       zathura
       texliveFull

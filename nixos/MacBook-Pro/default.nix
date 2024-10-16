@@ -74,7 +74,7 @@
   marchcraft.services.printing.enable = true;
 
   marchcraft.greeter.enable = true;
-  marchcraft.greeter.hyprland = true;
+  marchcraft.greeter.command = "Hyprland";
   marchcraft.desktop.swaylock.enable = true;
 
   marchcraft.audio.enable = true;
@@ -89,6 +89,7 @@
   };
 
   networking.hostName = "MacBook-Pro";
+  networking.nameservers = [ "100.64.0.5" "9.9.9.9" ];
 
   users.defaultUserShell = pkgs.fish;
 
