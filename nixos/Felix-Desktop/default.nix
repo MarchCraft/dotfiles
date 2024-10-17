@@ -65,7 +65,6 @@
   marchcraft.services.printing.enable = true;
 
   marchcraft.greeter.enable = true;
-  marchcraft.greeter.hyprland = true;
   marchcraft.desktop.swaylock.enable = true;
 
   marchcraft.audio.enable = true;

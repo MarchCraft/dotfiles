@@ -36,6 +36,7 @@
 
 
   marchcraft.desktop.hyprland.enable = true;
+  marchcraft.desktop.hyprland.keyboard_layout = "us";
   marchcraft.desktop.swaync.enable = true;
   marchcraft.desktop.apps.kitty.enable = true;
   marchcraft.desktop.swayidle.enable = true;
