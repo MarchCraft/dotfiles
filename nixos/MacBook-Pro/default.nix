@@ -74,7 +74,7 @@
   marchcraft.services.printing.enable = true;
 
   marchcraft.greeter.enable = true;
-  marchcraft.greeter.command = "Hyprland";
+  marchcraft.greeter.command = "sway";
   marchcraft.desktop.swaylock.enable = true;
 
   marchcraft.audio.enable = true;

@@ -1,37 +1,4 @@
-function program(cmd)
-    local core = require("core")
-    vim.cmd("!" .. cmd)
-    local root_path = core.file.root_path()
-    local target_dir = root_path .. "./."
-    if core.file.file_or_dir_exists(target_dir) then
-        local executable = {}
-        for path, path_type in vim.fs.dir(target_dir) do
-            if path_type == "file" then
-                local perm = vim.fn.getfperm(target_dir .. path)
-                if string.match(perm, "x", 3) then
-                    table.insert(executable, path)
-                end
-            end
-        end
-        if #executable == 1 then
-            return target_dir .. executable[1]
-        else
-            vim.ui.select(executable, { prompt = "Select executable" }, function(choice)
-                if not choice then
-                    return
-                end
-                return target_dir .. choice
-            end)
-        end
-    else
-        vim.ui.input({ prompt = "Path to executable: ", default = root_path .. "./." }, function(input)
-            return input
-        end)
-    end
-end
-
 return {
-    "niuiic/core.nvim",
     {
         "mfussenegger/nvim-dap",
         dependencies = {
@@ -44,7 +11,53 @@ return {
             local dap = require "dap"
             local ui = require "dapui"
 
-            local dap = require('dap')
+            local function find_program(search_paths)
+                return function()
+                    return coroutine.create(function(run)
+                        local maybe_root = vim.fs.find(
+                            { "Makefile", "Cargo.lock", "build.zig", "meson.build", ".git" },
+                            { upward = true, path = vim.fn.expand("%:p:h") }
+                        )
+
+                        local root = next(maybe_root) and vim.fs.dirname(maybe_root[1]) or vim.fn.getcwd()
+
+                        -- find all executables in search paths
+                        local executables = {}
+
+                        for _, search in ipairs(search_paths) do
+                            local dir = vim.fs.joinpath(root, search)
+                            for child, path_type in vim.fs.dir(dir) do
+                                if path_type == "file" then
+                                    local perm = vim.fn.getfperm(vim.fs.joinpath(dir, child))
+                                    if string.match(perm, "x", 3) then
+                                        table.insert(executables, vim.fs.joinpath(search, child))
+                                    end
+                                end
+                            end
+                        end
+
+                        local theexe;
+
+                        if #executables == 1 then
+                            theexe = executables[1]
+                            vim.notify("Debugging " .. theexe)
+                            coroutine.resume(run, vim.fs.joinpath(root, theexe))
+                        elseif #executables > 1 then
+                            vim.ui.select(executables, { prompt = "Select executable" }, function(choice)
+                                if not choice then
+                                    coroutine.resume(run, dap.ABORT)
+                                end
+                                vim.notify("Debugging " .. choice)
+                                coroutine.resume(run, vim.fs.joinpath(root, choice))
+                            end)
+                        else
+                            vim.notify("no executables found in search paths (root was '" .. root .. "')")
+                            coroutine.resume(run, dap.ABORT)
+                        end
+                    end)
+                end
+            end
+
 
             dap.adapters.codelldb = {
                 type = 'server',
@@ -60,7 +73,7 @@ return {
                     name = "Launch file",
                     type = "codelldb",
                     request = "launch",
-                    program = program("make"),
+                    program = find_program({ "." }),
                     cwd = '${workspaceFolder}',
                     stopOnEntry = false,
                 },
@@ -85,7 +98,12 @@ return {
             }
 
             vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint)
-            vim.keymap.set("n", "<leader>gb", dap.run_to_cursor)
+            vim.keymap.set("n", "<leader>bc", function()
+                dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
+            end)
+            vim.keymap.set("n", "<leader>db", function()
+                require("dapui").toggle()
+            end)
 
             vim.keymap.set("n", "<leader>?", function()
                 require("dapui").eval(nil, { enter = true })
