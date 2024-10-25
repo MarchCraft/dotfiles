@@ -13,6 +13,11 @@
     };
     allowUnfree = lib.mkEnableOption "allow unfree packages in both home manager and nixos";
     enableChannels = lib.mkEnableOption "enable channels";
+    extraNixConfFile = lib.mkOption {
+      description = "path to file to include in nix.conf";
+      type = lib.types.nullOr lib.types.path;
+      default = null;
+    };
   };
 
   config =
@@ -45,6 +50,10 @@
 
           registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
           nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+          extraOptions =
+            lib.optionalString
+              (opts.extraNixConfFile != null)
+              "!include ${opts.extraNixConfFile}";
         };
 
       programs.nh.enable = true;

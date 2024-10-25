@@ -23,13 +23,52 @@
   environment.systemPackages = [
     pkgs.tailscale
     pkgs.stable.element-desktop
-    pkgs.cinny-desktop
+    pkgs.thunderbird
+    pkgs.iamb
+    pkgs.tangram
+    pkgs.nheko
   ];
 
+  sops.secrets.nix-conf = {
+    sopsFile = ../secrets/nix-conf;
+    format = "binary";
+  };
+
   nixpkgs.config.permittedInsecurePackages = [
-    "cinny-unwrapped-4.1.0"
-    "cinny-4.1.0"
+    "olm-3.2.16"
   ];
+
+  boot = {
+
+    plymouth = {
+      enable = true;
+      theme = "rings";
+      themePackages = with pkgs; [
+        # By default we would install all themes
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [ "rings" ];
+        })
+      ];
+    };
+
+    # Enable "Silent Boot"
+    consoleLogLevel = 0;
+    initrd.verbose = false;
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+    ];
+    # Hide the OS choice for bootloaders.
+    # It's still possible to open the bootloader list by pressing any key
+    # It will just not appear on screen unless a key is pressed
+    loader.timeout = 2;
+
+  };
 
   virtualisation.docker.enable = true;
 
@@ -44,6 +83,7 @@
 
   marchcraft.bootconfig.enable = true;
   marchcraft.nixconfig.enable = true;
+  marchcraft.nixconfig.extraNixConfFile = config.sops.secrets.nix-conf.path;
   marchcraft.nixconfig.allowUnfree = true;
   security.polkit.enable = true;
 
