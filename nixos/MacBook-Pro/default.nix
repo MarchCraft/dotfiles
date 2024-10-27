@@ -31,6 +31,7 @@
 
   sops.secrets.nix-conf = {
     sopsFile = ../secrets/nix-conf;
+    mode = "444";
     format = "binary";
   };
 
@@ -83,7 +84,7 @@
 
   marchcraft.bootconfig.enable = true;
   marchcraft.nixconfig.enable = true;
-  marchcraft.nixconfig.extraNixConfFile = config.sops.secrets.nix-conf.path;
+  # marchcraft.nixconfig.extraNixConfFile = config.sops.secrets.nix-conf.path;
   marchcraft.nixconfig.allowUnfree = true;
   security.polkit.enable = true;
 
@@ -109,6 +110,7 @@
       "NothingPhone"
       "FelixPhone"
       "UdoLandenberg"
+      "bUm gast"
     ];
   };
   marchcraft.services.printing.enable = true;

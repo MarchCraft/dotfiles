@@ -139,7 +139,27 @@ return {
                 },
             }
 
-            require('lspconfig').nixd.setup {}
+            require('lspconfig').nixd.setup {
+                cmd = { "nixd" },
+                settings = {
+                    nixd = {
+                        nixpkgs = {
+                            expr = "import <nixpkgs> {}",
+                        },
+                        options = {
+                            nixos = {
+                                expr = '(builtins.getFlake "self").nixosConfigurations.marchcraft.options'
+                            },
+                            teenix = {
+                                expr = '(builtins.getFlake "/home/felix/dev/fscs/teenix").nixosConfigurations.teenix.options'
+                            }
+                        },
+                        formatting = {
+                            command = { "nixfmt" }
+                        },
+                    }
+                }
+            }
             require('lspconfig').kotlin_language_server.setup {}
             require('lspconfig').clangd.setup({})
             require('lspconfig').texlab.setup({})

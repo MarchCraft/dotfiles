@@ -59,7 +59,7 @@
       texliveFull
       nodejs
       yarn
-      openjdk17
+      openjdk21
     ];
 
     home.sessionVariables = {

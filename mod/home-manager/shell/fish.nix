@@ -36,7 +36,7 @@
       interactiveShellInit = ''
         set fish_greeting
         fastfetch
-        bind \cf "fd --full-path ~/dev/ -d 2 | fzf | xargs vi"
+        bind \cf "fd --full-path ~/dev/ -d 3 | fzf | xargs vi"
       '';
 
     };

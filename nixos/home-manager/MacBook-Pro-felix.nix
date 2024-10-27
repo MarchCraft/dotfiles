@@ -13,6 +13,7 @@
     installTools = true;
     fish.enable = true;
     starship.enable = true;
+    tmux.enable = true;
   };
 
   marchcraft.git.enable = true;

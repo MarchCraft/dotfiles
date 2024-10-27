@@ -108,7 +108,6 @@
             { command = "autotiling"; always = true; }
             { command = "wayvnc"; }
             { command = "swaync"; }
-            { command = "armcord"; }
           ];
 
           assigns = {
@@ -160,7 +159,7 @@
               '';
             in
             lib.mkOptionDefault {
-              "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty";
+              "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty -e tmux attach || tmux";
               "${modifier}+c" = "kill";
               "${modifier}+w" = "exec ${pkgs.stable.firefox}/bin/firefox";
               "${modifier}+r" = "exec ${pkgs.rofi-wayland}/bin/rofi -show drun -show-icons -dpi 120";

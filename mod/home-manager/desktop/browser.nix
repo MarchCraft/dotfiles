@@ -135,7 +135,7 @@
               in
               {
                 "Youtube" = define "yt" "youtube.com/results?search_query={searchTerms}" "www.youtube.com/favicon.ico";
-                "Nix Packages" = define "nixpkg" "search.nixos.org/packages?query={searchTerms}" "nixos.wiki/favicon.png";
+                "Nix Packages" = define "nixpkg" "https://search.xn--nschtos-n2a.de/" "nixos.wiki/favicon.png";
                 "Nix Options" = define "nixopt" "search.nixos.org/options?query={searchTerms}" "nixos.wiki/favicon.png";
                 "Home Manager Options" = define "homeopt" "home-manager-options.extranix.com/?query={searchTerms}" "nixos.wiki/favicon.png";
                 "Searchix" = define "searchix" "https://searchix.alanpearce.eu/all/search?query={searchTerms}" "nixos.wiki/favicon.png";
