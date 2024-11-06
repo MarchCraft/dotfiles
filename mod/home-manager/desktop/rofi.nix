@@ -26,12 +26,6 @@
         rofi-bluetooth
       ];
 
-      sops.secrets.rbw = {
-        format = "binary";
-        sopsFile = ../../../nixos/secrets/rbw;
-        # path = "%%r/test.txt";
-      };
-
       programs.rofi =
         {
           enable = true;
