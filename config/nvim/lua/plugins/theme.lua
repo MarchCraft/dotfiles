@@ -7,7 +7,6 @@ return {
         lazy = false,
         config = function()
             require("catppuccin").setup({
-
                 flavour = "mocha", -- latte, frappe, macchiato, mocha
                 background = {     -- :h background
                     light = "latte",
@@ -132,5 +131,35 @@ return {
             })
             vim.notify = require("notify")
         end
+    },
+    {
+        "folke/zen-mode.nvim",
+        keys = {
+            { "<leader>zz", "<cmd>ZenMode<CR>" },
+        },
+    },
+    {
+        "folke/twilight.nvim",
+        opts = {
+            dimming = {
+                alpha = 0.1,
+                color = { "Normal", "#ffffff" },
+                term_bg = "#000000",
+                inactive = false,
+            },
+            context = 10,
+            treesitter = true,
+            expand = {
+                "function",
+                "method",
+                "table",
+                "if_statement",
+            },
+            exclude = {},
+        },
+        keys = {
+            { "<leader>zt", "<cmd>Twilight<CR>" },
+        },
+
     }
 }

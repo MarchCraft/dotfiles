@@ -37,7 +37,7 @@
 
   marchcraft.misc.enable = true;
 
-  marchcraft.desktop.sway.enable = true;
+  marchcraft.desktop.wayfire.enable = true;
 
   marchcraft.desktop.swaync.enable = true;
   marchcraft.desktop.apps.kitty.enable = true;

@@ -26,8 +26,6 @@
       };
 
       settings = {
-        background_opacity = "0.94";
-        dynamic_background_opacity = "yes";
         confirm_os_window_close = 0;
         foreground = "#CDD6F4";
         background = "#1E1E2E";

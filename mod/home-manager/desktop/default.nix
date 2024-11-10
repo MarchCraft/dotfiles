@@ -9,6 +9,7 @@
     ./river
     ./sway
     ./hyprland
+    ./wayfire
     ./wayvnc.nix
   ];
 }

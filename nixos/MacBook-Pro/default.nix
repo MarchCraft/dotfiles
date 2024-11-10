@@ -27,7 +27,13 @@
     pkgs.iamb
     pkgs.tangram
     pkgs.nheko
+    pkgs.usbmuxd
+    pkgs.libimobiledevice
+
   ];
+  programs.wayfire.enable = true;
+  services.usbmuxd.enable = true;
+
 
   sops.secrets.nix-conf = {
     sopsFile = ../secrets/nix-conf;
@@ -116,7 +122,7 @@
   marchcraft.services.printing.enable = true;
 
   marchcraft.greeter.enable = true;
-  marchcraft.greeter.command = "sway";
+  marchcraft.greeter.command = "wayfire";
   marchcraft.desktop.swaylock.enable = true;
 
   marchcraft.audio.enable = true;
@@ -131,7 +137,7 @@
   };
 
   networking.hostName = "MacBook-Pro";
-  networking.nameservers = [ "100.64.0.5" "9.9.9.9" ];
+  networking.nameservers = [ "9.9.9.9" ];
 
   users.defaultUserShell = pkgs.fish;
 

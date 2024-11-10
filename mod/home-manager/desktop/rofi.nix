@@ -1,6 +1,7 @@
 { config
 , lib
 , pkgs
+, pkgs-master
 , ...
 }: {
   options.marchcraft.rofi =
@@ -29,7 +30,7 @@
       programs.rofi =
         {
           enable = true;
-          package = pkgs.rofi-wayland-unwrapped;
+          package = pkgs.rofi-wayland;
           theme =
             let
               inherit (config.lib.formats.rasi) mkLiteral;

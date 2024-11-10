@@ -23,7 +23,7 @@ return {
                 end
             },
             {
-                '<C-f>',
+                '<C-p>',
                 "",
                 callback = function()
                     require("telescope.builtin").git_files({})

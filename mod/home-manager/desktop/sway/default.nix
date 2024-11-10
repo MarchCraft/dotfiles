@@ -161,7 +161,7 @@
             lib.mkOptionDefault {
               "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty -e tmux attach || tmux";
               "${modifier}+c" = "kill";
-              "${modifier}+w" = "exec ${pkgs.stable.firefox}/bin/firefox";
+              "${modifier}+w" = "exec ${pkgs.firefox}/bin/firefox";
               "${modifier}+r" = "exec ${pkgs.rofi-wayland}/bin/rofi -show drun -show-icons -dpi 120";
               "${modifier}+Shift+r+" = "exec rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history -calc-command \"echo -n '{result}' | wl-copy\"";
               "${modifier}+p" = "exec ${pkgs.rofi-rbw-wayland}/bin/rofi-rbw";

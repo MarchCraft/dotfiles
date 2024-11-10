@@ -1,7 +1,7 @@
 { config
 , lib
 , pkgs
-, pkgs-master
+, pkgs-stable
 , ...
 }: {
   options.marchcraft.misc.enable = lib.mkEnableOption "install misc";
@@ -16,14 +16,13 @@
       pkgs.spotify-qt
       pkgs.spot
       pkgs.wayvnc
-      pkgs.wdisplays
       pkgs.wl-mirror
       pkgs.wlsunset
       pkgs.playerctl
       pkgs.parsec-bin
       pkgs.pkg-config
       pkgs.openssl
-      pkgs-master.obsidian
+      pkgs-stable.obsidian
     ];
 
 

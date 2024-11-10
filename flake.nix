@@ -30,6 +30,7 @@
     , home-manager
     , impermanence
     , nixpkgs-master
+    , nixpkgs-stable
     , sops
     , ...
     } @ inputs:
@@ -46,18 +47,36 @@
 
       forAllSystems = lib.genAttrs systems;
 
-      mkSystem = hostname: {
+      hostnameToSystem = {
+        "MacBook-Pro" = "aarch64-linux"; # or "aarch64-darwin" if applicable
+        "Felix-Desktop" = "x86_64-linux"; # specify the correct architecture
+      };
+
+      mkSystem = hostname: system: {
         "${hostname}" = lib.nixosSystem {
           specialArgs = {
             inherit inputs outputs;
             pkgs-master = import nixpkgs-master {
-              system = "x86_64-linux";
+              system = system; # Now dynamic
+              config.allowUnfree = true;
+            };
+            pkgs-stable = import nixpkgs-stable {
+              system = system; # Also dynamic
               config.allowUnfree = true;
             };
           };
           modules = [ ./nixos/${hostname} ];
         };
       };
+
+      genSystems = hostnames:
+        builtins.foldl'
+          (acc: hostname:
+            let system = hostnameToSystem.${hostname}; # Get system from mapping
+            in lib.trivial.mergeAttrs acc (mkSystem hostname system)
+          )
+          { }
+          hostnames;
 
       devShell =
         system:
@@ -79,8 +98,6 @@
             };
         };
 
-      genSystems = hostnames:
-        builtins.foldl' lib.trivial.mergeAttrs { } (builtins.map mkSystem hostnames);
     in
     {
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
