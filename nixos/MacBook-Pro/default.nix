@@ -31,7 +31,6 @@
     pkgs.libimobiledevice
 
   ];
-  programs.wayfire.enable = true;
   services.usbmuxd.enable = true;
 
 

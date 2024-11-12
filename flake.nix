@@ -10,8 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hm = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:0x5a4/home-manager/init-wayfire";
     };
     nur.url = "github:nix-community/NUR";
     nix-index-database = {

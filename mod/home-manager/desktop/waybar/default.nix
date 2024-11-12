@@ -29,7 +29,6 @@ in
           modules-left = [
             "clock"
             "custom/weather"
-            "sway/workspaces"
             "custom/agenda"
             "network"
           ];
