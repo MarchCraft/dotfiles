@@ -42,7 +42,7 @@
 
   marchcraft.users.felix = {
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [ "wheel" "docker" "libvirtd" ];
     hashedPasswordFile = config.sops.secrets.felix_pwd.path;
     home-manager = {
       enable = true;

@@ -6,5 +6,6 @@
     ./cups.nix
     ./pika.nix
     ./Mac-spoofing.nix
+    ./easyroam.nix
   ];
 }

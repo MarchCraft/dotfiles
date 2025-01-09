@@ -19,6 +19,7 @@ in
       ".config/waybar/style.css".source = ../../../../config/waybar/style.css;
       ".config/waybar/scripts".source = ../../../../config/waybar/scripts;
     };
+    stylix.targets.waybar.enable = false;
     programs.waybar = {
       enable = true;
       settings = {

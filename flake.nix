@@ -10,24 +10,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hm = {
-      url = "github:0x5a4/home-manager/init-wayfire";
+      url = "github:nix-community/home-manager";
     };
     nur.url = "github:nix-community/NUR";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
+    apple-silicon-support.url = "github:marchcraft/nixos-apple-silicon/fix";
     impermanence.url = "github:nix-community/impermanence";
     betterfox.url = "github:HeitorAugustoLN/betterfox-nix";
     templates.url = "github:nixos/templates";
+    nix-easyroam.url = "github:0x5a4/nix-easyroam";
+    nixos-aarch64-widevine.url = "github:epetousis/nixos-aarch64-widevine";
+    stylix = {
+      url = "github:0x5a4/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     { self
     , nixpkgs
-    , home-manager
-    , impermanence
     , nixpkgs-master
     , nixpkgs-stable
     , sops
@@ -61,6 +65,10 @@
             };
             pkgs-stable = import nixpkgs-stable {
               system = system; # Also dynamic
+              config.allowUnfree = true;
+            };
+            pkgs-x86 = import nixpkgs-stable {
+              system = "x86_64-linux";
               config.allowUnfree = true;
             };
           };

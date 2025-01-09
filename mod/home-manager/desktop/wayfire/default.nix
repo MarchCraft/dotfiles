@@ -27,21 +27,37 @@
         swww
       ];
 
-      home.pointerCursor = {
-        gtk.enable = true;
-        package = pkgs.catppuccin-cursors.mochaMauve;
-        name = "catppuccin-mocha-mauve-cursors";
-        size = 40;
-        x11 = {
-          enable = true;
-          defaultCursor = config.home.pointerCursor.name;
+      stylix = {
+        fonts = {
+          monospace = {
+            package = pkgs.monocraft;
+            name = "Monocraft Nerd Font Complete";
+          };
+
+          sansSerif = {
+            package = pkgs.noto-fonts;
+            name = "Noto Sans";
+          };
+
+          serif = {
+            package = pkgs.noto-fonts;
+            name = "Noto Serif";
+          };
         };
+
+        cursor = {
+          package = pkgs.rose-pine-cursor;
+          name = "BreezeX-RosePine-Linux";
+        };
+
+        opacity.terminal = 0.94;
       };
 
       wayland.windowManager.wayfire = {
         enable = true;
         plugins = [
           pkgs.wayfirePlugins.wcm
+          pkgs.wayfirePlugins.windecor
         ];
         settings = {
           command =
@@ -74,18 +90,22 @@
               binding_4 = "<super> KEY_M";
               command_4 = "wlogout";
 
-              binging_100 = "XF86AudioMute";
-              command_100 = "pamixer -t";
-              binding_101 = "XF86AudioLowerVolume";
-              command_101 = "pamixer -d 5";
-              binding_102 = "XF86AudioRaiseVolume";
-              command_102 = "pamixer -i 5";
+              binding_volume_mute = "KEY_MUTE";
+              command_volume_mute = "pamixer -t";
+              repeatable_binding_volume_down = "KEY_VOLUMEDOWN";
+              command_volume_down = "pamixer -d 5";
+              repeatable_binding_volume_up = "KEY_VOLUMEUP";
+              command_volume_up = "pamixer -i 5";
 
-              binding_103 = "XF86MonBrightnessDown";
-              command_103 = "brightnessctl set 10%-";
-              binding_104 = "XF86MonBrightnessUp";
-              command_104 = "brightnessctl set 10%+";
+              binding_brightness_down = "KEY_BRIGHTNESSDOWN";
+              command_brightness_down = "brightnessctl set 5%-";
+              binding_brightness_up = "KEY_BRIGHTNESSUP";
+              command_brightness_up = "brightnessctl set 5%+";
 
+              bindung_keyboard_brightness_down = "<super> KEY_BRIGHTNESSDOWN";
+              command_keyboard_brightness_down = "brightnessctl -d kbd_backlight set 5%-";
+              bindung_keyboard_brightness_up = "<super> KEY_BRIGHTNESSUP";
+              command_keyboard_brightness_up = "brightnessctl -d kbd_backlight set 5%+";
             };
           autostart =
             let
@@ -99,6 +119,7 @@
               autostart_1 = "swayidle";
               autostart_2 = "swaync";
               autostart_3 = "swww init && swww img --transition-type none ${background}";
+              autostart_4 = "${pkgs.mpris-scrobbler}/bin/mpris-scrobbler";
             };
           output = {
             depth = 8;
@@ -110,7 +131,11 @@
           };
           core = {
             close_top_view = "<super> KEY_C";
-            plugins = "alpha animate autostart command cube expo fast-switcher fisheye foreign-toplevel gtk-shell idle invert move oswitch place resize shortcuts-inhibit switcher vswitch wayfire-shell window-rules wobbly wrot zoom simple-tile vswipe wm-actions view-shot session-lock hide-cursor decoration ipc pixdecor";
+            plugins = "autostart command cube expo fisheye foreign-toplevel switcher vswitch wobbly wrot simple-tile wm-actions windecor animate";
+            preferred_decoration_mode = "server";
+          };
+          animate = {
+            close = "fire";
           };
           input = {
             xkb_layout = "de";
@@ -141,9 +166,8 @@
           wrot = {
             reset-one = "<super> <shift> KEY_R";
           };
-          decoration = {
-            title_height = 0;
-            active_color = "\\#62A0EAFF";
+          windecor = {
+            title_position = 0;
           };
         };
       };

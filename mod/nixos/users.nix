@@ -37,9 +37,11 @@
       opts = config.marchcraft.users;
     in
     {
+      users.groups.users.gid = 100;
       users.users =
         lib.attrsets.mapAttrs
           (_: value: {
+            uid = 1000;
             isNormalUser = true;
             shell = value.shell;
             hashedPasswordFile = value.hashedPasswordFile;

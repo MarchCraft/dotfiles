@@ -48,7 +48,7 @@
 
           bind g copy-mode
           set -g base-index 1
-          set -g pane-base-index 1
+          setw -g pane-base-index 1
           set-window-option -g pane-base-index 1
           bind x kill-pane
 

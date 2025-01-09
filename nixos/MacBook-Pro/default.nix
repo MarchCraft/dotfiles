@@ -2,6 +2,8 @@
 , outputs
 , config
 , pkgs
+, pkgs-x86
+, lib
 , ...
 }: {
   imports = [
@@ -14,24 +16,48 @@
     inputs.apple-silicon-support.nixosModules.apple-silicon-support
     inputs.impermanence.nixosModules.impermanence
     inputs.nur.nixosModules.nur
+    inputs.nix-easyroam.nixosModules.nix-easyroam
+    inputs.stylix.nixosModules.stylix
 
     outputs.nixosModules.marchcraft
   ];
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
   nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
+  programs.nix-ld.enable = true;
+
+  programs.nix-ld.libraries = with pkgs; [
+    # Add any missing dynamic libraries for unpackaged programs
+    # here, NOT in environment.systemPackages
+  ];
+
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+  stylix.image = pkgs.fetchurl {
+    url = "https://pbs.twimg.com/media/EDyxVvoXsAAE9Zg.png";
+    sha256 = "sha256-NRfish27NVTJtJ7+eEWPOhUBe8vGtuTw+Osj5AVgOmM=";
+  };
+
+  hardware.steam-hardware.enable = true;
 
   environment.systemPackages = [
+    pkgs.noson
     pkgs.tailscale
-    pkgs.stable.element-desktop
+    pkgs.element-desktop
     pkgs.thunderbird
     pkgs.iamb
     pkgs.tangram
     pkgs.nheko
     pkgs.usbmuxd
     pkgs.libimobiledevice
-
+    pkgs.moonlight-qt
+    pkgs.brave
+    pkgs.tidal-hifi
+    pkgs.chromium
+    pkgs.tidal
+    pkgs.easyeffects
   ];
   services.usbmuxd.enable = true;
+  environment.sessionVariables.MOZ_GMP_PATH = [ "${pkgs.widevine-cdm-lacros}/gmp-widevinecdm/system-installed" ];
 
 
   sops.secrets.nix-conf = {
@@ -45,38 +71,11 @@
   ];
 
   boot = {
-
     plymouth = {
       enable = true;
-      theme = "rings";
-      themePackages = with pkgs; [
-        # By default we would install all themes
-        (adi1090x-plymouth-themes.override {
-          selected_themes = [ "rings" ];
-        })
-      ];
+      extraConfig = "tty=tty0";
     };
-
-    # Enable "Silent Boot"
-    consoleLogLevel = 0;
-    initrd.verbose = false;
-    kernelParams = [
-      "quiet"
-      "splash"
-      "boot.shell_on_fail"
-      "loglevel=3"
-      "rd.systemd.show_status=false"
-      "rd.udev.log_level=3"
-      "udev.log_priority=3"
-    ];
-    # Hide the OS choice for bootloaders.
-    # It's still possible to open the bootloader list by pressing any key
-    # It will just not appear on screen unless a key is pressed
-    loader.timeout = 2;
-
   };
-
-  virtualisation.docker.enable = true;
 
   services.tailscale.enable = true;
 
@@ -106,7 +105,6 @@
   marchcraft.services.wifi = {
     enable = true;
     secretsFile = ../secrets/wifi;
-    hhuEduroam = true;
     networks = [
       "MonkeyIsland"
       "HHUD-Y"
@@ -116,6 +114,7 @@
       "FelixPhone"
       "UdoLandenberg"
       "bUm gast"
+      "Lingerie Nilles"
     ];
   };
   marchcraft.services.printing.enable = true;
@@ -126,10 +125,13 @@
 
   marchcraft.audio.enable = true;
   marchcraft.misc.enable = true;
+  marchcraft.servermounts.enable = true;
+  marchcraft.backup.enable = true;
 
   marchcraft.services.openssh.enable = true;
   marchcraft.services.pika.enable = true;
   marchcraft.services.yubikey.enable = true;
+  marchcraft.services.easyroam.enable = true;
   marchcraft.services.mac-spoofing = {
     enable = false;
     interface = "wlp1s0f0";
@@ -155,5 +157,22 @@
   ];
 
 
+  services.vsftpd = {
+    enable = true;
+    localUsers = true;
+    writeEnable = true;
+    allowWriteableChroot = true;
+    localRoot = "/persist/scanner";
+    extraConfig = ''
+      listen_port=21
+      pasv_min_port=3000
+      pasv_max_port=3100
+    '';
+  };
+
+  networking.firewall = {
+    allowedTCPPorts = [ 21 ];
+    allowedTCPPortRanges = [{ from = 3000; to = 3100; }];
+  };
   system.stateVersion = "23.11";
 }

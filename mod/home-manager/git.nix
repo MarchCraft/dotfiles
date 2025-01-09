@@ -22,6 +22,11 @@
         signByDefault = true;
       };
 
+      extraConfig = {
+        pull.rebase = true;
+        init.defaultBranch = "main";
+      };
+
       aliases = {
         exec = "!exec ";
         make = "!exec make ";

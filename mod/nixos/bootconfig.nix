@@ -13,7 +13,7 @@
     lib.mkIf opts.enable {
       boot.loader.systemd-boot.enable = false;
       boot.loader.efi.canTouchEfiVariables = true;
-      boot.kernelParams = [ "apple_dcp.show_notch=1" "quiet" ];
+      boot.kernelParams = [ "apple_dcp.show_notch=1" "quiet" "loglevel=3" "udev.log-priority=3" ];
 
       boot.loader.grub = {
         enable = true;

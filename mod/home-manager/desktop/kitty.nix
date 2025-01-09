@@ -14,6 +14,8 @@
       (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
     ];
 
+    stylix.targets.kitty.enable = false;
+
     programs.kitty = {
       enable = true;
 

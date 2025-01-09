@@ -27,4 +27,3 @@ require("lazy").setup({
 })
 
 require("settings")
-require("general_keybinds")

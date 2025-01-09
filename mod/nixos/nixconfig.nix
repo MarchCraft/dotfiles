@@ -30,7 +30,9 @@
           outputs.overlays.additions
           outputs.overlays.stable
           outputs.overlays.master
+          outputs.overlays.widevine_o
           inputs.nur.overlay
+          inputs.nixos-aarch64-widevine.overlays.default
         ];
 
         config.allowUnfree = opts.allowUnfree;

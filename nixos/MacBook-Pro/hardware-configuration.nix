@@ -9,14 +9,29 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "usbhid" "usb_storage" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [ "usbhid" "usb_storage" "sdhci_pci" "nvme" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
+  services = {
+    printing = {
+      enable = true;
+      browsing = true;
+      drivers = [ pkgs.canon-cups-ufr2 ];
+    };
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      publish.enable = true;
+      publish.workstation = true;
+      publish.addresses = true;
+    };
+  };
 
+  boot.initrd.systemd.enable = true;
 
   fileSystems."/" =
     {

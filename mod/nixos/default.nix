@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   imports = [
     ./services
     ./desktop
@@ -7,5 +7,7 @@
     ./nixconfig.nix
     ./bootconfig.nix
     ./audio.nix
+    ./servermounts.nix
+    ./backups.nix
   ];
 }
