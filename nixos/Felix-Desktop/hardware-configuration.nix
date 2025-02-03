@@ -10,9 +10,37 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.kernelModules = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
+
+
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  services.blueman.enable = true;
+
+  hardware.nvidia-container-toolkit.enable = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [ "intel_iommu=on" "pcie_acs_override=downstream" "vfio-pci.disable_idle_d3=1" ];
+  boot.kernelPatches = [
+    {
+      name = "add-acs-overrides";
+      patch = pkgs.fetchurl {
+        name = "add-acs-overrides.patch";
+        url =
+          "https://raw.githubusercontent.com/benbaker76/linux-acs-override/refs/heads/main/6.3/acso.patch";
+        sha256 = "1x4f3vgww7wy3im9pgj0ilwq73wb5351zk7ymk27s3mchr8bij3f";
+      };
+    }
+  ];
+  boot.kernelModules = [ "kvm-intel" ];
+
+  security.polkit.enable = true;
+
+
 
   fileSystems."/" =
     {

@@ -2,6 +2,7 @@
 , outputs
 , config
 , pkgs
+, pkgs-master
 , ...
 }: {
   imports = [
@@ -15,11 +16,29 @@
 
     outputs.nixosModules.marchcraft
   ];
-
   environment.systemPackages = [
     pkgs.stable.element-desktop
     pkgs.parsec-bin
+    pkgs.virt-manager
+    pkgs.virt-viewer
+    pkgs.spice
+    pkgs.spice-gtk
+    pkgs.spice-protocol
+    pkgs.win-virtio
+    pkgs.win-spice
+    pkgs.adwaita-icon-theme
+    pkgs.nautilus
+    pkgs-master.ultrastar-creator
   ];
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+
+
+  services.open-webui.enable = true;
+  services.open-webui.host = "0.0.0.0";
 
   programs.steam.enable = true;
   marchcraft.desktop.remotePlay.enable = true;
@@ -33,6 +52,7 @@
     sopsFile = ../secrets/felix_pwd;
     neededForUsers = true;
   };
+
 
 
   marchcraft.bootconfig.enable = true;
@@ -50,6 +70,20 @@
     };
   };
 
+  programs.dconf.enable = true;
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf.enable = true;
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+      };
+    };
+    spiceUSBRedirection.enable = true;
+  };
+  services.spice-vdagentd.enable = true;
+
   marchcraft.services.wifi = {
     enable = true;
     secretsFile = ../secrets/wifi;
@@ -65,6 +99,7 @@
   marchcraft.services.printing.enable = true;
 
   marchcraft.greeter.enable = true;
+  marchcraft.greeter.command = "wayfire";
   marchcraft.desktop.swaylock.enable = true;
 
   marchcraft.audio.enable = true;
@@ -95,6 +130,7 @@
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDF5vhkEdRPrHHLgCMxm0oSrHU+uPM9W45Kdd/BKGreRp5vAA70vG3xEjzGdzIlhF0/qOZisA3MpjnMhW3l+uogTzuD3vDZdgT/pgoZEy2CIGIp9kbK5pQHhEhMbWi5NS5o8F095ZZRjBwRE1le9GmBZbYj3VUHSVaRxv+gZpSdqKBo9Arvr4L/lyTdpYgGEHUParWX+UtkBXSd0mO91h6XM8hEqLJv+ufbgA4az0O8sNTz2Uh+k3kN2sQn11O3ekGk4M9fpDP9+C17C9fbMpMATbFazl5pWnPqgLPrvNCs8dkKEJCRPgTgXHYaOppZ7hprJvMpOYW/IYyYo/1T2j6ELZJ7apMJNlOhWqVDnM5DGSIf65oNGZLiAupq1X+s6IoSEZOcAuWfTlJgRySdNgh/BSiKvmKG0nK8/z2ERN0/shE9/FT7pMyEfxHzNdl4PMvpPKZkucX1z4Pb3DtR684WRxD94lj5Nqh/3CH0EeLMJPwyFsOBNdsitqZGLHpGbOLZ3VDdjbOl2Qjgyl/VwzhAWNYUpyxZj3ZpFlHyDE0y38idXG7L0679THKzE62ZAnPdHHTP5RdWtRUqpPyO/nVXErOr8j55oO27C6jD0n5L4tU3QgSpjMOvomk9hbPzKEEuDGG++gSj9JoVHyAMtkWiYuamxR1UY1PlYBskC/q77Q== openpgp:0xB802445D"
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9YmsoGRK/KiU4zOV342MXdPV/EV7u7UyPHd9oMkSzFrKVSVclgKKo5RZRjSMHn4rvSPSOJlOodgSe+xvS46uSDE4WaF97kE2rCg71XXEPD5mbNY5fCqTtKBeYvePwNff4VfqQAXiNBl4Wt0dM07hrDai631l659LNHVa8/kZPtn//sDIJ31MlAxVW1MGfEbwIoMKlaAEQsVVVScQV7w22f1oQDBthkoHzHdEVFAr1NfQh2+Y6YOqS/eLrtnjI6UguU/jQHLkNxjlr5UXNmipoaHyNOdlJX24HgOK+XcTa9LqWFxSX24F24PO59NL0p83Ww9V6LR1oodqghEQrI9JItry5jQfd5cY5FfQh8cvEhURuHhguqNYzLIWyrOrWsTk4Im6+OtaACxxRxHbmofJNxCVlX4mEeENOVa7lGCqEsoL3mNOZ4JKCM7Xorr8/yMfcIIv2uLpa+HofRuUt+KK0EMRC1mqGbY79nOpvGAi/piV1S+A+0eLqtOnIr51myEf73I7yrO6ZHV9SixGQPYJuIx7bhDiKNEq+q0K3EugUq126s5bm7yRryRpeKv8HNvcKHUnwl7moAoBYr4PSeGp2z4S80fLO2IT2fJqxb/gSGu9FdA6TWyouqXlDsAK/XZ8Iw43F6r87f99rBvdJ/rJXozwS4VZ9u84H/YQv20Cy6Q=="
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCSzPwzWF8ETrEKZVrcldR5srYZB0debImh6qilNlH4va8jwVT835j4kTnwgDr/ODd5v0LagYiUVQqdC8gX/jQA9Ug9ju/NuPusyqro2g4w3r72zWFhIYlPWlJyxaP2sfUzUhnO0H2zFt/sEe8q7T+eDdHfKP+SIdeb9v9/oCAz0ZVUxCgkkK20hzhVHTXXMefjHq/zm69ygW+YpvWmvZ7liIDAaHL1/BzOtuMa3C8B5vP3FV5bh7MCSXyj5mIvPk7TG4e673fwaBYEB+2+B6traafSaSYlhHEm9H2CiRfEUa2NrBRHRv1fP4gM60350tUHLEJ8hM58LBymr3NfwxC00yODGfdaaWGxW4sxtlHw57Ev6uNvP2cN551NmdlRX7qKQKquyE4kUWHPDjJMKB8swj3F4/X6iAlGZIOW3ivcf+9fE+FUFA45MsbrijSWWnm/pOe2coP1KMvFNa6HMzCMImCAQPKpH5+LfT7eqfenDxgsJR5zm3LbrMJD6QhnBqPJsjH6gDzE17D5qctyMFy0DOad9+aVUWry1ymywSsjHuhMBcgQOgk3ZNdHIXQn5y6ejWaOJnWxZHFPKEeiwQK8LuE3cAj18p8r/rBnwhn7KHzlAgY0pgEZKrDSKIXDutFF9Y49hHyGpe3oI+oscBmH2xr0au/eNKlr/J85b9FdaQ== cardno:25_432_707"
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCtvtqwAan/ubiGOe01Vhda6fTlI8AP3PQQ4RsQ+GqPGjH5jVOT8WUm4a1Ed7kC26pesUgC/67wu2PhlqfhzagaPqDV+Yt/HaOSG7fB3PYLyewt66l1P/3X5gszZ5Z1NGcx0xj8sWB1Y88i9BKO3V3LbnEY/XXSgE4XxxMRlXJydt/5Hq8zodd8mXFJWWbNS+xoTM2fRcKn8Gq72qU+LTNDV8xmzLjMG/PxL/4lveKusvBMtK/V9eKkd/Mt9Wen/ICR0JlcNqxfkt+kVt+YXJhppLOiNDxVzdK88wACK1DMHxBSQjcSRC9/USicmal7hApxMB41BLqgbDmtT22Umyf1kSSicaN7+IfijoGuT084Tu5zc2YGFSAe9iRet1i4glXazrgdsk6I/3FQQc1c1eC8ni3j36/9V8FBIe7+GmL+czdR0zSnL1VMIEchps9YnVHNFOkrgMKOV84mm23Zrf7sXFme7I5oXRXXP50taqCfCUbK8uwT6S1FIZhvn23GFM3IllIH8wY7uLtpOB5TxPLmZJjgXXo8eRHqF1wnYbytU1V+MlTP6MaeWzZnOMhKEK5D9ouCTA9iYNi0cGbDJLldMcwYnd+2/kFd0p2iQcWUqebC1DnL44biNP0Hc9d8rF/jc88aotpTCVEosSTAn++b4aVdYP8TAGN5GxSWqKpnCQ== u0_a250@localhost"
   ];
 
 

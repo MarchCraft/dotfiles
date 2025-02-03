@@ -12,6 +12,7 @@
     installTools = true;
     fish.enable = true;
     starship.enable = true;
+    tmux.enable = true;
   };
 
   marchcraft.git.enable = true;
@@ -35,8 +36,9 @@
   marchcraft.misc.enable = true;
 
 
-  marchcraft.desktop.hyprland.enable = true;
-  marchcraft.desktop.hyprland.keyboard_layout = "us";
+  marchcraft.desktop.wayfire.enable = true;
+  marchcraft.desktop.wayfire.keyboard_layout = "us";
+  marchcraft.desktop.wayfire.super_key = "super";
   marchcraft.desktop.swaync.enable = true;
   marchcraft.desktop.apps.kitty.enable = true;
   marchcraft.desktop.swayidle.enable = true;

@@ -16,13 +16,6 @@
         enable = true;
         openFirewall = true;
         capSysAdmin = true;
-        applications.apps = [
-          {
-            name = "PrismLauncher";
-            cmd = "${pkgs.prismlauncher}/bin/prismlauncher";
-            auto-detach = "true";
-          }
-        ];
       };
     };
 }
