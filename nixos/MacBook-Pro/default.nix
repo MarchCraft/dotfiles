@@ -15,7 +15,7 @@
     inputs.nix-index-database.nixosModules.nix-index
     inputs.apple-silicon-support.nixosModules.apple-silicon-support
     inputs.impermanence.nixosModules.impermanence
-    inputs.nur.nixosModules.nur
+    inputs.nur.modules.nixos.default
     inputs.nix-easyroam.nixosModules.nix-easyroam
     inputs.stylix.nixosModules.stylix
 
@@ -65,8 +65,6 @@
     pkgs.element-desktop
     pkgs.thunderbird
     pkgs.iamb
-    pkgs.tangram
-    pkgs.nheko
     pkgs.usbmuxd
     pkgs.libimobiledevice
     pkgs.moonlight-qt
@@ -126,17 +124,7 @@
   marchcraft.services.wifi = {
     enable = true;
     secretsFile = ../secrets/wifi;
-    networks = [
-      "MonkeyIsland"
-      "HHUD-Y"
-      "iPhoneF"
-      "WIFI@DB"
-      "NothingPhone"
-      "FelixPhone"
-      "UdoLandenberg"
-      "bUm gast"
-      "Lingerie Nilles"
-    ];
+    networks = { };
   };
   marchcraft.services.printing.enable = true;
 

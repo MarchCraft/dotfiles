@@ -2,7 +2,7 @@
   description = "MarchCraft's nixos config. ein satz mit x, das war wohl nix";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/?rev=a32f745778c5ae72a07213503f9889ec7641939f";
+    nixpkgs.url = "github:nixos/nixpkgs";
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     sops = {
@@ -17,7 +17,7 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    apple-silicon-support.url = "github:marchcraft/nixos-apple-silicon/fix";
+    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
     impermanence.url = "github:nix-community/impermanence";
     betterfox.url = "github:HeitorAugustoLN/betterfox-nix";
     templates.url = "github:nixos/templates";

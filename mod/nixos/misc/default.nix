@@ -7,14 +7,8 @@
   options.marchcraft.misc.enable = lib.mkEnableOption "install misc";
   config = lib.mkIf config.marchcraft.misc.enable {
     environment.systemPackages = [
-      pkgs.armcord
-      pkgs.zapzap
       pkgs.tidal-hifi
-      pkgs.chromium
       pkgs.prismlauncher
-      pkgs.spotifyd
-      pkgs.spotify-qt
-      pkgs.spot
       pkgs.wayvnc
       pkgs.wl-mirror
       pkgs.wlsunset
@@ -22,7 +16,6 @@
       pkgs.parsec-bin
       pkgs.pkg-config
       pkgs.openssl
-      pkgs-stable.obsidian
     ];
 
 

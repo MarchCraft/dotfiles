@@ -36,11 +36,10 @@
       texlab
       vscode-langservers-extracted
       zls
-      stable.vscode-extensions.vadimcn.vscode-lldb.adapter
+      vscode-extensions.vadimcn.vscode-lldb.adapter
       vscode-extensions.vscjava.vscode-java-debug
       vscode-extensions.vscjava.vscode-java-test
       jdt-language-server
-      kotlin-language-server
       gdb
       # other stuff
       cargo
