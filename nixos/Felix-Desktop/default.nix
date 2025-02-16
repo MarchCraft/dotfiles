@@ -12,7 +12,8 @@
     inputs.sops.nixosModules.sops
     inputs.hm.nixosModules.home-manager
     inputs.nix-index-database.nixosModules.nix-index
-    inputs.nur.nixosModules.nur
+    inputs.nur.modules.nixos.default
+    inputs.stylix.nixosModules.stylix
 
     outputs.nixosModules.marchcraft
   ];
@@ -34,8 +35,15 @@
   services.ollama = {
     enable = true;
     acceleration = "cuda";
+    host = "0.0.0.0";
   };
 
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+  stylix.image = pkgs.fetchurl {
+    url = "https://pbs.twimg.com/media/EDyxVvoXsAAE9Zg.png";
+    sha256 = "sha256-NRfish27NVTJtJ7+eEWPOhUBe8vGtuTw+Osj5AVgOmM=";
+  };
 
   services.open-webui.enable = true;
   services.open-webui.host = "0.0.0.0";
@@ -44,6 +52,8 @@
   marchcraft.desktop.remotePlay.enable = true;
 
   virtualisation.docker.enable = true;
+  virtualisation.docker.package = pkgs.docker_25;
+
 
   services.tailscale.enable = true;
 
@@ -87,7 +97,6 @@
   marchcraft.services.wifi = {
     enable = true;
     secretsFile = ../secrets/wifi;
-    hhuEduroam = true;
     networks = [
       "MonkeyIsland"
       "HHUD-Y"

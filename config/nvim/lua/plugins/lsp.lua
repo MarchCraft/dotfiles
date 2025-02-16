@@ -133,7 +133,7 @@ return {
                     ['nil'] = {
                         testSetting = 42,
                         formatting = {
-                            command = { "nixpkgs-fmt" },
+                            command = { "nixfmt-rfc-style" },
                         },
                     },
                 },

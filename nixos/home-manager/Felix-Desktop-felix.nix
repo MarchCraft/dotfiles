@@ -4,7 +4,7 @@
 }: {
   imports = [
     ../../mod/home-manager # if accessed via output, infinite recursion occurs
-    inputs.nur.hmModules.nur
+    inputs.nur.modules.homeManager.default
   ];
 
   marchcraft.shell = {
