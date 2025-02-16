@@ -5,14 +5,14 @@
 
 {
   imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
+    [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "usbhid" "usb_storage" "sdhci_pci" "nvme" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.availableKernelModules = [ "usb_storage" "usbhid" "sdhci_pci" ];
+  boot.initrd.kernelModules = [ "dm-snapshot" "vfat" "nls_cp437" "nls_iso8859-1" "usbhid" ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
+  boot.initrd.luks.yubikeySupport = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
@@ -31,41 +31,46 @@
     };
   };
 
-  boot.initrd.systemd.enable = true;
+  # boot.initrd.systemd.enable = true;
+
+  boot.initrd.luks.devices = {
+    "nixos-enc" = {
+       device = "/dev/nvme0n1p6";
+       preLVM = true;
+       yubikey = {
+         slot = 2;
+         twoFactor = true;
+         storage = {
+           device = "/dev/nvme0n1p4";
+         };
+       };
+    };
+  };
 
   fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/c7fb572f-aee9-474f-8850-4a6dd89d7b18";
+    { device = "/dev/disk/by-uuid/ed4921ac-6b56-4654-86fb-1c88b200f37f";
       fsType = "btrfs";
       options = [ "subvol=root" ];
     };
 
-  boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/534f0d54-5426-4656-a3e8-b55fcafb5de2";
-
   fileSystems."/nix" =
-    {
-      device = "/dev/disk/by-uuid/c7fb572f-aee9-474f-8850-4a6dd89d7b18";
+    { device = "/dev/disk/by-uuid/ed4921ac-6b56-4654-86fb-1c88b200f37f";
       fsType = "btrfs";
       options = [ "subvol=nix" ];
     };
 
   fileSystems."/persist" =
-    {
-      device = "/dev/disk/by-uuid/c7fb572f-aee9-474f-8850-4a6dd89d7b18";
+    { device = "/dev/disk/by-uuid/ed4921ac-6b56-4654-86fb-1c88b200f37f";
       fsType = "btrfs";
       options = [ "subvol=persist" ];
       neededForBoot = true;
     };
 
   fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/5748-1B07";
+    { device = "/dev/disk/by-uuid/5748-1B07";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
-
-  swapDevices = [ ];
-
   hardware.asahi = {
     withRust = true;
     useExperimentalGPUDriver = true;
@@ -75,6 +80,7 @@
   hardware.graphics = {
     enable = true;
   };
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -82,7 +88,6 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlan0.useDHCP = lib.mkDefault true;
-  hardware.asahi.peripheralFirmwareDirectory = ./firmware;
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

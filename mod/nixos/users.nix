@@ -1,6 +1,7 @@
 { lib
 , config
 , inputs
+, pkgs
 , ...
 }: {
   options.marchcraft.users =
@@ -60,7 +61,9 @@
           extraSpecialArgs = {
             inherit inputs;
             pkgs-master = import inputs.nixpkgs-master {
-              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
+            pkgs-stable = import inputs.nixpkgs-stable {
               config.allowUnfree = true;
             };
           };

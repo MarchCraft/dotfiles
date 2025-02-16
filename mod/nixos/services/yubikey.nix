@@ -1,11 +1,12 @@
 { lib
 , config
 , pkgs
+, pkgs-master
 , ...
 }: {
   options.marchcraft.services.yubikey.enable = lib.mkEnableOption "enable yubikey";
   config = lib.mkIf config.marchcraft.services.openssh.enable {
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs-master; [
       yubikey-personalization
       gnupg
       pinentry-qt

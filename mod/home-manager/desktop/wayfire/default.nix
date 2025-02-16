@@ -125,7 +125,7 @@
             depth = 8;
             mode = "auto";
             position = "auto";
-            scale = 2.000000;
+            scale = 2;
             transform = "normal";
             vrr = true;
           };
@@ -168,6 +168,9 @@
           };
           windecor = {
             title_position = 0;
+          };
+          animate = {
+            close_animation = "fire";
           };
         };
       };

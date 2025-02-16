@@ -14,6 +14,7 @@
     fish.enable = true;
     starship.enable = true;
     tmux.enable = true;
+    direnv.enable = true;
   };
 
   marchcraft.git.enable = true;

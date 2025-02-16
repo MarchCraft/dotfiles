@@ -7,6 +7,7 @@
     ./starship.nix
     ./fish.nix
     ./tmux.nix
+    ./direnv.nix
   ];
 
   options.marchcraft.shell = {
@@ -85,6 +86,7 @@
       gaa = "git add --all";
       gl = "git lg";
       gcm = "git commit -m";
+      y = "yazi";
     };
   };
 }

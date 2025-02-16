@@ -34,7 +34,6 @@
           inputs.nur.overlay
           inputs.nixos-aarch64-widevine.overlays.default
         ];
-
         config.allowUnfree = opts.allowUnfree;
       };
 
@@ -47,6 +46,8 @@
             experimental-features = "nix-command flakes";
             flake-registry = "";
             nix-path = config.nix.nixPath;
+            substituters = [ "https://attic.hhu-fscs.de/fscs-public" ];
+            trusted-public-keys = [ "fscs-public:MuWSWnGgABFBwdeum/8n4rJxDpzYqhgd/Vm7u3fGMig=" ];
           };
           channel.enable = opts.enableChannels;
 

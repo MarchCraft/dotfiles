@@ -12,9 +12,8 @@
     services.easyroam = {
       enable = true;
       pkcsFile = config.sops.secrets.easyroam.path;
-      network = {
-        configure = true;
-        commonName = "3205974810615301533@easyroam-pca.uni-duesseldorf.de";
+      wpa-supplicant = {
+        enable = true;
       };
     };
   };

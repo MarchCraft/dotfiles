@@ -12,7 +12,7 @@
       format = "binary";
     };
     fileSystems."/mnt/backup" = {
-      device = "//100.64.0.1/Datensicherung";
+      device = "//100.64.0.2/Datensicherung";
       fsType = "cifs";
       options =
         let
