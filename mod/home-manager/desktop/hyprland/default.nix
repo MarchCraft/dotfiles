@@ -5,7 +5,8 @@
   pkgs-master,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     ./keybinds.nix
     ./wallpaper.nix

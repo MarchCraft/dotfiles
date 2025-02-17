@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   options.marchcraft.git.enable = lib.mkEnableOption "install the git config";
 
   config = lib.mkIf config.marchcraft.git.enable {

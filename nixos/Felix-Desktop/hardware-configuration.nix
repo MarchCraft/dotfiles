@@ -7,12 +7,20 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [
     "nvidia"
     "nvidia_modeset"
@@ -55,10 +63,13 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/5D92-F7D4";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
-  swapDevices = [{device = "/dev/disk/by-uuid/ba8355d0-aff9-48e8-8700-ffa72a68c985";}];
+  swapDevices = [ { device = "/dev/disk/by-uuid/ba8355d0-aff9-48e8-8700-ffa72a68c985"; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -71,7 +82,7 @@
     enable = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     modesetting.enable = true;

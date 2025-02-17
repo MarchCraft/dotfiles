@@ -9,7 +9,7 @@ stdenv.mkDerivation {
 
   src = ../scripts; # Path to your script, adjust as needed
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   meta = with lib; {
     description = "A script that launches chromium with tidal";

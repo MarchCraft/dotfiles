@@ -3,7 +3,8 @@
   lib,
   inputs,
   ...
-}: {
+}:
+{
   options.marchcraft.impermanence_system.enable = lib.mkEnableOption "install the imper config";
 
   config = lib.mkIf config.marchcraft.impermanence_system.enable {

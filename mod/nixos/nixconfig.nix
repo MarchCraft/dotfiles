@@ -5,7 +5,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   options.marchcraft.nixconfig = {
     enable = lib.mkOption {
       description = "auto configure nix";
@@ -21,52 +22,55 @@
     };
   };
 
-  config = let
-    opts = config.marchcraft.nixconfig;
-  in {
-    nixpkgs = {
-      overlays = [
-        outputs.overlays.additions
-        outputs.overlays.stable
-        outputs.overlays.master
-        inputs.nur.overlays.default
-      ];
-      config.allowUnfree = opts.allowUnfree;
-    };
-
-    nix = let
-      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-    in {
-      settings = {
-        experimental-features = "nix-command flakes";
-        flake-registry = "";
-        nix-path = config.nix.nixPath;
-        substituters = ["https://attic.hhu-fscs.de/fscs-public"];
-        trusted-public-keys = ["fscs-public:MuWSWnGgABFBwdeum/8n4rJxDpzYqhgd/Vm7u3fGMig="];
+  config =
+    let
+      opts = config.marchcraft.nixconfig;
+    in
+    {
+      nixpkgs = {
+        overlays = [
+          outputs.overlays.additions
+          outputs.overlays.stable
+          outputs.overlays.master
+          inputs.nur.overlays.default
+        ];
+        config.allowUnfree = opts.allowUnfree;
       };
-      channel.enable = opts.enableChannels;
 
-      registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-      extraOptions =
-        lib.optionalString
-        (opts.extraNixConfFile != null)
-        "!include ${opts.extraNixConfFile}";
+      nix =
+        let
+          flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+        in
+        {
+          settings = {
+            experimental-features = "nix-command flakes";
+            flake-registry = "";
+            nix-path = config.nix.nixPath;
+            substituters = [ "https://attic.hhu-fscs.de/fscs-public" ];
+            trusted-public-keys = [ "fscs-public:MuWSWnGgABFBwdeum/8n4rJxDpzYqhgd/Vm7u3fGMig=" ];
+          };
+          channel.enable = opts.enableChannels;
+
+          registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+          nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+          extraOptions = lib.optionalString (
+            opts.extraNixConfFile != null
+          ) "!include ${opts.extraNixConfFile}";
+        };
+
+      programs.nh.enable = true;
+      programs.command-not-found.enable = false;
+      programs.nix-index = {
+        enable = true;
+        enableFishIntegration = true;
+        enableBashIntegration = true;
+      };
+
+      environment.systemPackages = with pkgs; [
+        comma
+        hydra-check
+        nix-output-monitor
+        nixpkgs-review
+      ];
     };
-
-    programs.nh.enable = true;
-    programs.command-not-found.enable = false;
-    programs.nix-index = {
-      enable = true;
-      enableFishIntegration = true;
-      enableBashIntegration = true;
-    };
-
-    environment.systemPackages = with pkgs; [
-      comma
-      hydra-check
-      nix-output-monitor
-      nixpkgs-review
-    ];
-  };
 }

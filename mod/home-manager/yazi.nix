@@ -4,7 +4,8 @@
   inputs,
   lib,
   ...
-}: {
+}:
+{
   options.marchcraft.yazi.enable = lib.mkEnableOption "install the yazi config";
 
   config = lib.mkIf config.marchcraft.yazi.enable {
@@ -14,7 +15,11 @@
       enableFishIntegration = true;
       settings = {
         manager = {
-          ratio = [1 1 1];
+          ratio = [
+            1
+            1
+            1
+          ];
           sort_by = "alphabetical";
           sort_sensitive = false;
           sort_dir_first = true;

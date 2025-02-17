@@ -4,7 +4,8 @@
   pkgs,
   pkgs-stable,
   ...
-}: {
+}:
+{
   options.marchcraft.misc.enable = lib.mkEnableOption "install misc";
   config = lib.mkIf config.marchcraft.misc.enable {
     environment.systemPackages = [
@@ -33,7 +34,7 @@
 
     networking.firewall = {
       enable = true;
-      allowedTCPPorts = [5900];
+      allowedTCPPorts = [ 5900 ];
     };
 
     services.pcscd.enable = true;

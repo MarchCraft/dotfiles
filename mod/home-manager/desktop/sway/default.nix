@@ -4,7 +4,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     ./wallpaper.nix
   ];
@@ -103,14 +104,14 @@
         };
 
         startup = [
-          {command = "waybar";}
-          {command = "swayidle";}
+          { command = "waybar"; }
+          { command = "swayidle"; }
           {
             command = "autotiling";
             always = true;
           }
-          {command = "wayvnc";}
-          {command = "swaync";}
+          { command = "wayvnc"; }
+          { command = "swaync"; }
         ];
 
         assigns = {
@@ -147,31 +148,33 @@
           };
         };
 
-        bars = [];
+        bars = [ ];
 
-        keybindings = let
-          modifier = config.wayland.windowManager.sway.config.modifier;
-          swaylockConfig = builtins.toFile "swaylock.conf" ''
-            screenshots
-            clock
-            indicator
-            indicator-radius=100
-            indicator-thickness=7
-            effect-blur=7x5
-            effect-vignette=0.5:0.5
-            ring-color=bb00cc
-            key-hl-color=880033
-            line-color=00000000
-            inside-color=00000088
-            separator-color=00000000
-          '';
-        in
+        keybindings =
+          let
+            modifier = config.wayland.windowManager.sway.config.modifier;
+            swaylockConfig = builtins.toFile "swaylock.conf" ''
+              screenshots
+              clock
+              indicator
+              indicator-radius=100
+              indicator-thickness=7
+              effect-blur=7x5
+              effect-vignette=0.5:0.5
+              ring-color=bb00cc
+              key-hl-color=880033
+              line-color=00000000
+              inside-color=00000088
+              separator-color=00000000
+            '';
+          in
           lib.mkOptionDefault {
             "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty -e tmux attach || tmux";
             "${modifier}+c" = "kill";
             "${modifier}+w" = "exec ${pkgs.firefox}/bin/firefox";
             "${modifier}+r" = "exec ${pkgs.rofi-wayland}/bin/rofi -show drun -show-icons -dpi 120";
-            "${modifier}+Shift+r+" = "exec rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history -calc-command \"echo -n '{result}' | wl-copy\"";
+            "${modifier}+Shift+r+" =
+              "exec rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history -calc-command \"echo -n '{result}' | wl-copy\"";
             "${modifier}+p" = "exec ${pkgs.rofi-rbw-wayland}/bin/rofi-rbw";
             "${modifier}+m" = "exec ${pkgs.wlogout}/bin/wlogout";
             "${modifier}+l" = "exec ${pkgs.swaylock-effects}/bin/swaylock -C ${swaylockConfig}";

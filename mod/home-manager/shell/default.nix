@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./starship.nix
     ./fish.nix
@@ -29,32 +30,37 @@
     xdg.enable = config.marchcraft.shell.saneEnv;
 
     home.packages =
-      lib.mkIf config.marchcraft.shell.enableAliases
-      (with pkgs; [
-        bat
-        duf
-        eza
-        fastfetch
-        hyfetch
-      ])
-      // lib.mkIf config.marchcraft.shell.installTools (with pkgs; [
-        acpi
-        bat
-        duf
-        eza
-        fastfetch
-        fd
-        file
-        jq
-        man-pages-posix
-        mdcat
-        psmisc
-        ripgrep
-        speedtest-rs
-        unzip
-        wget
-        xxd
-      ]);
+      lib.mkIf config.marchcraft.shell.enableAliases (
+        with pkgs;
+        [
+          bat
+          duf
+          eza
+          fastfetch
+          hyfetch
+        ]
+      )
+      // lib.mkIf config.marchcraft.shell.installTools (
+        with pkgs;
+        [
+          acpi
+          bat
+          duf
+          eza
+          fastfetch
+          fd
+          file
+          jq
+          man-pages-posix
+          mdcat
+          psmisc
+          ripgrep
+          speedtest-rs
+          unzip
+          wget
+          xxd
+        ]
+      );
 
     home.shellAliases = lib.mkIf config.marchcraft.shell.enableAliases rec {
       # ls stuff

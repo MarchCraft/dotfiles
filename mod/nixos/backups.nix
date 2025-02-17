@@ -2,14 +2,17 @@
   lib,
   config,
   ...
-}: let
-  borgbackupMonitor = {
-    config,
-    pkgs,
-    lib,
-    ...
-  }:
-    with lib; {
+}:
+let
+  borgbackupMonitor =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    with lib;
+    {
       key = "borgbackupMonitor";
       _file = "borgbackupMonitor";
       config.systemd.services =
@@ -25,26 +28,27 @@
         }
         // flip mapAttrs' config.services.borgbackup.jobs (
           name: value:
-            nameValuePair "borgbackup-job-${name}" {
-              unitConfig.OnFailure = "notify-problems@%i.service";
-              preStart = lib.mkBefore ''
-                # waiting for internet after resume-from-suspend
-                until /run/current-system/sw/bin/ping google.com -c1 -q >/dev/null; do :; done
-              '';
-            }
+          nameValuePair "borgbackup-job-${name}" {
+            unitConfig.OnFailure = "notify-problems@%i.service";
+            preStart = lib.mkBefore ''
+              # waiting for internet after resume-from-suspend
+              until /run/current-system/sw/bin/ping google.com -c1 -q >/dev/null; do :; done
+            '';
+          }
         );
 
       # optional, but this actually forces backup after boot in case laptop was powered off during scheduled event
       # for example, if you scheduled backups daily, your laptop should be powered on at 00:00
       config.systemd.timers = flip mapAttrs' config.services.borgbackup.jobs (
         name: value:
-          nameValuePair "borgbackup-job-${name}" {
-            timerConfig.Persistent = lib.mkForce true;
-          }
+        nameValuePair "borgbackup-job-${name}" {
+          timerConfig.Persistent = lib.mkForce true;
+        }
       );
     };
-in {
-  imports = [borgbackupMonitor];
+in
+{
+  imports = [ borgbackupMonitor ];
   options.marchcraft.backup = {
     enable = lib.mkEnableOption "Enable backups";
     name = lib.mkOption {

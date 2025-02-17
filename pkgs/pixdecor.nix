@@ -46,14 +46,14 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "wayfire.get_variable( pkgconfig: 'metadatadir' )" "join_paths(get_option('prefix'), 'share/wayfire/metadata')"
   '';
 
-  passthru.updateScript = unstableGitUpdater {};
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     homepage = "https://github.com/soreau/pixdecor";
     description = "A highly configurable decorator plugin for wayfire,";
     longDescription = "pixdecor features antialiased rounded corners with shadows and optional animated effects.";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [_0x5a4];
+    maintainers = with lib.maintainers; [ _0x5a4 ];
     inherit (wayfire.meta) platforms;
   };
 })

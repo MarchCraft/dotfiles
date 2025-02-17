@@ -5,7 +5,8 @@
   pkgs,
   pkgs-master,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../locale.nix
@@ -71,7 +72,11 @@
 
   marchcraft.users.felix = {
     shell = pkgs.fish;
-    extraGroups = ["wheel" "docker" "libvirtd"];
+    extraGroups = [
+      "wheel"
+      "docker"
+      "libvirtd"
+    ];
     hashedPasswordFile = config.sops.secrets.felix_pwd.path;
     home-manager = {
       enable = true;
@@ -86,7 +91,7 @@
       qemu = {
         swtpm.enable = true;
         ovmf.enable = true;
-        ovmf.packages = [pkgs.OVMFFull.fd];
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
     spiceUSBRedirection.enable = true;
@@ -96,7 +101,7 @@
   marchcraft.services.wifi = {
     enable = true;
     secretsFile = ../secrets/wifi;
-    networks = {};
+    networks = { };
   };
   marchcraft.services.printing.enable = true;
 

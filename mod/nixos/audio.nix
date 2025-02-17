@@ -2,7 +2,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   options.marchcraft.audio.enable = lib.mkEnableOption "install pipewire";
   config = lib.mkIf config.marchcraft.audio.enable {
     services.pipewire = {

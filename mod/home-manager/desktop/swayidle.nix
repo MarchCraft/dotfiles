@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   options.marchcraft.desktop.swayidle.enable = lib.mkEnableOption "install swaylock";
   config = lib.mkIf config.marchcraft.desktop.swayidle.enable {
     programs.swaylock = {

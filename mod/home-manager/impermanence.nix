@@ -2,7 +2,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   options.marchcraft.impermanence_home.enable = lib.mkEnableOption "install the git config";
 
   config = lib.mkIf config.marchcraft.impermanence_home.enable {

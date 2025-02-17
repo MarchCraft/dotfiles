@@ -2,7 +2,8 @@
   inputs,
   config,
   ...
-}: {
+}:
+{
   imports = [
     ../../mod/home-manager # if accessed via output, infinite recursion occurs
     inputs.impermanence.nixosModules.home-manager.impermanence

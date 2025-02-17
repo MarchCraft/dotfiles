@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options.marchcraft.shell.direnv.enable = lib.mkEnableOption "configure magic direnv";
 
   config = lib.mkIf config.marchcraft.shell.direnv.enable {

@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options.marchcraft.desktop.apps.kitty = {
     enable = lib.mkEnableOption "install the kitty config";
   };

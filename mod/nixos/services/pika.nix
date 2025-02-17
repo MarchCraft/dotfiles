@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   options.marchcraft.services.pika = {
     enable = lib.mkEnableOption "install the pika backup tool";
   };

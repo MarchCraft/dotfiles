@@ -3,7 +3,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   options.marchcraft.neovim.enable = lib.mkEnableOption "install the neovim config";
 
   config = lib.mkIf config.marchcraft.neovim.enable {

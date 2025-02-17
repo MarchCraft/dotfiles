@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options.marchcraft.shell.fish.enable = lib.mkEnableOption "install the fish config";
 
   config = lib.mkIf config.marchcraft.shell.fish.enable {
@@ -17,7 +18,8 @@
       settings = lib.importJSON ./fastfetch.json;
     };
 
-    home.packages = with pkgs.fishPlugins;
+    home.packages =
+      with pkgs.fishPlugins;
       [
         autopair
         colored-man-pages
