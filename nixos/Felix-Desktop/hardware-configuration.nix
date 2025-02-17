@@ -23,20 +23,25 @@
   services.blueman.enable = true;
 
   hardware.nvidia-container-toolkit.enable = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = [ "intel_iommu=on" "pcie_acs_override=downstream" "vfio-pci.disable_idle_d3=1" ];
-  boot.kernelPatches = [
-    {
-      name = "add-acs-overrides";
-      patch = pkgs.fetchurl {
-        name = "add-acs-overrides.patch";
-        url =
-          "https://raw.githubusercontent.com/benbaker76/linux-acs-override/refs/heads/main/6.3/acso.patch";
-        sha256 = "1x4f3vgww7wy3im9pgj0ilwq73wb5351zk7ymk27s3mchr8bij3f";
-      };
-    }
+  boot.kernelModules = [
+    "brcmfmac"
+    "brcmutil"
+    "iwlmvm"
+    "iwlwifi"
+    "mmc_core"
+    "mt76_usb"
+    "mt76"
+    "mt76x0_common"
+    "mt76x02_lib"
+    "mt76x02_usb"
+    "mt76x0u"
+    "r8188eu"
+    "rtl_usb"
+    "rtl8192c_common"
+    "rtl8192cu"
+    "rtlwifi"
+    "kvmintel"
   ];
-  boot.kernelModules = [ "kvm-intel" ];
 
   security.polkit.enable = true;
 

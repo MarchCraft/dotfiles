@@ -60,9 +60,6 @@
           pamixer
           brightnessctl
           wlinhibit
-          xdg-desktop-portal-gtk
-          xdg-desktop-portal-xapp
-          xdg-desktop-portal-gnome
           xdg-desktop-portal-wlr
           wl-clipboard
           autotiling-rs
@@ -144,7 +141,7 @@
             };
             core = {
               close_top_view = "<${super_key}> KEY_C";
-              plugins = "alpha animate autostart command cube expo fast-switcher fisheye foreign-toplevel gtk-shell idle invert move oswitch place resize shortcuts-inhibit switcher vswitch wayfire-shell window-rules wobbly wrot zoom simple-tile vswipe wm-actions view-shot session-lock hide-cursor decoration ipc pixdecor";
+              plugins = "autostart command cube expo fisheye foreign-toplevel switcher vswitch wobbly wrot simple-tile wm-actions windecor animate";
             };
             input = {
               xkb_layout = config.marchcraft.desktop.wayfire.keyboard_layout;

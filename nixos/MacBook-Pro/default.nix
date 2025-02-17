@@ -22,6 +22,11 @@
     outputs.nixosModules.marchcraft
   ];
 
+  nixpkgs.overlays = [
+    outputs.overlays.widevine_o
+    inputs.nixos-aarch64-widevine.overlays.default
+  ];
+
   services.pipewire = {
     # opens UDP ports 6001-6002
     raopOpenFirewall = true;

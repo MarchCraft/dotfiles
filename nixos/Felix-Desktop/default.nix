@@ -30,10 +30,11 @@
     pkgs.adwaita-icon-theme
     pkgs.nautilus
     pkgs-master.ultrastar-creator
+    pkgs.vesktop
   ];
 
   services.ollama = {
-    enable = true;
+    enable = false;
     acceleration = "cuda";
     host = "0.0.0.0";
   };
@@ -97,13 +98,7 @@
   marchcraft.services.wifi = {
     enable = true;
     secretsFile = ../secrets/wifi;
-    networks = [
-      "MonkeyIsland"
-      "HHUD-Y"
-      "iPhoneF"
-      "WIFI@DB"
-      "NothingPhone"
-    ];
+    networks = { };
   };
   marchcraft.services.printing.enable = true;
 
