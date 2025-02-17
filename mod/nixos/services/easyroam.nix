@@ -1,6 +1,7 @@
-{ lib
-, config
-, ...
+{
+  lib,
+  config,
+  ...
 }: {
   options.marchcraft.services.easyroam.enable = lib.mkEnableOption "setup easyroam";
   config = lib.mkIf config.marchcraft.services.easyroam.enable {

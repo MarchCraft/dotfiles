@@ -1,8 +1,9 @@
-{ config
-, pkgs
-, inputs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
 }: {
   options.marchcraft.yazi.enable = lib.mkEnableOption "install the yazi config";
 
@@ -13,7 +14,7 @@
       enableFishIntegration = true;
       settings = {
         manager = {
-          ratio = [ 1 1 1 ];
+          ratio = [1 1 1];
           sort_by = "alphabetical";
           sort_sensitive = false;
           sort_dir_first = true;
@@ -27,22 +28,48 @@
         };
         opener = {
           play = [
-            { run = ''${pkgs.mpv}/bin/mpv "$@"''; orphan = true; for = "unix"; }
+            {
+              run = ''${pkgs.mpv}/bin/mpv "$@"'';
+              orphan = true;
+              for = "unix";
+            }
           ];
           edit = [
-            { run = ''$EDITOR "$@"''; block = true; for = "unix"; }
+            {
+              run = ''$EDITOR "$@"'';
+              block = true;
+              for = "unix";
+            }
           ];
           open = [
-            { run = ''${pkgs.xdg-utils}/bin/xdg-open "$@"''; desc = "Open"; }
+            {
+              run = ''${pkgs.xdg-utils}/bin/xdg-open "$@"'';
+              desc = "Open";
+            }
           ];
         };
         open = {
           rules = [
-            { mime = "text/*"; use = "edit"; }
-            { mime = "*.json"; use = "edit"; }
-            { mime = "video/*"; use = "play"; }
-            { mime = "audio/*"; use = "play"; }
-            { mime = "audio/*"; use = "play"; }
+            {
+              mime = "text/*";
+              use = "edit";
+            }
+            {
+              mime = "*.json";
+              use = "edit";
+            }
+            {
+              mime = "video/*";
+              use = "play";
+            }
+            {
+              mime = "audio/*";
+              use = "play";
+            }
+            {
+              mime = "audio/*";
+              use = "play";
+            }
           ];
         };
         input = {

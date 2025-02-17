@@ -1,6 +1,7 @@
-{ config
-, lib
-, ...
+{
+  config,
+  lib,
+  ...
 }: {
   options.marchcraft.btop.enable = lib.mkEnableOption "install the btop config";
 

@@ -1,12 +1,11 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-let
-  sharedModules = builtins.fromJSON (builtins.readFile ../../../../config/waybar/config.json);
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  sharedModules = builtins.fromJSON (builtins.readFile ../../../../config/waybar/config.json);
+in {
   options.marchcraft.waybar.enable = lib.mkEnableOption "install waybar";
   config = lib.mkIf config.marchcraft.waybar.enable {
     home.packages = with pkgs; [
@@ -23,31 +22,32 @@ in
     programs.waybar = {
       enable = true;
       settings = {
-        mainBar = {
-          mod = "dock";
-          margin-top = 3;
-          modules-center = [ ];
-          modules-left = [
-            "clock"
-            "custom/weather"
-            "custom/agenda"
-            "network"
-          ];
-          modules-right = [
-            "tray"
-            "cpu"
-            "temperature"
-            "memory"
-            "custom/updates"
-            "custom/language"
-            "battery"
-            "backlight"
-            "custom/wlinhibit"
-            "pulseaudio"
-            "pulseaudio#microphone"
-          ];
-        }
-        // sharedModules;
+        mainBar =
+          {
+            mod = "dock";
+            margin-top = 3;
+            modules-center = [];
+            modules-left = [
+              "clock"
+              "custom/weather"
+              "custom/agenda"
+              "network"
+            ];
+            modules-right = [
+              "tray"
+              "cpu"
+              "temperature"
+              "memory"
+              "custom/updates"
+              "custom/language"
+              "battery"
+              "backlight"
+              "custom/wlinhibit"
+              "pulseaudio"
+              "pulseaudio#microphone"
+            ];
+          }
+          // sharedModules;
       };
     };
     wayland.windowManager.hyprland.extraConfig = ''
@@ -55,4 +55,3 @@ in
     '';
   };
 }
-

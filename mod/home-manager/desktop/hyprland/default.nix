@@ -1,9 +1,10 @@
-{ config
-, lib
-, pkgs
-, pkgs-master
-, inputs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-master,
+  inputs,
+  ...
 }: {
   imports = [
     ./keybinds.nix

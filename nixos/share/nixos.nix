@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}: {
+{pkgs, ...}: {
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
   stylix.image = pkgs.fetchurl {
@@ -22,6 +20,32 @@
     pkgs.tidal
     pkgs.easyeffects
   ];
+
+  stylix = {
+    fonts = {
+      monospace = {
+        package = pkgs.monocraft;
+        name = "Monocraft Nerd Font Complete";
+      };
+
+      sansSerif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
+      };
+
+      serif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Serif";
+      };
+    };
+
+    cursor = {
+      package = pkgs.rose-pine-cursor;
+      name = "BreezeX-RosePine-Linux";
+    };
+
+    opacity.terminal = 0.94;
+  };
 
   programs.kdeconnect.enable = true;
   services.usbmuxd.enable = true;

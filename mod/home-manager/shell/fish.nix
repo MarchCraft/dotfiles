@@ -1,7 +1,8 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  ...
 }: {
   options.marchcraft.shell.fish.enable = lib.mkEnableOption "install the fish config";
 
@@ -38,7 +39,6 @@
         fastfetch
         bind \cf "fd . ~/dev/ -d 3 | sed \"s|/home/felix/dev/||g\" | fzf | xargs -I {} bash -c 'cd \"/home/felix/dev/{}\" && vi .'"
       '';
-
     };
   };
 }

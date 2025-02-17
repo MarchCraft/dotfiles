@@ -1,7 +1,8 @@
-{ lib
-, config
-, pkgs
-, ...
+{
+  lib,
+  config,
+  pkgs,
+  ...
 }: {
   options.marchcraft.neovim.enable = lib.mkEnableOption "install the neovim config";
 
@@ -49,7 +50,7 @@
       vale
       ripgrep
       lazygit
-      nixpkgs-fmt
+      nixfmt-rfc-style
       gcc
       git # for lazy
       python312Packages.six

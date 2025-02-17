@@ -1,7 +1,8 @@
-{ config
-, lib
-, inputs
-, ...
+{
+  config,
+  lib,
+  inputs,
+  ...
 }: {
   options.marchcraft.impermanence_system.enable = lib.mkEnableOption "install the imper config";
 
@@ -37,8 +38,6 @@
         "/var/lib/nixos"
         "/var/lib/bluetooth"
       ];
-
     };
-
   };
 }

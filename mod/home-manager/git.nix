@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }: {
   options.marchcraft.git.enable = lib.mkEnableOption "install the git config";
 
@@ -15,7 +16,6 @@
 
       userName = "Felix Nilles";
       userEmail = "felix@dienilles.de";
-
 
       signing = {
         key = "499C66E9512BA96797CDAC410562840F5B0C9BD4";

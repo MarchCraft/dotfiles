@@ -1,8 +1,9 @@
-{ inputs
-, outputs
-, config
-, pkgs
-, ...
+{
+  inputs,
+  outputs,
+  config,
+  pkgs,
+  ...
 }: {
   imports = [
     ./hardware-configuration.nix
@@ -26,34 +27,14 @@
     inputs.nixos-aarch64-widevine.overlays.default
   ];
 
-  services.pipewire = {
-    # opens UDP ports 6001-6002
-    raopOpenFirewall = true;
-
-    extraConfig.pipewire = {
-      "10-airplay" = {
-        "context.modules" = [
-          {
-            name = "libpipewire-module-raop-discover";
-
-            # increase the buffer size if you get dropouts/glitches
-            # args = {
-            #   "raop.latency.ms" = 500;
-            # };
-          }
-        ];
-      };
-    };
-  };
-
-  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+  boot.binfmt.emulatedSystems = ["x86_64-linux"];
   nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
   programs.nix-ld.enable = true;
 
   programs.nix-ld.libraries = with pkgs; [
   ];
 
-  environment.sessionVariables.MOZ_GMP_PATH = [ "${pkgs.widevine-cdm-lacros}/gmp-widevinecdm/system-installed" ];
+  environment.sessionVariables.MOZ_GMP_PATH = ["${pkgs.widevine-cdm-lacros}/gmp-widevinecdm/system-installed"];
 
   sops.secrets.nix-conf = {
     sopsFile = ../secrets/nix-conf;
@@ -81,7 +62,7 @@
 
   marchcraft.users.felix = {
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = ["wheel" "docker"];
     hashedPasswordFile = config.sops.secrets.felix_pwd.path;
     home-manager = {
       enable = true;
@@ -118,7 +99,7 @@
   };
 
   networking.hostName = "MacBook-Pro";
-  networking.nameservers = [ "9.9.9.9" ];
+  networking.nameservers = ["9.9.9.9"];
 
   users.defaultUserShell = pkgs.fish;
 

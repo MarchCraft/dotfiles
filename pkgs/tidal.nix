@@ -1,12 +1,15 @@
-{ lib, stdenv, makeWrapper }:
-
+{
+  lib,
+  stdenv,
+  makeWrapper,
+}:
 stdenv.mkDerivation {
   pname = "tidal";
   version = "1.0";
 
   src = ../scripts; # Path to your script, adjust as needed
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   meta = with lib; {
     description = "A script that launches chromium with tidal";
@@ -46,4 +49,3 @@ stdenv.mkDerivation {
     cp -r $src/* $out/
   '';
 }
-

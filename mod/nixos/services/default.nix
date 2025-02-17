@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   imports = [
     ./wifi.nix
     ./openssh.nix
@@ -6,5 +6,6 @@
     ./cups.nix
     ./pika.nix
     ./Mac-spoofing.nix
+    ./easyroam.nix
   ];
 }

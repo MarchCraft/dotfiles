@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }: {
   imports = [
     ./starship.nix
@@ -29,13 +30,13 @@
 
     home.packages =
       lib.mkIf config.marchcraft.shell.enableAliases
-        (with pkgs; [
-          bat
-          duf
-          eza
-          fastfetch
-          hyfetch
-        ])
+      (with pkgs; [
+        bat
+        duf
+        eza
+        fastfetch
+        hyfetch
+      ])
       // lib.mkIf config.marchcraft.shell.installTools (with pkgs; [
         acpi
         bat

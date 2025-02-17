@@ -1,14 +1,16 @@
-{ lib, modulesPath, ... }:
 {
-  imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  lib,
+  modulesPath,
+  ...
+}: {
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
-  boot.initrd.availableKernelModules = [ "usb_storage" "usbhid" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" "vfat" "nls_cp437" "nls_iso8859-1" "usbhid" ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.availableKernelModules = ["usb_storage" "usbhid" "sdhci_pci"];
+  boot.initrd.kernelModules = ["dm-snapshot" "vfat" "nls_cp437" "nls_iso8859-1" "usbhid"];
+  boot.kernelModules = [];
+  boot.extraModulePackages = [];
   boot.initrd.luks.yubikeySupport = true;
 
   hardware.bluetooth.enable = true;
@@ -28,34 +30,30 @@
     };
   };
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/ed4921ac-6b56-4654-86fb-1c88b200f37f";
-      fsType = "btrfs";
-      options = [ "subvol=root" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/ed4921ac-6b56-4654-86fb-1c88b200f37f";
+    fsType = "btrfs";
+    options = ["subvol=root"];
+  };
 
-  fileSystems."/nix" =
-    {
-      device = "/dev/disk/by-uuid/ed4921ac-6b56-4654-86fb-1c88b200f37f";
-      fsType = "btrfs";
-      options = [ "subvol=nix" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/ed4921ac-6b56-4654-86fb-1c88b200f37f";
+    fsType = "btrfs";
+    options = ["subvol=nix"];
+  };
 
-  fileSystems."/persist" =
-    {
-      device = "/dev/disk/by-uuid/ed4921ac-6b56-4654-86fb-1c88b200f37f";
-      fsType = "btrfs";
-      options = [ "subvol=persist" ];
-      neededForBoot = true;
-    };
+  fileSystems."/persist" = {
+    device = "/dev/disk/by-uuid/ed4921ac-6b56-4654-86fb-1c88b200f37f";
+    fsType = "btrfs";
+    options = ["subvol=persist"];
+    neededForBoot = true;
+  };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/5748-1B07";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/5748-1B07";
+    fsType = "vfat";
+    options = ["fmask=0022" "dmask=0022"];
+  };
   hardware.asahi = {
     withRust = true;
     useExperimentalGPUDriver = true;
@@ -66,7 +64,7 @@
     enable = true;
   };
 
-  swapDevices = [ ];
+  swapDevices = [];
 
   networking.useDHCP = lib.mkDefault true;
 

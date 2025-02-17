@@ -1,8 +1,9 @@
-{ config
-, pkgs
-, lib
-, inputs
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
 }: {
   imports = [
     inputs.betterfox.homeManagerModules.betterfox
@@ -13,10 +14,9 @@
     makeDefault = lib.mkEnableOption "make firefox the default browser";
   };
 
-  config =
-    let
-      opts = config.marchcraft.desktop.apps.firefox;
-    in
+  config = let
+    opts = config.marchcraft.desktop.apps.firefox;
+  in
     lib.mkIf opts.enable {
       programs.firefox = {
         enable = true;
@@ -67,89 +67,85 @@
             enableAllSections = true;
           };
 
-          bookmarks =
-            let
-              define = url: {
-                name = "";
-                url = "https://${url}";
-              };
-              defineNamed = name: url: {
-                name = name;
-                url = "https://${url}";
-              };
-              folder = name: bookmarks: {
-                name = name;
-                bookmarks = bookmarks;
-              };
-            in
-            [
-              {
-                name = "toolbar";
-                toolbar = true;
-                bookmarks = [
-                  (define "youtube.com")
-                  (define "disneyplus.com/en-de")
-                  (define "nixos.wiki")
-                  (define "github.com")
-                  (define "crates.io")
-                  (folder "tools" [
-                    (defineNamed "craiyon" "craiyon.com")
-                    (defineNamed "hex to dec" "www.rapidtables.com/convert/number/hex-to-decimal.html")
-                    (defineNamed "goodname" "kampersanda.github.io/goodname")
-                    (defineNamed "plotz" "www.plotz.co.uk")
-                    (defineNamed "toml validator" "www.toml-lint.com")
-                    (defineNamed "click" "clickclickclick.click/#4a955f9cf0bbe3854fa9ede6935d540c")
-                    (defineNamed "mems" "imgflip.com/memegenerator")
-                  ])
-                  (folder "uni" [
-                    (defineNamed "ilias" "ilias.hhu.de/login.php?client_id=UniRZ&cmd=force_login&lang=de")
-                    (defineNamed "lsf" "lsf.hhu.de")
-                    (defineNamed "fscs" "fscs.hhu.de")
-                    (defineNamed "inphima nextcloud" "nextcloud.inphima.de")
-                    (defineNamed "mete" "metesecure.hhu-fscs.de")
-                    (defineNamed "tickets" "tickets.astahhu.de/mailbox/4")
-                  ])
-                  (folder "doc" [
-                    (defineNamed "lua 5.4 reference" "www.lua.org/manual/5.4")
-                    (defineNamed "hyprland wiki" "wiki.hyprland.org")
-                    (defineNamed "opencomputers" "ocdoc.cil.li")
-                    (defineNamed "hugo" "gohugo.io/documentation")
-                    (defineNamed "bootstrap" "getbootstrap.com/docs/")
-                    (defineNamed "nixpkgs doc" "ryantm.github.io/nixpkgs/")
-                  ])
-                ];
-              }
-            ];
+          bookmarks = let
+            define = url: {
+              name = "";
+              url = "https://${url}";
+            };
+            defineNamed = name: url: {
+              name = name;
+              url = "https://${url}";
+            };
+            folder = name: bookmarks: {
+              name = name;
+              bookmarks = bookmarks;
+            };
+          in [
+            {
+              name = "toolbar";
+              toolbar = true;
+              bookmarks = [
+                (define "youtube.com")
+                (define "disneyplus.com/en-de")
+                (define "nixos.wiki")
+                (define "github.com")
+                (define "crates.io")
+                (folder "tools" [
+                  (defineNamed "craiyon" "craiyon.com")
+                  (defineNamed "hex to dec" "www.rapidtables.com/convert/number/hex-to-decimal.html")
+                  (defineNamed "goodname" "kampersanda.github.io/goodname")
+                  (defineNamed "plotz" "www.plotz.co.uk")
+                  (defineNamed "toml validator" "www.toml-lint.com")
+                  (defineNamed "click" "clickclickclick.click/#4a955f9cf0bbe3854fa9ede6935d540c")
+                  (defineNamed "mems" "imgflip.com/memegenerator")
+                ])
+                (folder "uni" [
+                  (defineNamed "ilias" "ilias.hhu.de/login.php?client_id=UniRZ&cmd=force_login&lang=de")
+                  (defineNamed "lsf" "lsf.hhu.de")
+                  (defineNamed "fscs" "fscs.hhu.de")
+                  (defineNamed "inphima nextcloud" "nextcloud.inphima.de")
+                  (defineNamed "mete" "metesecure.hhu-fscs.de")
+                  (defineNamed "tickets" "tickets.astahhu.de/mailbox/4")
+                ])
+                (folder "doc" [
+                  (defineNamed "lua 5.4 reference" "www.lua.org/manual/5.4")
+                  (defineNamed "hyprland wiki" "wiki.hyprland.org")
+                  (defineNamed "opencomputers" "ocdoc.cil.li")
+                  (defineNamed "hugo" "gohugo.io/documentation")
+                  (defineNamed "bootstrap" "getbootstrap.com/docs/")
+                  (defineNamed "nixpkgs doc" "ryantm.github.io/nixpkgs/")
+                ])
+              ];
+            }
+          ];
 
           search = {
             default = "DuckDuckGo";
             force = true;
-            engines =
-              let
-                define = alias: url: iconURL: {
-                  urls = [{ template = "https://${url}"; }];
-                  iconUpdateURL = "https://${iconURL}";
-                  updateInterval = 24 * 60 * 60 * 1000;
-                  definedAliases = [ "@${alias}" ];
-                };
-              in
-              {
-                "Youtube" = define "yt" "youtube.com/results?search_query={searchTerms}" "www.youtube.com/favicon.ico";
-                "Nix Packages" = define "nixpkg" "https://search.nixos.org/packages?query={searchTerms}" "nixos.wiki/favicon.png";
-                "Nix Options" = define "nixopt" "search.nixos.org/options?query={searchTerms}" "nixos.wiki/favicon.png";
-                "Home Manager Options" = define "homeopt" "home-manager-options.extranix.com/?query={searchTerms}" "nixos.wiki/favicon.png";
-                "Searchix" = define "searchix" "https://searchix.alanpearce.eu/all/search?query={searchTerms}" "nixos.wiki/favicon.png";
-                "Nix Wiki" = define "nixwiki" "nixos.wiki/index.php?search={searchTerms}" "nixos.wiki/favicon.png";
-                "Crates.io" = define "crates" "crates.io/search?q={searchTerms}" "crates.io/favicon.ico";
-                "Github" = define "gh" "github.com/search?q={searchTerms}&type=repositories" "github.com/favicon.ico";
-                "Instant Gaming" = define "ig" "www.instant-gaming.com/en/search/?q={searchTerms}" "www.instant-gaming.com/favicon.ico";
-                "ProtonDB" = define "protondb" "www.protondb.com/search?q={searchTerms}" "www.protondb.com/favicon.ico";
-                "Modrinth" = define "modrinth" "www.modrinth.com/mods?q={searchTerms}" "www.modrinth.com/favicon.ico";
-                "Arch" = define "arch" "wiki.archlinux.org/index.php?search={searchTerms}" "wiki.archlinux.org/favicon.ico";
-                "Google".metaData.hidden = true;
-                "Amazon.de".metaData.hidden = true;
-                "Twitter".metaData.hidden = true;
+            engines = let
+              define = alias: url: iconURL: {
+                urls = [{template = "https://${url}";}];
+                iconUpdateURL = "https://${iconURL}";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = ["@${alias}"];
               };
+            in {
+              "Youtube" = define "yt" "youtube.com/results?search_query={searchTerms}" "www.youtube.com/favicon.ico";
+              "Nix Packages" = define "nixpkg" "https://search.nixos.org/packages?query={searchTerms}" "nixos.wiki/favicon.png";
+              "Nix Options" = define "nixopt" "search.nixos.org/options?query={searchTerms}" "nixos.wiki/favicon.png";
+              "Home Manager Options" = define "homeopt" "home-manager-options.extranix.com/?query={searchTerms}" "nixos.wiki/favicon.png";
+              "Searchix" = define "searchix" "https://searchix.alanpearce.eu/all/search?query={searchTerms}" "nixos.wiki/favicon.png";
+              "Nix Wiki" = define "nixwiki" "nixos.wiki/index.php?search={searchTerms}" "nixos.wiki/favicon.png";
+              "Crates.io" = define "crates" "crates.io/search?q={searchTerms}" "crates.io/favicon.ico";
+              "Github" = define "gh" "github.com/search?q={searchTerms}&type=repositories" "github.com/favicon.ico";
+              "Instant Gaming" = define "ig" "www.instant-gaming.com/en/search/?q={searchTerms}" "www.instant-gaming.com/favicon.ico";
+              "ProtonDB" = define "protondb" "www.protondb.com/search?q={searchTerms}" "www.protondb.com/favicon.ico";
+              "Modrinth" = define "modrinth" "www.modrinth.com/mods?q={searchTerms}" "www.modrinth.com/favicon.ico";
+              "Arch" = define "arch" "wiki.archlinux.org/index.php?search={searchTerms}" "wiki.archlinux.org/favicon.ico";
+              "Google".metaData.hidden = true;
+              "Amazon.de".metaData.hidden = true;
+              "Twitter".metaData.hidden = true;
+            };
           };
 
           extensions = with pkgs.nur.repos.rycee.firefox-addons; [

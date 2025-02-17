@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }: {
   options.marchcraft.misc.enable = lib.mkEnableOption "install misc";
   config = lib.mkIf config.marchcraft.misc.enable {
@@ -17,6 +18,5 @@
         enable_pam=true
       '';
     };
-
   };
 }

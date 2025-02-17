@@ -1,8 +1,9 @@
-{ config
-, lib
-, pkgs
-, pkgs-stable
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-stable,
+  ...
 }: {
   options.marchcraft.misc.enable = lib.mkEnableOption "install misc";
   config = lib.mkIf config.marchcraft.misc.enable {
@@ -18,7 +19,6 @@
       pkgs.openssl
     ];
 
-
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
       PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
@@ -33,7 +33,7 @@
 
     networking.firewall = {
       enable = true;
-      allowedTCPPorts = [ 5900 ];
+      allowedTCPPorts = [5900];
     };
 
     services.pcscd.enable = true;

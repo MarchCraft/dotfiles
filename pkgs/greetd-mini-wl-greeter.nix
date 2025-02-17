@@ -1,22 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cairo
-, glib
-, json_c
-, libepoxy
-, libpng
-, libxkbcommon
-, libGL
-, meson
-, ninja
-, pango
-, pkg-config
-, scdoc
-, wayland
-, wayland-protocols
-, wayland-scanner
-,
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cairo,
+  glib,
+  json_c,
+  libepoxy,
+  libpng,
+  libxkbcommon,
+  libGL,
+  meson,
+  ninja,
+  pango,
+  pkg-config,
+  scdoc,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "greetd-mini-wl-greeter";

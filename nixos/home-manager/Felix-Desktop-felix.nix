@@ -1,6 +1,7 @@
-{ inputs
-, config
-, ...
+{
+  inputs,
+  config,
+  ...
 }: {
   imports = [
     ../../mod/home-manager # if accessed via output, infinite recursion occurs
@@ -35,7 +36,6 @@
 
   marchcraft.misc.enable = true;
 
-
   marchcraft.desktop.wayfire.enable = true;
   marchcraft.desktop.wayfire.keyboard_layout = "us";
   marchcraft.desktop.wayfire.super_key = "super";
@@ -45,4 +45,3 @@
 
   home.stateVersion = "23.11";
 }
-
