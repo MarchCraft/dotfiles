@@ -13,8 +13,6 @@
       pkgs.noto-fonts-emoji
     ];
 
-    stylix.targets.kitty.enable = true;
-
     programs.kitty = {
       enable = true;
 

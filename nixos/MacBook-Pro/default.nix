@@ -2,13 +2,12 @@
 , outputs
 , config
 , pkgs
-, pkgs-x86
-, lib
 , ...
 }: {
   imports = [
     ./hardware-configuration.nix
     ../locale.nix
+    ../share/nixos.nix
 
     inputs.sops.nixosModules.sops
     inputs.hm.nixosModules.home-manager
@@ -46,53 +45,21 @@
       };
     };
   };
+
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
   nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
   programs.nix-ld.enable = true;
 
   programs.nix-ld.libraries = with pkgs; [
-    # Add any missing dynamic libraries for unpackaged programs
-    # here, NOT in environment.systemPackages
   ];
 
-  stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
-  stylix.image = pkgs.fetchurl {
-    url = "https://pbs.twimg.com/media/EDyxVvoXsAAE9Zg.png";
-    sha256 = "sha256-NRfish27NVTJtJ7+eEWPOhUBe8vGtuTw+Osj5AVgOmM=";
-  };
-
-  hardware.steam-hardware.enable = true;
-
-  environment.systemPackages = [
-    pkgs.noson
-    pkgs.tailscale
-    pkgs.element-desktop
-    pkgs.thunderbird
-    pkgs.iamb
-    pkgs.usbmuxd
-    pkgs.libimobiledevice
-    pkgs.moonlight-qt
-    pkgs.brave
-    pkgs.tidal-hifi
-    pkgs.chromium
-    pkgs.tidal
-    pkgs.easyeffects
-  ];
-  programs.kdeconnect.enable = true;
-  services.usbmuxd.enable = true;
   environment.sessionVariables.MOZ_GMP_PATH = [ "${pkgs.widevine-cdm-lacros}/gmp-widevinecdm/system-installed" ];
-
 
   sops.secrets.nix-conf = {
     sopsFile = ../secrets/nix-conf;
     mode = "444";
     format = "binary";
   };
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "olm-3.2.16"
-  ];
 
   boot = {
     plymouth = {
@@ -101,18 +68,14 @@
     };
   };
 
-  services.tailscale.enable = true;
-
   sops.secrets.felix_pwd = {
     format = "binary";
     sopsFile = ../secrets/felix_pwd;
     neededForUsers = true;
   };
 
-
   marchcraft.bootconfig.enable = true;
   marchcraft.nixconfig.enable = true;
-  # marchcraft.nixconfig.extraNixConfFile = config.sops.secrets.nix-conf.path;
   marchcraft.nixconfig.allowUnfree = true;
   security.polkit.enable = true;
 
@@ -129,8 +92,11 @@
   marchcraft.services.wifi = {
     enable = true;
     secretsFile = ../secrets/wifi;
-    networks = { };
+    networks = {
+      FelixPhone = "FelixPhonePass";
+    };
   };
+
   marchcraft.services.printing.enable = true;
 
   marchcraft.greeter.enable = true;
@@ -171,23 +137,5 @@
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCSzPwzWF8ETrEKZVrcldR5srYZB0debImh6qilNlH4va8jwVT835j4kTnwgDr/ODd5v0LagYiUVQqdC8gX/jQA9Ug9ju/NuPusyqro2g4w3r72zWFhIYlPWlJyxaP2sfUzUhnO0H2zFt/sEe8q7T+eDdHfKP+SIdeb9v9/oCAz0ZVUxCgkkK20hzhVHTXXMefjHq/zm69ygW+YpvWmvZ7liIDAaHL1/BzOtuMa3C8B5vP3FV5bh7MCSXyj5mIvPk7TG4e673fwaBYEB+2+B6traafSaSYlhHEm9H2CiRfEUa2NrBRHRv1fP4gM60350tUHLEJ8hM58LBymr3NfwxC00yODGfdaaWGxW4sxtlHw57Ev6uNvP2cN551NmdlRX7qKQKquyE4kUWHPDjJMKB8swj3F4/X6iAlGZIOW3ivcf+9fE+FUFA45MsbrijSWWnm/pOe2coP1KMvFNa6HMzCMImCAQPKpH5+LfT7eqfenDxgsJR5zm3LbrMJD6QhnBqPJsjH6gDzE17D5qctyMFy0DOad9+aVUWry1ymywSsjHuhMBcgQOgk3ZNdHIXQn5y6ejWaOJnWxZHFPKEeiwQK8LuE3cAj18p8r/rBnwhn7KHzlAgY0pgEZKrDSKIXDutFF9Y49hHyGpe3oI+oscBmH2xr0au/eNKlr/J85b9FdaQ== cardno:25_432_707"
   ];
 
-
-  services.vsftpd = {
-    enable = true;
-    localUsers = true;
-    writeEnable = true;
-    allowWriteableChroot = true;
-    localRoot = "/persist/scanner";
-    extraConfig = ''
-      listen_port=21
-      pasv_min_port=3000
-      pasv_max_port=3100
-    '';
-  };
-
-  networking.firewall = {
-    allowedTCPPorts = [ 21 ];
-    allowedTCPPortRanges = [{ from = 3000; to = 3100; }];
-  };
   system.stateVersion = "23.11";
 }

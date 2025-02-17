@@ -40,6 +40,12 @@
               if builtins.isString network_cfg then
                 {
                   pskRaw = "ext:${network_cfg}";
+                  authProtocols = [
+                    "WPA-PSK"
+                    "WPA-EAP"
+                    "FT-PSK"
+                    "FT-EAP"
+                  ];
                 }
               else
                 network_cfg
