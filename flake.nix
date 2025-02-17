@@ -28,6 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     yazi.url = "github:sxyazi/yazi";
+    nixvim.url = "github:nix-community/nixvim";
   };
 
   outputs =
@@ -37,6 +38,7 @@
       nixpkgs-master,
       nixpkgs-stable,
       sops,
+      nixvim,
       ...
     }@inputs:
     let
@@ -55,6 +57,11 @@
       hostnameToSystem = {
         "MacBook-Pro" = "aarch64-linux"; # or "aarch64-darwin" if applicable
         "Felix-Desktop" = "x86_64-linux"; # specify the correct architecture
+      };
+
+      nixvimModuleFor = pkgs: {
+        inherit pkgs;
+        module = import ./mod/nixvim;
       };
 
       mkSystem = hostname: system: {
@@ -111,7 +118,15 @@
     {
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
-      packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+      packages = forAllSystems (
+        system:
+        import ./pkgs nixpkgs.legacyPackages.${system}
+        // {
+          nixvim = nixvim.legacyPackages.${system}.makeNixvimWithModule (
+            nixvimModuleFor nixpkgs.legacyPackages.${system}
+          );
+        }
+      );
       overlays = import ./overlays.nix { inherit inputs; };
 
       nixosModules.marchcraft = import ./mod/nixos;

@@ -1,0 +1,4 @@
+{ ... }:
+{
+  plugins.lazygit.enable = true;
+}
