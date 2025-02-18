@@ -44,6 +44,8 @@
         swww
       ];
 
+      stylix.targets.wayfire.enable = true;
+
       wayland.windowManager.wayfire = {
         enable = true;
         plugins = [
@@ -115,7 +117,7 @@
           };
           core = {
             close_top_view = "<${super_key}> KEY_C";
-            plugins = "autostart command cube expo fisheye foreign-toplevel switcher vswitch wobbly wrot simple-tile wm-actions windecor animate";
+            plugins = "autostart command cube expo fisheye foreign-toplevel switcher vswitch wobbly wrot simple-tile wm-actions decoration animate";
           };
           input = {
             xkb_layout = config.marchcraft.desktop.wayfire.keyboard_layout;
@@ -143,11 +145,17 @@
           wm-actions = {
             toggle_fullscreen = "<${super_key}> KEY_F";
           };
+          decoration = {
+            title_height = 0;
+          };
+          cube = {
+            activate = "<${super_key}> <shift> BTN_LEFT";
+            rotate_left = "<${super_key}> <alt> KEY_H";
+            rotate_right = "<${super_key}> <alt> KEY_L";
+            background_mode = "skydome";
+          };
           wrot = {
             reset-one = "<${super_key}> <shift> KEY_R";
-          };
-          windecor = {
-            title_position = 0;
           };
           animate = {
             close_animation = "fire";

@@ -9,7 +9,6 @@
 {
   imports = [
     ./keybinds.nix
-    ./wallpaper.nix
   ];
 
   options.marchcraft.desktop.hyprland = {
@@ -50,8 +49,6 @@
         general = {
           layout = "dwindle";
           border_size = 2;
-          "col.active_border" = "rgb(fab387)";
-          "col.inactive_border" = "rgba(595959aa)";
           gaps_in = 2;
           gaps_out = 2;
         };
@@ -88,9 +85,6 @@
 
         decoration = {
           rounding = 10;
-          drop_shadow = true;
-          shadow_range = 4;
-          shadow_render_power = 3;
           inactive_opacity = 0.95;
           blur.size = 3;
         };

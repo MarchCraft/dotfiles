@@ -24,7 +24,7 @@
     nix-easyroam.url = "github:0x5a4/nix-easyroam";
     nixos-aarch64-widevine.url = "github:epetousis/nixos-aarch64-widevine";
     stylix = {
-      url = "github:0x5a4/stylix";
+      url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     yazi.url = "github:sxyazi/yazi";

@@ -67,5 +67,6 @@
     mapleader = " ";
   };
 
-  colorschemes.catppuccin.enable = true;
+  colorschemes.tokyonight.enable = true;
+  colorschemes.tokyonight.settings.style = "night";
 }

@@ -23,6 +23,7 @@
         "ctrl+minus" = "change_font_size all -1.0";
       };
       settings = {
+
         confirm_os_window_close = 0;
       };
     };

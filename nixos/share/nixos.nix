@@ -3,8 +3,8 @@
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
   stylix.image = pkgs.fetchurl {
-    url = "https://pbs.twimg.com/media/EDyxVvoXsAAE9Zg.png";
-    sha256 = "sha256-NRfish27NVTJtJ7+eEWPOhUBe8vGtuTw+Osj5AVgOmM=";
+    url = "https://github.com/NixOS/nixos-artwork/blob/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png?raw=true";
+    sha256 = "sha256-fmKFYw2gYAYFjOv4lr8IkXPtZfE1+88yKQ4vjEcax1s=";
   };
   stylix.polarity = "dark";
 
@@ -37,6 +37,9 @@
       serif = {
         package = pkgs.noto-fonts;
         name = "Noto Serif";
+      };
+      sizes = {
+        terminal = 9;
       };
     };
 

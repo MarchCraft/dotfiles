@@ -40,8 +40,7 @@
 
   marchcraft.misc.enable = true;
 
-  marchcraft.desktop.wayfire.enable = true;
-  marchcraft.desktop.wayfire.scale = 2;
+  marchcraft.desktop.hyprland.enable = true;
 
   marchcraft.desktop.swaync.enable = true;
   marchcraft.desktop.apps.kitty.enable = true;

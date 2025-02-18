@@ -87,7 +87,7 @@
   marchcraft.services.printing.enable = true;
 
   marchcraft.greeter.enable = true;
-  marchcraft.greeter.command = "wayfire";
+  marchcraft.greeter.command = "Hyprland";
   marchcraft.desktop.swaylock.enable = true;
 
   marchcraft.audio.enable = true;
