@@ -12,5 +12,6 @@
     ./hyprland
     ./wayfire
     ./wayvnc.nix
+    ./nixcord.nix
   ];
 }

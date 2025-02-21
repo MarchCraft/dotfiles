@@ -17,7 +17,7 @@
     shiftround = true;
     shiftwidth = 4;
     tabstop = 4;
-    termguicolors = true;
+    termguicolors = false;
     lazyredraw = false;
     scrolloff = 15;
     autoread = true;

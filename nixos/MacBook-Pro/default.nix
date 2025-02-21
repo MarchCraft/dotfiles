@@ -81,6 +81,7 @@
     secretsFile = ../secrets/wifi;
     networks = {
       FelixPhone = "FelixPhonePass";
+      HHUD-Y = "HHUDY";
     };
   };
 

@@ -24,9 +24,7 @@
         "$mainMod SHIFT, C, exec, killall rofi || rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history -calc-command \"echo -n '{result}' | wl-copy\""
 
         # screenshots
-        "$mainMod, P, exec, grim -o eDP-1 ~/Pictures/Screenshots/$(date +%s).png"
-        "$mainMod SHIFT, P, exec, grim -g \"\$(slurp)\" ~/Pictures/Screenshots/$(date +%s).png"
-        "$mainMod, P, exec, grim -o eDP-1 ~/Pictures/Screenshots/$(date +%s).png"
+        "$mainMod SHIFT, P, exec, grim -g \"\$(slurp)\" - | wl-copy"
 
         "$mainMod, C, killactive, "
         "$mainMod, F, fullscreen, "

@@ -15,7 +15,6 @@
 
     programs.fastfetch = {
       enable = true;
-      settings = lib.importJSON ./fastfetch.json;
     };
 
     home.packages =

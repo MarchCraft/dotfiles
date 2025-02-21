@@ -29,6 +29,7 @@
     };
     yazi.url = "github:sxyazi/yazi";
     nixvim.url = "github:nix-community/nixvim";
+    nixcord.url = "github:KaylorBen/nixcord";
   };
 
   outputs =
