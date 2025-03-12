@@ -1,11 +1,20 @@
-{ ... }:
+{ pkgs,... }:
 {
-
   plugins.lsp = {
     enable = true;
   };
+
   plugins.lsp.servers.nixd.enable = true;
+  plugins.lsp.servers.nixd.settings.formatting.command = [ "nixfmt"];
+  extraPackages = [
+    pkgs.nixfmt-rfc-style
+  ];
+
   plugins.rustaceanvim = {
+    enable = true;
+  };
+
+  plugins.flutter-tools = {
     enable = true;
   };
 

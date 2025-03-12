@@ -22,7 +22,7 @@
 
   marchcraft.git.enable = true;
   marchcraft.btop.enable = true;
-  marchcraft.neovim.enable = true;
+  marchcraft.neovim.enable = false;
 
   marchcraft.desktop.apps.firefox.enable = true;
 

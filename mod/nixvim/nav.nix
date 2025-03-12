@@ -8,6 +8,27 @@
         silent = true;
       };
     }
+    {
+      action = "<cmd>Telescope lsp_definitions<CR>";
+      key = "<leader>gd";
+      options = {
+        silent = true;
+      };
+    }
+    {
+      action = "<cmd>lua vim.lsp.buf.hover()<CR>";
+      key = "<leader>ha";
+      options = {
+        silent = true;
+      };
+    }
+    {
+      action = "<cmd>Telescope diagnostics<CR>";
+      key = "<leader>di";
+      options = {
+        silent = true;
+      };
+    }
   ];
 
   plugins.yazi = {
