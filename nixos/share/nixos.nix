@@ -11,6 +11,7 @@
   hardware.steam-hardware.enable = true;
 
   environment.systemPackages = [
+    outputs.packages."${pkgs.stdenv.system}".nixvim
     pkgs.tailscale
     pkgs.element-desktop
     pkgs.thunderbird
@@ -51,7 +52,5 @@
     opacity.terminal = 0.94;
   };
 
-  programs.kdeconnect.enable = true;
-  services.usbmuxd.enable = true;
   services.tailscale.enable = true;
 }

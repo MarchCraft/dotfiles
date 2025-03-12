@@ -7,6 +7,7 @@
   imports = [
     ../../mod/home-manager # if accessed via output, infinite recursion occurs
     inputs.nur.modules.homeManager.default
+    inputs.nixcord.homeManagerModules.nixcord
   ];
 
   marchcraft.shell = {
@@ -15,11 +16,12 @@
     fish.enable = true;
     starship.enable = true;
     tmux.enable = true;
+    direnv.enable = true;
   };
 
   marchcraft.git.enable = true;
   marchcraft.btop.enable = true;
-  marchcraft.neovim.enable = true;
+  marchcraft.neovim.enable = false;
 
   marchcraft.desktop.apps.firefox.enable = true;
 
@@ -37,9 +39,8 @@
 
   marchcraft.misc.enable = true;
 
-  marchcraft.desktop.wayfire.enable = true;
-  marchcraft.desktop.wayfire.keyboard_layout = "us";
-  marchcraft.desktop.wayfire.super_key = "super";
+  marchcraft.desktop.hyprland.enable = true;
+  marchcraft.desktop.hyprland.keyboard_layout = "us";
   marchcraft.desktop.swaync.enable = true;
   marchcraft.desktop.apps.kitty.enable = true;
   marchcraft.desktop.swayidle.enable = true;

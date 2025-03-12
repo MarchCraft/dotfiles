@@ -30,6 +30,7 @@
       xdg-desktop-portal-wlr
       wl-clipboard
       hyprcursor
+      nvidia-vaapi-driver
     ];
 
     wayland.windowManager.hyprland = {
@@ -37,6 +38,9 @@
         exec-once = swaync
         exec-once = pkill gpg-agent
         exec-once = gpg-agent --pinentry-program=/usr/bin/pinentry-qt4 --daemon > /dev/null 2>&1
+        env = LIBVA_DRIVER_NAME,nvidia
+        env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+        env = NVD_BACKEND,direct
       '';
       enable = true;
       package = pkgs-master.hyprland;

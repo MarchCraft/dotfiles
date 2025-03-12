@@ -3,61 +3,29 @@
   outputs,
   config,
   pkgs,
-  pkgs-master,
   ...
 }:
 {
   imports = [
     ./hardware-configuration.nix
     ../locale.nix
+    ../share/nixos.nix
 
     inputs.sops.nixosModules.sops
     inputs.hm.nixosModules.home-manager
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nur.modules.nixos.default
     inputs.stylix.nixosModules.stylix
+    inputs.nix-easyroam.nixosModules.nix-easyroam
 
     outputs.nixosModules.marchcraft
   ];
-  environment.systemPackages = [
-    pkgs.stable.element-desktop
-    pkgs.parsec-bin
-    pkgs.virt-manager
-    pkgs.virt-viewer
-    pkgs.spice
-    pkgs.spice-gtk
-    pkgs.spice-protocol
-    pkgs.win-virtio
-    pkgs.win-spice
-    pkgs.adwaita-icon-theme
-    pkgs.nautilus
-    pkgs-master.ultrastar-creator
-    pkgs.vesktop
-  ];
-
-  services.ollama = {
-    enable = false;
-    acceleration = "cuda";
-    host = "0.0.0.0";
-  };
-
-  stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
-  stylix.image = pkgs.fetchurl {
-    url = "https://pbs.twimg.com/media/EDyxVvoXsAAE9Zg.png";
-    sha256 = "sha256-NRfish27NVTJtJ7+eEWPOhUBe8vGtuTw+Osj5AVgOmM=";
-  };
-
-  services.open-webui.enable = true;
-  services.open-webui.host = "0.0.0.0";
 
   programs.steam.enable = true;
   marchcraft.desktop.remotePlay.enable = true;
 
   virtualisation.docker.enable = true;
   virtualisation.docker.package = pkgs.docker_25;
-
-  services.tailscale.enable = true;
 
   sops.secrets.felix_pwd = {
     format = "binary";
@@ -96,17 +64,11 @@
     };
     spiceUSBRedirection.enable = true;
   };
-  services.spice-vdagentd.enable = true;
 
-  marchcraft.services.wifi = {
-    enable = true;
-    secretsFile = ../secrets/wifi;
-    networks = { };
-  };
   marchcraft.services.printing.enable = true;
 
   marchcraft.greeter.enable = true;
-  marchcraft.greeter.command = "wayfire";
+  marchcraft.greeter.command = "Hyprland";
   marchcraft.desktop.swaylock.enable = true;
 
   marchcraft.audio.enable = true;
@@ -125,12 +87,6 @@
   users.defaultUserShell = pkgs.fish;
 
   programs.fish.enable = true;
-
-  environment.shellAliases = {
-    ls = null;
-    ll = null;
-    l = null;
-  };
 
   users.users."felix".openssh.authorizedKeys.keys = [
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqlr0nKMcn6rZE0hn8RyzfgT75IxKwzgPn59WH1TSdskJNwRJh5UEDKtHA3eSxguWVdJqSDtbDeO7D6pofqPxMarhCoQwa79056e2LtDYVrABTQPabRSTreHDbMekj6RsxdHAg2BFayutEVwHHRKBuyK3DQd5hu4P3DM9t3c5Zd4XEUY4wB0N2EYy56/kw7uUM49dCX10GLSFVivVyUmb3IpFLmOt7s5I64JpsU5NGG4VdrsRJlG2U2q8f3PWf8tIhqONtR+wa7AYOKKGmBBuq7I1qX3lE7+sgxUc9CFfHVC8+OLclnCizlJaiqXIN+K35URyrqxY5Wf7POeSfhewB florian@yubikey"
