@@ -1,6 +1,6 @@
 keys:
   - &yubikey 499C66E9512BA96797CDAC410562840F5B0C9BD4
-  - &MacBook 196050fa511376675dde350b45237064ad933c0f
+  - &MacBook 33d8616a3ec4787d4646cda11a983b653af96020
   - &Felix-Desktop 90f10c0f273bffff541691fff10afdd5a8360aeb
 creation_rules:
   - path_regex: nixos/secrets/.*
