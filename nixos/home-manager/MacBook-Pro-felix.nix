@@ -45,6 +45,7 @@
 
   marchcraft.desktop.swaync.enable = true;
   marchcraft.desktop.apps.kitty.enable = true;
+  marchcraft.desktop.apps.ghostty.enable = true;
   marchcraft.desktop.swayidle.enable = true;
 
   home.stateVersion = "23.11";

@@ -23,11 +23,6 @@
   config = lib.mkIf config.marchcraft.desktop.hyprland.enable {
     home.packages = with pkgs-master; [
       wlinhibit
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-xapp
-      xdg-desktop-portal-gnome
-      xdg-desktop-portal-wlr
       wl-clipboard
       hyprcursor
       nvidia-vaapi-driver
@@ -43,7 +38,6 @@
         env = NVD_BACKEND,direct
       '';
       enable = true;
-      package = pkgs-master.hyprland;
       settings = {
         experimental.hdr = true;
         "$mainMod" = "SUPER";

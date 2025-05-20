@@ -23,6 +23,20 @@
       };
     }
     {
+      action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+      key = "<leader>ca";
+      options = {
+        silent = true;
+      };
+    }
+    {
+      action = "<cmd>lua require(\"lsp_lines\").toggle()<CR>";
+      key = "<leader>ol";
+      options = {
+        silent = true;
+      };
+    }
+    {
       action = "<cmd>Telescope diagnostics<CR>";
       key = "<leader>di";
       options = {
@@ -34,6 +48,8 @@
   plugins.yazi = {
     enable = true;
   };
+
+  plugins.lsp-lines.enable = true;
 
   plugins.telescope = {
     enable = true;

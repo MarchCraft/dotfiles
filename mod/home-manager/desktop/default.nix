@@ -13,5 +13,6 @@
     ./wayfire
     ./wayvnc.nix
     ./nixcord.nix
+    ./ghostty.nix
   ];
 }

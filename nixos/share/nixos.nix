@@ -6,9 +6,10 @@
     url = "https://github.com/NixOS/nixos-artwork/blob/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png?raw=true";
     sha256 = "sha256-fmKFYw2gYAYFjOv4lr8IkXPtZfE1+88yKQ4vjEcax1s=";
   };
-  stylix.polarity = "dark";
 
   hardware.steam-hardware.enable = true;
+
+  programs.wireshark.enable = true;
 
   environment.systemPackages = [
     outputs.packages."${pkgs.stdenv.system}".nixvim
@@ -47,6 +48,7 @@
     cursor = {
       package = pkgs.rose-pine-cursor;
       name = "BreezeX-RosePine-Linux";
+      size = 24;
     };
 
     opacity.terminal = 0.94;

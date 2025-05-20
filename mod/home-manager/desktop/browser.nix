@@ -84,53 +84,56 @@
                 bookmarks = bookmarks;
               };
             in
-            [
-              {
-                name = "toolbar";
-                toolbar = true;
-                bookmarks = [
-                  (define "youtube.com")
-                  (define "disneyplus.com/en-de")
-                  (define "nixos.wiki")
-                  (define "github.com")
-                  (define "crates.io")
-                  (folder "tools" [
-                    (defineNamed "craiyon" "craiyon.com")
-                    (defineNamed "hex to dec" "www.rapidtables.com/convert/number/hex-to-decimal.html")
-                    (defineNamed "goodname" "kampersanda.github.io/goodname")
-                    (defineNamed "plotz" "www.plotz.co.uk")
-                    (defineNamed "toml validator" "www.toml-lint.com")
-                    (defineNamed "click" "clickclickclick.click/#4a955f9cf0bbe3854fa9ede6935d540c")
-                    (defineNamed "mems" "imgflip.com/memegenerator")
-                  ])
-                  (folder "uni" [
-                    (defineNamed "ilias" "ilias.hhu.de/login.php?client_id=UniRZ&cmd=force_login&lang=de")
-                    (defineNamed "lsf" "lsf.hhu.de")
-                    (defineNamed "fscs" "fscs.hhu.de")
-                    (defineNamed "inphima nextcloud" "nextcloud.inphima.de")
-                    (defineNamed "mete" "metesecure.hhu-fscs.de")
-                    (defineNamed "tickets" "tickets.astahhu.de/mailbox/4")
-                  ])
-                  (folder "doc" [
-                    (defineNamed "lua 5.4 reference" "www.lua.org/manual/5.4")
-                    (defineNamed "hyprland wiki" "wiki.hyprland.org")
-                    (defineNamed "opencomputers" "ocdoc.cil.li")
-                    (defineNamed "hugo" "gohugo.io/documentation")
-                    (defineNamed "bootstrap" "getbootstrap.com/docs/")
-                    (defineNamed "nixpkgs doc" "ryantm.github.io/nixpkgs/")
-                  ])
-                ];
-              }
-            ];
+            {
+              force = true;
+              settings = [
+                {
+                  name = "toolbar";
+                  toolbar = true;
+                  bookmarks = [
+                    (define "youtube.com")
+                    (define "disneyplus.com/en-de")
+                    (define "nixos.wiki")
+                    (define "github.com")
+                    (define "crates.io")
+                    (folder "tools" [
+                      (defineNamed "craiyon" "craiyon.com")
+                      (defineNamed "hex to dec" "www.rapidtables.com/convert/number/hex-to-decimal.html")
+                      (defineNamed "goodname" "kampersanda.github.io/goodname")
+                      (defineNamed "plotz" "www.plotz.co.uk")
+                      (defineNamed "toml validator" "www.toml-lint.com")
+                      (defineNamed "click" "clickclickclick.click/#4a955f9cf0bbe3854fa9ede6935d540c")
+                      (defineNamed "mems" "imgflip.com/memegenerator")
+                    ])
+                    (folder "uni" [
+                      (defineNamed "ilias" "ilias.hhu.de/login.php?client_id=UniRZ&cmd=force_login&lang=de")
+                      (defineNamed "lsf" "lsf.hhu.de")
+                      (defineNamed "fscs" "fscs.hhu.de")
+                      (defineNamed "phynix-hhu nextcloud" "nextcloud.phynix-hhu.de")
+                      (defineNamed "sitzungsverwaltung" "sitzungen.hhu-fscs.de")
+                      (defineNamed "tickets" "tickets.astahhu.de/mailbox/4")
+                    ])
+                    (folder "doc" [
+                      (defineNamed "lua 5.4 reference" "www.lua.org/manual/5.4")
+                      (defineNamed "hyprland wiki" "wiki.hyprland.org")
+                      (defineNamed "opencomputers" "ocdoc.cil.li")
+                      (defineNamed "hugo" "gohugo.io/documentation")
+                      (defineNamed "bootstrap" "getbootstrap.com/docs/")
+                      (defineNamed "nixpkgs doc" "ryantm.github.io/nixpkgs/")
+                    ])
+                  ];
+                }
+              ];
+            };
 
           search = {
-            default = "DuckDuckGo";
+            default = "ddg";
             force = true;
             engines =
               let
                 define = alias: url: iconURL: {
                   urls = [ { template = "https://${url}"; } ];
-                  iconUpdateURL = "https://${iconURL}";
+                  icon = "https://${iconURL}";
                   updateInterval = 24 * 60 * 60 * 1000;
                   definedAliases = [ "@${alias}" ];
                 };
@@ -140,7 +143,7 @@
                   define "yt" "youtube.com/results?search_query={searchTerms}"
                     "www.youtube.com/favicon.ico";
                 "Nix Packages" =
-                  define "nixpkg" "https://search.nixos.org/packages?query={searchTerms}"
+                  define "nixpkg" "search.nixos.org/packages?query={searchTerms}"
                     "nixos.wiki/favicon.png";
                 "Nix Options" =
                   define "nixopt" "search.nixos.org/options?query={searchTerms}"
@@ -174,7 +177,7 @@
               };
           };
 
-          extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
             bitwarden
             boring-rss
             clearurls

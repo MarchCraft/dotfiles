@@ -67,14 +67,14 @@
       };
     };
 
-  plugins.copilot-cmp = {
-    enable = true;
-    event = [
-      "InsertEnter"
-      "LspAttach"
-    ];
-  };
-
+  # plugins.copilot-cmp = {
+  #   enable = true;
+  #   event = [
+  #     "InsertEnter"
+  #     "LspAttach"
+  #   ];
+  # };
+  #
   plugins.nui.enable = true;
 
   plugins.cmp-treesitter.enable = true;

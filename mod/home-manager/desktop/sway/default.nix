@@ -35,7 +35,6 @@
       gtk.enable = true;
       package = pkgs.catppuccin-cursors.mochaMauve;
       name = "catppuccin-mocha-mauve-cursors";
-      size = 40;
       x11 = {
         enable = true;
         defaultCursor = config.home.pointerCursor.name;

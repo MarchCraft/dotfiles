@@ -13,12 +13,12 @@
       description = "The scale for the output";
     };
     keyboard_layout = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "de";
       description = "The keyboard layout";
     };
     super_key = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "super";
       description = "The super key";
     };

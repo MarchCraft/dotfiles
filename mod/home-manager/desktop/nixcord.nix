@@ -4,7 +4,6 @@
     enable = true;
     discord.enable = false;
     vesktop.enable = true;
-    vesktop.package = pkgs-stable.vesktop;
 
     config =
       let

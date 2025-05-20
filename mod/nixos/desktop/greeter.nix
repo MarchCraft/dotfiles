@@ -8,7 +8,7 @@
   options.marchcraft.greeter = {
     enable = lib.mkEnableOption "enable the greeter";
     command = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "Hyprland";
       description = "the command to run in the greeter";
     };

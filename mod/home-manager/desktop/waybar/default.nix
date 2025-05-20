@@ -26,7 +26,8 @@ in
       settings = {
         mainBar = {
           mod = "dock";
-          margin-top = 3;
+          margin-top = 4;
+          margin-bottom = 4;
           modules-center = [ ];
           modules-left = [
             "clock"
