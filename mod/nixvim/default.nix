@@ -50,9 +50,6 @@
           {
             name = "buffer";
           }
-          {
-            name = "copilot";
-          }
         ];
         mapping = {
           "<C-d>" = "cmp.mapping.scroll_docs(-4)";

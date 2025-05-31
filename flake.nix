@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
     nixpkgs-master.url = "github:nixos/nixpkgs";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     sops = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +17,7 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
+    apple-silicon-support.url = "github:nix-community/nixos-apple-silicon";
     impermanence.url = "github:nix-community/impermanence";
     betterfox.url = "github:HeitorAugustoLN/betterfox-nix";
     templates.url = "github:nixos/templates";

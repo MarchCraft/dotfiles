@@ -22,22 +22,13 @@
 
     outputs.nixosModules.marchcraft
   ];
-
-  nixpkgs.overlays = [
-    outputs.overlays.widevine_o
-    inputs.nixos-aarch64-widevine.overlays.default
-  ];
+  environment.sessionVariables = {
+    MOZ_GMP_PATH = "${pkgs.widevine-firefox}/gmp-widevinecdm/system-installed";
+  };
 
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
   nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
   programs.nix-ld.enable = true;
-
-  programs.nix-ld.libraries = with pkgs; [
-  ];
-
-  environment.sessionVariables.MOZ_GMP_PATH = [
-    "${pkgs.widevine-cdm-lacros}/gmp-widevinecdm/system-installed"
-  ];
 
   sops.secrets.nix-conf = {
     sopsFile = ../secrets/nix-conf;
@@ -82,6 +73,7 @@
     networks = {
       FelixPhone = "FelixPhonePass";
       HHUD-Y = "HHUDY";
+      MonkeyIsland = "MonkeyIsland";
     };
   };
 
@@ -89,6 +81,7 @@
 
   marchcraft.greeter.enable = true;
   marchcraft.greeter.command = "Hyprland";
+  marchcraft.greeter.defaultUser = "felix";
   marchcraft.desktop.swaylock.enable = true;
 
   marchcraft.audio.enable = true;

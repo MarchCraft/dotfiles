@@ -1,6 +1,5 @@
 pkgs: {
   # pkg = pkgs.callPackage ./pkg.nix {};
-  greetd-mini-wl-greeter = pkgs.callPackage ./greetd-mini-wl-greeter.nix { };
   tidal = pkgs.callPackage ./tidal.nix { };
   pixdecor = pkgs.callPackage ./pixdecor.nix { };
   hyprland-cursor-intersects = pkgs.callPackage ./hyprland-cursor-intersects.nix { };
@@ -11,4 +10,5 @@ pkgs: {
   wob-brightness = pkgs.callPackage ./wob-brightness.nix { };
   wob-volume = pkgs.callPackage ./wob-volume.nix { };
   wp-switch-output = pkgs.callPackage ./wp-switch-output.nix { };
+  widevine-firefox = pkgs.callPackage ./firefox-widevine.nix { };
 }

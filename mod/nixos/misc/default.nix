@@ -9,7 +9,6 @@
   options.marchcraft.misc.enable = lib.mkEnableOption "install misc";
   config = lib.mkIf config.marchcraft.misc.enable {
     environment.systemPackages = [
-      pkgs.tidal-hifi
       pkgs.prismlauncher
       pkgs.wayvnc
       pkgs.wl-mirror

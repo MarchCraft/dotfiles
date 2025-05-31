@@ -14,14 +14,18 @@
   environment.systemPackages = [
     outputs.packages."${pkgs.stdenv.system}".nixvim
     pkgs.tailscale
-    pkgs.element-desktop
     pkgs.thunderbird
     pkgs.moonlight-qt
     pkgs.brave
-    pkgs.tidal-hifi
     pkgs.chromium
     pkgs.tidal
     pkgs.easyeffects
+    pkgs.nheko
+    pkgs.chromium
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "olm-3.2.16"
   ];
 
   stylix = {

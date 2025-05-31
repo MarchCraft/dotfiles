@@ -20,6 +20,7 @@
       opts = config.marchcraft.desktop.apps.firefox;
     in
     lib.mkIf opts.enable {
+      stylix.targets.firefox.profileNames = [ "main" ];
       programs.firefox = {
         enable = true;
 
@@ -46,6 +47,7 @@
           "Cookies" = {
             "Allow" = [
               "https://youtube.com"
+              "https://netflix.com"
               "https://github.com"
               "https://disneyplus.com"
               "https://hhu.de"
@@ -171,7 +173,7 @@
                 "Arch" =
                   define "arch" "wiki.archlinux.org/index.php?search={searchTerms}"
                     "wiki.archlinux.org/favicon.ico";
-                "Google".metaData.hidden = true;
+                "google".metaData.hidden = true;
                 "Amazon.de".metaData.hidden = true;
                 "Twitter".metaData.hidden = true;
               };
@@ -202,6 +204,13 @@
           settings = {
             "extensions.autoDisableScopes" = 0;
             "browser.translations.automaticallyPopup" = false;
+            "media.gmp-widevinecdm.version" = "system-installed";
+            "media.gmp-widevinecdm.visible" = true;
+            "media.gmp-widevinecdm.enabled" = true;
+            "media.gmp-widevinecdm.autoupdate" = false;
+
+            "media.eme.enabled" = true;
+            "media.eme.encrypted-media-encryption-scheme.enabled" = true;
           };
         };
       };
