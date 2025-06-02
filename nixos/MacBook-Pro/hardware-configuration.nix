@@ -31,6 +31,7 @@
     fsType = "btrfs";
     options = [ "subvol=root" ];
   };
+  boot.initrd.systemd.enable = true;
 
   boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/60516112-c25d-4801-b794-12f525f83057";
 

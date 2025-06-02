@@ -39,7 +39,6 @@
   boot = {
     plymouth = {
       enable = true;
-      extraConfig = "tty=tty0";
     };
   };
 
