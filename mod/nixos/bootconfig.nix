@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 {
@@ -26,6 +27,7 @@
         enable = true;
         device = "nodev";
         efiSupport = true;
+        theme = lib.mkForce pkgs.catppuccin-grub;
       };
     };
 }

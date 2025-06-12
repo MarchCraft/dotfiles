@@ -27,8 +27,13 @@
   };
 
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+  boot.loader.grub.fontSize = 48;
   nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
   programs.nix-ld.enable = true;
+
+  services.postgresql = {
+    enable = true;
+  };
 
   sops.secrets.nix-conf = {
     sopsFile = ../secrets/nix-conf;
@@ -77,11 +82,6 @@
   };
 
   marchcraft.services.printing.enable = true;
-
-  marchcraft.greeter.enable = true;
-  marchcraft.greeter.command = "Hyprland";
-  marchcraft.greeter.defaultUser = "felix";
-  marchcraft.desktop.swaylock.enable = true;
 
   marchcraft.audio.enable = true;
   marchcraft.misc.enable = true;

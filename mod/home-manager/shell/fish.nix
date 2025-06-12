@@ -23,7 +23,6 @@
         autopair
         colored-man-pages
         puffer
-        sponge
         foreign-env
         grc
       ]

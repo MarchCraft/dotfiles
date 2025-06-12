@@ -13,6 +13,7 @@
       slurp
       pamixer
       brightnessctl
+      wl-mirror
     ];
 
     wayland.windowManager.hyprland = {
@@ -95,7 +96,7 @@
         ", XF86Tools, exec, wp-switch-output"
         ", XF86AudioMedia, exec, wp-switch-output"
         # present
-        "$mainMod, o, exec, hyprland-mirror"
+        "$mainMod, o, exec, wl-mirror"
         "$mainMod SHIFT, o, exec, killall wl-mirror"
       ];
 

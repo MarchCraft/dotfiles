@@ -9,7 +9,7 @@
     inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.nur.modules.homeManager.default
     inputs.nixcord.homeModules.nixcord
-
+    ./share.nix
   ];
 
   marchcraft.shell = {
@@ -36,13 +36,12 @@
   marchcraft.rofi = {
     enable = true;
   };
+
   marchcraft.waybar.enable = true;
 
   marchcraft.yazi.enable = true;
 
   marchcraft.misc.enable = true;
-
-  marchcraft.desktop.hyprland.enable = true;
 
   marchcraft.desktop.swaync.enable = true;
   marchcraft.desktop.apps.kitty.enable = true;

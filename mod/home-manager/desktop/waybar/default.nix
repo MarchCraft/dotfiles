@@ -23,6 +23,7 @@ in
     stylix.targets.waybar.enable = false;
     programs.waybar = {
       enable = true;
+      systemd.enable = true;
       settings = {
         mainBar = {
           mod = "dock";
@@ -51,8 +52,5 @@ in
         } // sharedModules;
       };
     };
-    wayland.windowManager.hyprland.extraConfig = ''
-      exec-once = waybar
-    '';
   };
 }

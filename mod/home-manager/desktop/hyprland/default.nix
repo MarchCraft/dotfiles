@@ -36,6 +36,8 @@
         env = LIBVA_DRIVER_NAME,nvidia
         env = __GLX_VENDOR_LIBRARY_NAME,nvidia
         env = NVD_BACKEND,direct
+        windowrulev2 = float, title:^(Picture in picture)$
+        windowrulev2 = pin, title:^(Picture in picture)$
       '';
       enable = true;
       settings = {

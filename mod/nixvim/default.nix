@@ -50,6 +50,9 @@
           {
             name = "buffer";
           }
+          {
+            name = "copilot";
+          }
         ];
         mapping = {
           "<C-d>" = "cmp.mapping.scroll_docs(-4)";
@@ -64,14 +67,14 @@
       };
     };
 
-  # plugins.copilot-cmp = {
-  #   enable = true;
-  #   event = [
-  #     "InsertEnter"
-  #     "LspAttach"
-  #   ];
-  # };
-  #
+  plugins.copilot-cmp = {
+    enable = true;
+    event = [
+      "InsertEnter"
+      "LspAttach"
+    ];
+  };
+
   plugins.nui.enable = true;
 
   plugins.cmp-treesitter.enable = true;

@@ -1,14 +1,13 @@
 { pkgs, outputs, ... }:
 {
   stylix.enable = true;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
   stylix.image = pkgs.fetchurl {
     url = "https://github.com/NixOS/nixos-artwork/blob/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png?raw=true";
     sha256 = "sha256-fmKFYw2gYAYFjOv4lr8IkXPtZfE1+88yKQ4vjEcax1s=";
   };
 
   hardware.steam-hardware.enable = true;
-
   programs.wireshark.enable = true;
 
   environment.systemPackages = [
@@ -56,6 +55,19 @@
     };
 
     opacity.terminal = 0.94;
+  };
+
+  marchcraft.greeter = {
+    enable = true;
+    defaultUser = "felix";
+    command = "Hyprland";
+  };
+
+  sops.secrets.nextcloud = {
+    owner = "felix";
+    path = "/home/felix/.netrc";
+    sopsFile = ../secrets/nextcloud;
+    format = "binary";
   };
 
   services.tailscale.enable = true;
