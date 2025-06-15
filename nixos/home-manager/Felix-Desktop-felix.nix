@@ -7,7 +7,7 @@
   imports = [
     ../../mod/home-manager # if accessed via output, infinite recursion occurs
     inputs.nur.modules.homeManager.default
-    inputs.nixcord.homeManagerModules.nixcord
+    inputs.nixcord.homeModules.nixcord
     ./share.nix
   ];
 
@@ -41,7 +41,7 @@
   marchcraft.misc.enable = true;
 
   marchcraft.desktop.hyprland.enable = true;
-  marchcraft.desktop.hyprland.keyboard_layout = "us";
+  marchcraft.desktop.hyprland.keyboard_layout = "de";
   marchcraft.desktop.swaync.enable = true;
   marchcraft.desktop.apps.kitty.enable = true;
   marchcraft.desktop.swayidle.enable = true;

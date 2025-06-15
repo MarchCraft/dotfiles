@@ -10,6 +10,7 @@
     ./hardware-configuration.nix
     ../locale.nix
     ../share/nixos.nix
+    ./nat.nix
 
     inputs.sops.nixosModules.sops
     inputs.hm.nixosModules.home-manager
@@ -20,6 +21,31 @@
 
     outputs.nixosModules.marchcraft
   ];
+
+  hardware.enableAllFirmware = true;
+
+  programs.virt-manager.enable = true;
+
+  marchcraft.services.wifi = {
+    enable = true;
+    secretsFile = ../secrets/wifi;
+    networks = {
+      FelixPhone = "FelixPhonePass";
+      HHUD-Y = "HHUDY";
+    };
+  };
+
+  programs = {
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
+    steam = {
+      gamescopeSession.enable = true;
+    };
+  };
+
+  users.groups.libvirtd.members = [ "felix" ];
 
   programs.steam.enable = true;
   marchcraft.desktop.remotePlay.enable = true;
@@ -69,6 +95,7 @@
 
   marchcraft.greeter.enable = true;
   marchcraft.greeter.command = "Hyprland";
+  marchcraft.greeter.defaultUser = "felix";
   marchcraft.desktop.swaylock.enable = true;
 
   marchcraft.audio.enable = true;

@@ -26,6 +26,7 @@
     "nvidia_modeset"
     "nvidia_uvm"
     "nvidia_drm"
+    "e1000e"
   ];
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
@@ -33,25 +34,6 @@
   services.blueman.enable = true;
 
   hardware.nvidia-container-toolkit.enable = true;
-  boot.kernelModules = [
-    "brcmfmac"
-    "brcmutil"
-    "iwlmvm"
-    "iwlwifi"
-    "mmc_core"
-    "mt76_usb"
-    "mt76"
-    "mt76x0_common"
-    "mt76x02_lib"
-    "mt76x02_usb"
-    "mt76x0u"
-    "r8188eu"
-    "rtl_usb"
-    "rtl8192c_common"
-    "rtl8192cu"
-    "rtlwifi"
-    "kvmintel"
-  ];
 
   security.polkit.enable = true;
 
