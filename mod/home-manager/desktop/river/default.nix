@@ -111,6 +111,20 @@
             "Super+Shift" = generateTagBindings "set-view-tags";
             "Super+Alt" = generateTagBindings "toggle-focused-tags";
             "Super+Shift+Alt" = generateTagBindings "toggle-view-tags";
+
+            #Volume control
+            "None XF86AudioRaiseVolume" = spawn "pamixer -i 5";
+            "None XF86AudioLowerVolume" = spawn "pamixer -d 5";
+            "None XF86AudioMute" = spawn "pamixer -t";
+
+            #Brightness control
+            "None XF86MonBrightnessUp" = spawn "brightnessctl set +5%";
+            "None XF86MonBrightnessDown" = spawn "brightnessctl set 5%-";
+
+            #Media control
+            "None XF86AudioPlay" = spawn "playerctl play-pause";
+            "None XF86AudioNext" = spawn "playerctl next";
+            "None XF86AudioPrev" = spawn "playerctl previous";
           };
           keyboard-layout = config.marchcraft.desktop.river.keyboardLayout;
         };

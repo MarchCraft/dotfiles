@@ -15,6 +15,9 @@ in
         python-pkgs.requests
       ]))
       gcalcli
+      pamixer
+      brightnessctl
+      wl-mirror
     ];
     home.file = {
       ".config/waybar/style.css".source = ../../../../config/waybar/style.css;
