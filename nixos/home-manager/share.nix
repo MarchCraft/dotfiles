@@ -11,8 +11,10 @@
     enable = true;
   };
 
-  marchcraft.desktop.hyprland = {
+  marchcraft.desktop.river = {
     enable = true;
+    scale = 2;
+    keyboardLayout = "de";
   };
 
   xdg.mimeApps = {

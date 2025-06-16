@@ -6,132 +6,114 @@
   ...
 }:
 {
-  imports = [
-  ];
-
   options.marchcraft.desktop.river = {
     enable = lib.mkEnableOption "install the river config";
+    keyboardLayout = lib.mkOption {
+      type = lib.types.str;
+      default = "us";
+      description = "Keyboard layout to use in river.";
+    };
+    scale = lib.mkOption {
+      type = lib.types.int;
+      default = 1;
+      description = "Scale factor for HiDPI displays in river.";
+    };
   };
 
   config = lib.mkIf config.marchcraft.desktop.river.enable {
     home.packages = with pkgs; [
+      rivercarro
+      wlr-randr
+      xdg-desktop-portal-wlr
+      wl-clipboard
     ];
+
+    home.sessionVariables = {
+      XDG_CURRENT_DESKTOP = "river";
+      WAYLAND_DISPLAY = "wayland-1";
+    };
+
+    services.hyprpaper.enable = true;
 
     wayland.windowManager.river = {
       enable = true;
-      package = pkgs.river;
-      xwayland.enable = false;
       extraConfig = ''
-        riverctl map normal Super Return spawn "kitty -e tmux"
-        riverctl map normal Super R spawn "rofi -show drun"
-        riverctl map normal Super Q close
-        riverctl map normal Super J focus-view next
-        riverctl map normal Super K focus-view previous
-        riverctl map normal Super+Shift J swap next
-        riverctl map normal Super+Shift K swap previous
-        riverctl map normal Super Period focus-output next
-        riverctl map normal Super Comma focus-output previous
-        riverctl map normal Super+Shift Period send-to-output next
-        riverctl map normal Super+Shift Comma send-to-output previous
-        riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
-        riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+        wlr-randr --output eDP-1 --scale ${toString config.marchcraft.desktop.river.scale}
 
-        # Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
-        riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
-        riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
-        # Super+Alt+{H,J,K,L} to move views
-        riverctl map normal Super+Alt H move left 100
-        riverctl map normal Super+Alt J move down 100
-        riverctl map normal Super+Alt K move up 100
-        riverctl map normal Super+Alt L move right 100
+        systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+        dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
 
-        riverctl map normal Super+Alt+Control H snap left
-        riverctl map normal Super+Alt+Control J snap down
-        riverctl map normal Super+Alt+Control K snap up
-        riverctl map normal Super+Alt+Control L snap right
+        systemctl --user stop xdg-desktop-portal
+        systemctl --user start xdg-desktop-portal
 
-        riverctl map normal Super+Alt+Shift H resize horizontal -100
-        riverctl map normal Super+Alt+Shift J resize vertical 100
-        riverctl map normal Super+Alt+Shift K resize vertical -100
-        riverctl map normal Super+Alt+Shift L resize horizontal 100
-
-        riverctl map-pointer normal Super BTN_LEFT move-view
-
-        riverctl map-pointer normal Super BTN_RIGHT resize-view
-
-        riverctl map-pointer normal Super BTN_MIDDLE toggle-float
-
-        for i in $(seq 1 9)
-        do
-            tags=$((1 << ($i - 1)))
-
-            # Super+[1-9] to focus tag [0-8]
-            riverctl map normal Super $i set-focused-tags $tags
-
-            # Super+Shift+[1-9] to tag focused view with tag [0-8]
-            riverctl map normal Super+Shift $i set-view-tags $tags
-
-            # Super+Control+[1-9] to toggle focus of tag [0-8]
-            riverctl map normal Super+Control $i toggle-focused-tags $tags
-
-            # Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
-            riverctl map normal Super+Shift+Control $i toggle-view-tags $tags
-        done
-
-        all_tags=$(((1 << 32) - 1))
-        riverctl map normal Super 0 set-focused-tags $all_tags
-        riverctl map normal Super+Shift 0 set-view-tags $all_tags
-
-        riverctl map normal Super Space toggle-float
-
-        riverctl map normal Super F toggle-fullscreen
-
-        riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
-        riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
-        riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
-        riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
-
-        riverctl declare-mode passthrough
-
-        riverctl map normal Super F11 enter-mode passthrough
-
-        riverctl map passthrough Super F11 enter-mode normal
-
-        for mode in normal locked
-        do
-            # Eject the optical drive (well if you still have one that is)
-            riverctl map $mode None XF86Eject spawn 'eject -T'
-
-            # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-            riverctl map $mode None XF86AudioRaiseVolume  spawn 'pamixer -i 5'
-            riverctl map $mode None XF86AudioLowerVolume  spawn 'pamixer -d 5'
-            riverctl map $mode None XF86AudioMute         spawn 'pamixer --toggle-mute'
-
-            # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
-            riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
-            riverctl map $mode None XF86AudioPlay  spawn 'playerctl play-pause'
-            riverctl map $mode None XF86AudioPrev  spawn 'playerctl previous'
-            riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
-
-            # Control screen backlight brightness with brightnessctl (https://github.com/Hummer12007/brightnessctl)
-            riverctl map $mode None XF86MonBrightnessUp   spawn 'brightnessctl set +5%'
-            riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
-        done
-
-        riverctl background-color 0x002b36
-        riverctl border-color-focused 0x93a1a1
-        riverctl border-color-unfocused 0x586e75
-
-        riverctl set-repeat 50 300
-
-        riverctl rule-add -app-id 'float*' -title 'foo' float
-
-        riverctl rule-add -app-id "bar" csd
-
-        riverctl default-layout rivertile
-        rivertile -view-padding 6 -outer-padding 6 &
-
+        rivercarro \
+          -main-ratio 0.5 \
+          -no-smart-gaps \
+          -per-tag \
+          &
       '';
+
+      settings =
+        let
+
+          tagNames = map toString ((lib.range 1 9) ++ [ 0 ]);
+          tagBits = [
+            1
+            2
+            4
+            8
+            16
+            32
+            64
+            128
+            256
+            512
+            1024
+          ];
+          tags = lib.zipListsWith (name: mask: { inherit name mask; }) tagNames tagBits;
+
+          spawn = cmd: "spawn \"${cmd}\"";
+
+          generateTagBindings =
+            option:
+            lib.listToAttrs (
+              lib.map (t: {
+                inherit (t) name;
+                value = {
+                  "${option}" = t.mask;
+                };
+              }) tags
+            );
+        in
+        {
+          default-layout = "rivercarro";
+          map.normal = {
+            "Super H" = "focus-view previous";
+            "Super L" = "focus-view next";
+            "Super+Shift H" = "swap previous";
+            "Super+Shift L" = "swap next";
+
+            "Super U" = "focus-output previous";
+            "Super I" = "focus-output next";
+            "Super+Shift U" = "send-to-output previous";
+            "Super+Shift I" = "send-to-output next";
+
+            "Super Return" = spawn "kitty -e tmux";
+            "Super R" = spawn "killall rofi || ${lib.getExe pkgs.rofi-wayland} -show drun -show-icons";
+            "Super C" = "close";
+            "Super F" = "toggle-fullscreen";
+            "Super W" = spawn "${lib.getExe pkgs.firefox}";
+
+            "Super+Shift O" = spawn "loginctl lock-session";
+            "Super M" = spawn "${lib.getExe pkgs.wlogout}";
+
+            "Super" = generateTagBindings "set-focused-tags";
+            "Super+Shift" = generateTagBindings "set-view-tags";
+            "Super+Alt" = generateTagBindings "toggle-focused-tags";
+            "Super+Shift+Alt" = generateTagBindings "toggle-view-tags";
+          };
+          keyboard-layout = config.marchcraft.desktop.river.keyboardLayout;
+        };
     };
   };
 }

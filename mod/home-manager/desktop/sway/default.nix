@@ -21,25 +21,12 @@
       pamixer
       brightnessctl
       wlinhibit
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal-xapp
-      xdg-desktop-portal-gnome
       xdg-desktop-portal-wlr
       wl-clipboard
       autotiling
       grim
       slurp
     ];
-
-    home.pointerCursor = {
-      gtk.enable = true;
-      package = pkgs.catppuccin-cursors.mochaMauve;
-      name = "catppuccin-mocha-mauve-cursors";
-      x11 = {
-        enable = true;
-        defaultCursor = config.home.pointerCursor.name;
-      };
-    };
 
     home.sessionVariables = {
       WAYLAND_DISPLAY = "wayland-1";
@@ -78,33 +65,7 @@
           };
         };
 
-        colors = {
-          focused = {
-            background = "#285577";
-            border = "#14fcf8";
-            childBorder = "#14fcf8";
-            indicator = "#14fcf8";
-            text = "#ffffff";
-          };
-          unfocused = {
-            background = "#ffffff00";
-            border = "#ffffff00";
-            childBorder = "#ffffff00";
-            indicator = "#ffffff00";
-            text = "#ffffff00";
-          };
-          focusedInactive = {
-            background = "#ffffff00";
-            border = "#ffffff00";
-            childBorder = "#ffffff00";
-            indicator = "#ffffff00";
-            text = "#ffffff00";
-          };
-        };
-
         startup = [
-          { command = "waybar"; }
-          { command = "swayidle"; }
           {
             command = "autotiling";
             always = true;
@@ -126,7 +87,7 @@
           ];
           "workspace 3" = [
             {
-              app_id = "^ArmCord$";
+              app_id = "^nheko$";
             }
           ];
         };
@@ -186,7 +147,7 @@
             "XF86MonBrightnessUp" = "exec brightnessctl set 10%+";
             "${modifier}+XF86MonBrightnessDown" = "exec brightnessctl -d kbd_backlight set 10%-";
             "${modifier}+XF86MonBrightnessUp" = "exec brightnessctl -d kbd_backlight set 10%+";
-            "${modifier}+Shift+p" = "exec grim -g $(slurp) - | wl-copy";
+            "${modifier}+Shift+p" = "exec grim -g \"$(slurp)\" - | wl-copy";
           };
       };
     };

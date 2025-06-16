@@ -31,10 +31,6 @@
   nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
   programs.nix-ld.enable = true;
 
-  services.postgresql = {
-    enable = true;
-  };
-
   sops.secrets.nix-conf = {
     sopsFile = ../secrets/nix-conf;
     mode = "444";
