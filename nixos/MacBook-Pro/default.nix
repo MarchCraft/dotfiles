@@ -22,9 +22,6 @@
 
     outputs.nixosModules.marchcraft
   ];
-  environment.sessionVariables = {
-    MOZ_GMP_PATH = "${pkgs.widevine-firefox}/gmp-widevinecdm/system-installed";
-  };
 
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
   boot.loader.grub.fontSize = 48;
@@ -71,9 +68,13 @@
     enable = true;
     secretsFile = ../secrets/wifi;
     networks = {
-      FelixPhone = "FelixPhonePass";
+      "iPhone von Felix" = "FelixPhonePass";
       HHUD-Y = "HHUDY";
       MonkeyIsland = "MonkeyIsland";
+      "99 Problems but WiFi ain't one" = "99Problems";
+      LAN5 = "Rauer";
+      "UdoLandenberg" = "UdoLandenberg";
+      "WiFi Winkler" = { };
     };
   };
 
@@ -94,7 +95,6 @@
   };
 
   networking.hostName = "MacBook-Pro";
-  networking.nameservers = [ "9.9.9.9" ];
 
   users.defaultUserShell = pkgs.fish;
 

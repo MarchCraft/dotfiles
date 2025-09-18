@@ -24,7 +24,7 @@
   marchcraft.btop.enable = true;
   marchcraft.neovim.enable = false;
 
-  marchcraft.desktop.apps.firefox.enable = true;
+  marchcraft.desktop.apps.firefox.enable = false;
 
   sops = {
     age.sshKeyPaths = [

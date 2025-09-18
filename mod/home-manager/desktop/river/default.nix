@@ -102,7 +102,7 @@
             "Super R" = spawn "killall rofi || ${lib.getExe pkgs.rofi-wayland} -show drun -show-icons";
             "Super C" = "close";
             "Super F" = "toggle-fullscreen";
-            "Super W" = spawn "${lib.getExe pkgs.firefox}";
+            "Super W" = spawn "firefox";
 
             "Super+Shift O" = spawn "loginctl lock-session";
             "Super M" = spawn "${lib.getExe pkgs.wlogout}";

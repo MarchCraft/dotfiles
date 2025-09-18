@@ -1,4 +1,9 @@
-{ pkgs, outputs, ... }:
+{
+  pkgs,
+  pkgs-stable,
+  outputs,
+  ...
+}:
 {
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
@@ -13,19 +18,35 @@
   environment.systemPackages = [
     outputs.packages."${pkgs.stdenv.system}".nixvim
     pkgs.tailscale
-    pkgs.thunderbird
+    pkgs-stable.thunderbird
     pkgs.moonlight-qt
     pkgs.brave
     pkgs.chromium
     pkgs.tidal
     pkgs.easyeffects
-    pkgs.nheko
+    pkgs.element-desktop
     pkgs.chromium
+    pkgs.rpi-imager
+    pkgs.remmina
+    pkgs.spot
   ];
+
+  programs.virt-manager.enable = true;
+
+  users.groups.libvirtd.members = [ "felix" ];
+
+  virtualisation.libvirtd.enable = true;
+
+  virtualisation.spiceUSBRedirection.enable = true;
 
   nixpkgs.config.permittedInsecurePackages = [
     "olm-3.2.16"
   ];
+
+  virtualisation.docker.enable = true;
+
+  users.users.felix.extraGroups = [ "docker" ];
+  virtualisation.docker.storageDriver = "btrfs";
 
   stylix = {
     fonts = {
