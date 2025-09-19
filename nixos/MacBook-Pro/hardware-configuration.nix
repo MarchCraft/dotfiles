@@ -57,11 +57,6 @@
     ];
   };
 
-  hardware.asahi = {
-    withRust = true;
-    experimentalGPUInstallMode = "replace";
-  };
-
   hardware.graphics = {
     enable = true;
   };

@@ -26,14 +26,14 @@
         pkgs.noto-fonts-emoji
       ];
 
-      stylix.targets.kitty.enable = false;
+      stylix.targets.kitty.enable = true;
 
       programs.kitty = {
-        font = {
-          inherit (config.stylix.fonts.monospace) package name;
-          size = config.stylix.fonts.sizes.terminal;
-        };
-
+        # font = {
+        #   inherit (config.stylix.fonts.monospace) package name;
+        #   size = config.stylix.fonts.sizes.terminal;
+        # };
+        #
         enable = true;
 
         shellIntegration = {
@@ -47,7 +47,7 @@
         };
 
         settings = {
-          background_opacity = 0.95;
+          # background_opacity = 0.95;
           update_check_interval = 0;
           confirm_os_window_close = 0;
           mouse_hide_wait = 0;
@@ -55,7 +55,7 @@
           disable_ligatures = "always";
           font_features = "MonocraftNerdFontComplete- -liga";
           touch_scroll_multiplier = 5;
-          include = toString theme;
+          #include = toString theme;
         };
       };
     };

@@ -19,7 +19,10 @@
     };
     apple-silicon-support.url = "github:nix-community/nixos-apple-silicon";
     impermanence.url = "github:nix-community/impermanence";
-    betterfox.url = "github:HeitorAugustoLN/betterfox-nix";
+    betterfox = {
+      url = "github:HeitorAugustoLN/betterfox-nix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     templates.url = "github:nixos/templates";
     nix-easyroam.url = "github:0x5a4/nix-easyroam";
     nixos-aarch64-widevine.url = "github:epetousis/nixos-aarch64-widevine";

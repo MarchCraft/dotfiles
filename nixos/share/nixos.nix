@@ -11,6 +11,7 @@
     url = "https://github.com/NixOS/nixos-artwork/blob/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png?raw=true";
     sha256 = "sha256-fmKFYw2gYAYFjOv4lr8IkXPtZfE1+88yKQ4vjEcax1s=";
   };
+  stylix.polarity = "dark";
 
   hardware.steam-hardware.enable = true;
   programs.wireshark.enable = true;
@@ -21,11 +22,9 @@
     pkgs-stable.thunderbird
     pkgs.moonlight-qt
     pkgs.brave
-    pkgs.chromium
     pkgs.tidal
     pkgs.easyeffects
     pkgs.element-desktop
-    pkgs.chromium
     pkgs.rpi-imager
     pkgs.remmina
     pkgs.spot
@@ -42,8 +41,6 @@
   nixpkgs.config.permittedInsecurePackages = [
     "olm-3.2.16"
   ];
-
-  virtualisation.docker.enable = true;
 
   users.users.felix.extraGroups = [ "docker" ];
   virtualisation.docker.storageDriver = "btrfs";

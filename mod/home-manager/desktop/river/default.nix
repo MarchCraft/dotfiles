@@ -99,7 +99,7 @@
             "Super+Shift I" = "send-to-output next";
 
             "Super Return" = spawn "kitty -e tmux";
-            "Super R" = spawn "killall rofi || ${lib.getExe pkgs.rofi-wayland} -show drun -show-icons";
+            "Super R" = spawn "killall rofi || ${lib.getExe pkgs.rofi} -show drun -show-icons";
             "Super C" = "close";
             "Super F" = "toggle-fullscreen";
             "Super W" = spawn "firefox";

@@ -1,13 +1,14 @@
 {
   config,
   pkgs,
+  pkgs-stable,
   lib,
   inputs,
   ...
 }:
 {
   imports = [
-    inputs.betterfox.homeManagerModules.betterfox
+    inputs.betterfox.modules.homeManager.betterfox
   ];
 
   options.marchcraft.desktop.apps.firefox = {
@@ -20,11 +21,9 @@
       opts = config.marchcraft.desktop.apps.firefox;
     in
     lib.mkIf opts.enable {
-      stylix.targets.firefox.profileNames = [ "main" ];
       programs.firefox = {
         enable = true;
-
-        betterfox.enable = true;
+        package = pkgs-stable.firefox;
 
         policies = {
           "DisableFormHistory" = true;
@@ -65,11 +64,12 @@
           };
         };
 
+        betterfox = {
+          enable = true;
+          profiles.main.enableAllSections = true;
+        };
+
         profiles.main = {
-          betterfox = {
-            enable = true;
-            enableAllSections = true;
-          };
 
           bookmarks =
             let
