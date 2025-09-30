@@ -14,5 +14,6 @@
     ./wayvnc.nix
     ./nixcord.nix
     ./ghostty.nix
+    ./wmconfig.nix
   ];
 }

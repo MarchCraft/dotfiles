@@ -57,12 +57,6 @@
           useUserPackages = true;
           extraSpecialArgs = {
             inherit inputs;
-            pkgs-master = import inputs.nixpkgs-master {
-              config.allowUnfree = true;
-            };
-            pkgs-stable = import inputs.nixpkgs-stable {
-              config.allowUnfree = true;
-            };
           };
           sharedModules = [
             inputs.sops.homeManagerModules.sops

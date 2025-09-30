@@ -1,4 +1,4 @@
-{ lib, pkgs-stable, ... }:
+{ lib, ... }:
 {
   programs.nixcord = {
     enable = true;

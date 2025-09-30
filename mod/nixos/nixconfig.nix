@@ -30,8 +30,6 @@
       nixpkgs = {
         overlays = [
           outputs.overlays.additions
-          outputs.overlays.stable
-          outputs.overlays.master
           inputs.nur.overlays.default
         ];
         config.allowUnfree = opts.allowUnfree;

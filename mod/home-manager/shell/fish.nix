@@ -37,7 +37,7 @@
       interactiveShellInit = ''
         set fish_greeting
         fastfetch
-        bind \cf "fd . ~/dev/ -d 3 | sed \"s|/home/felix/dev/||g\" | fzf | xargs -I {} bash -c 'cd \"/home/felix/dev/{}\" && vi .'"
+        bind \cf "fd . ~/dev/ -d 3 | sed \"s|/home/felix/dev/||g\" | fzf | xargs -I {} bash -c 'cd \"/home/felix/dev/{}\" && nvim .'"
       '';
     };
   };

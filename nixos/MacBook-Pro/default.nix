@@ -23,10 +23,13 @@
     outputs.nixosModules.marchcraft
   ];
 
-  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
   boot.loader.grub.fontSize = 48;
   nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
   programs.nix-ld.enable = true;
+
+  hardware.openrazer.enable = true;
+
+  hardware.openrazer.users = [ "felix" ];
 
   sops.secrets.nix-conf = {
     sopsFile = ../secrets/nix-conf;

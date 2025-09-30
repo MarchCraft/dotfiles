@@ -1,4 +1,4 @@
-{ lib, outputs, ... }:
+{ outputs, ... }:
 {
   imports = [
     ./nav.nix

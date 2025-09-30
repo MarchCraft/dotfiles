@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  pkgs-stable,
   lib,
   inputs,
   ...
@@ -23,7 +22,6 @@
     lib.mkIf opts.enable {
       programs.firefox = {
         enable = true;
-        package = pkgs-stable.firefox;
 
         policies = {
           "DisableFormHistory" = true;

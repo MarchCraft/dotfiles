@@ -3,8 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
-    nixpkgs-master.url = "github:nixos/nixpkgs";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     sops = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,7 +19,7 @@
     impermanence.url = "github:nix-community/impermanence";
     betterfox = {
       url = "github:HeitorAugustoLN/betterfox-nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     templates.url = "github:nixos/templates";
     nix-easyroam.url = "github:0x5a4/nix-easyroam";
@@ -39,8 +37,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-master,
-      nixpkgs-stable,
       sops,
       nixvim,
       ...
@@ -65,25 +61,13 @@
 
       nixvimModuleFor = pkgs: {
         inherit pkgs;
-        module = import ./mod/nixvim;
+        module = import ./mod/nixvim { inherit pkgs inputs outputs; };
       };
 
       mkSystem = hostname: system: {
         "${hostname}" = lib.nixosSystem {
           specialArgs = {
             inherit inputs outputs;
-            pkgs-master = import nixpkgs-master {
-              system = system; # Now dynamic
-              config.allowUnfree = true;
-            };
-            pkgs-stable = import nixpkgs-stable {
-              system = system; # Also dynamic
-              config.allowUnfree = true;
-            };
-            pkgs-x86 = import nixpkgs-stable {
-              system = "x86_64-linux";
-              config.allowUnfree = true;
-            };
           };
           modules = [ ./nixos/${hostname} ];
         };

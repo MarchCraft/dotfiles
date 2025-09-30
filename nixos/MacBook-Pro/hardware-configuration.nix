@@ -61,6 +61,8 @@
     enable = true;
   };
 
+  hardware.asahi.peripheralFirmwareDirectory = ./firmware;
+
   swapDevices = [ ];
 
   networking.useDHCP = lib.mkDefault true;

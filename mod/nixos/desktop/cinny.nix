@@ -12,7 +12,7 @@
       after = [ "network.target" ];
       serviceConfig = {
         Type = "exec";
-        ExecStart = "${pkgs.caddy}/bin/caddy file-server -r ${pkgs.master.cinny-unwrapped} --listen :80";
+        ExecStart = "${pkgs.caddy}/bin/caddy file-server -r ${pkgs.cinny-unwrapped} --listen :80";
         Restart = "always";
         RestartSec = 5;
       };

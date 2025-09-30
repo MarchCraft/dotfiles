@@ -13,8 +13,15 @@
 
   marchcraft.desktop.river = {
     enable = true;
-    scale = 2;
-    keyboardLayout = "de";
+  };
+
+  marchcraft.desktop.wmconfig = {
+    outputs = [
+      {
+        name = "eDP-1";
+        scale = 1.5;
+      }
+    ];
   };
 
   xdg.mimeApps = {

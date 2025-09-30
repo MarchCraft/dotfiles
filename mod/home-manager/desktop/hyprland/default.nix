@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  pkgs-master,
   inputs,
   ...
 }:
@@ -21,7 +20,7 @@
   };
 
   config = lib.mkIf config.marchcraft.desktop.hyprland.enable {
-    home.packages = with pkgs-master; [
+    home.packages = with pkgs; [
       wlinhibit
       wl-clipboard
       hyprcursor
