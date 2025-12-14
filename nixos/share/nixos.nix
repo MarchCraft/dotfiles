@@ -15,6 +15,10 @@
   hardware.steam-hardware.enable = true;
   programs.wireshark.enable = true;
 
+  stylix.targets.fish.enable = false;
+
+  virtualisation.docker.enable = true;
+
   environment.systemPackages = [
     outputs.packages."${pkgs.stdenv.system}".nixvim
     pkgs.tailscale
@@ -27,7 +31,14 @@
     pkgs.rpi-imager
     pkgs.remmina
     pkgs.spot
+    pkgs.rbw
+    pkgs.rofi-rbw
+    pkgs.ldns
+    pkgs.busybox
+    pkgs.libreoffice-qt
   ];
+
+  programs.java.enable = true;
 
   programs.virt-manager.enable = true;
 

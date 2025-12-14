@@ -12,7 +12,7 @@
   config = lib.mkIf config.marchcraft.desktop.apps.ghostty.enable {
     home.packages = [
       pkgs.noto-fonts
-      pkgs.noto-fonts-emoji
+      pkgs.noto-fonts-color-emoji
     ];
 
     programs.ghostty = {

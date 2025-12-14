@@ -69,10 +69,6 @@
 
   plugins.copilot-cmp = {
     enable = true;
-    event = [
-      "InsertEnter"
-      "LspAttach"
-    ];
   };
 
   plugins.nui.enable = true;

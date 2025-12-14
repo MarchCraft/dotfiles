@@ -24,6 +24,8 @@
     ];
   };
 
+  stylix.targets.fish.enable = false;
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -63,4 +65,5 @@
     };
     startServices = true;
   };
+
 }

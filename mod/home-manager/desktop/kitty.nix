@@ -23,7 +23,7 @@
     lib.mkIf config.marchcraft.desktop.apps.kitty.enable {
       home.packages = [
         pkgs.noto-fonts
-        pkgs.noto-fonts-emoji
+        pkgs.noto-fonts-color-emoji
       ];
 
       stylix.targets.kitty.enable = true;

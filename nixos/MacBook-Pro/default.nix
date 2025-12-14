@@ -27,6 +27,8 @@
   nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
   programs.nix-ld.enable = true;
 
+  hardware.bluetooth.enable = true;
+
   hardware.openrazer.enable = true;
 
   hardware.openrazer.users = [ "felix" ];
@@ -78,6 +80,8 @@
       LAN5 = "Rauer";
       "UdoLandenberg" = "UdoLandenberg";
       "WiFi Winkler" = { };
+      "c4" = { };
+      "Felix Admin" = "FelixAdmin";
     };
   };
 
@@ -95,6 +99,12 @@
   marchcraft.services.mac-spoofing = {
     enable = false;
     interface = "wlp1s0f0";
+  };
+
+  marchcraft.services.wireguard = {
+    enable = true;
+    ip = "100.10.0.3";
+    secretsFile = ../secrets/wireguard-client;
   };
 
   networking.hostName = "MacBook-Pro";

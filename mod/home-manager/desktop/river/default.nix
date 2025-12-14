@@ -14,6 +14,8 @@
 
     home.packages = [
       pkgs.rivercarro
+      pkgs.grim
+      pkgs.slurp
     ];
 
     services.hyprpaper.enable = true;
@@ -84,6 +86,15 @@
               action
             ];
 
+          mediaKeysRepeat = {
+            "None XF86AudioLowerVolume" = spawn "${lib.getExe pkgs.pamixer} -d 5";
+            "None XF86AudioRaiseVolume" = spawn "${lib.getExe pkgs.pamixer} -i 5";
+            "None XF86MonBrightnessUp" = spawn "${lib.getExe pkgs.brightnessctl}  set 10%+";
+            "None XF86MonBrightnessDown" = spawn "${lib.getExe pkgs.brightnessctl}  set 10%-";
+            "${superKey} XF86MonBrightnessDown" = spawn "brightnessctl -d kbd_backlight set 10%-";
+            "${superKey} XF86MonBrightnessUp" = spawn "brightnessctl -d kbd_backlight set 10%+";
+          };
+
           generateGameRules =
             classes:
             lib.concatLists (
@@ -101,6 +112,7 @@
           map.normal = {
             "${superKey} Return" = spawn "kitty -e tmux a";
             "${superKey} R" = spawn "${lib.getExe pkgs.rofi} -show drun -show-icons";
+            "${superKey}+Shift R" = spawn "${lib.getExe pkgs.rofi-rbw-wayland}";
             "${superKey} W" = spawn "${lib.getExe pkgs.firefox}";
             "${superKey} C" = spawn "riverctl close";
 
@@ -108,6 +120,9 @@
             "${superKey}+Shift" = generateTagBindings "set-view-tags";
             "${superKey}+Alt" = generateTagBindings "toggle-focused-tags";
             "${superKey}+Shift+Alt" = generateTagBindings "toggle-view-tags";
+
+            "${superKey} P" =
+              spawn "${lib.getExe pkgs.grim} -g \"$(${lib.getExe pkgs.slurp})\" - | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}";
 
             "${superKey} F" = spawn "riverctl toggle-fullscreen";
 
@@ -131,6 +146,11 @@
           map.display = {
             "None Escape" = "enter-mode normal";
             "None M" = spawn "${lib.getExe pkgs.wl-mirror} eDP-1";
+          };
+
+          map."-repeat" = {
+            normal = mediaKeysRepeat;
+            locked = mediaKeysRepeat;
           };
 
           rule-add = [

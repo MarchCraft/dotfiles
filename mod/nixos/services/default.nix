@@ -8,5 +8,6 @@
     ./pika.nix
     ./Mac-spoofing.nix
     ./easyroam.nix
+    ./wireguard.nix
   ];
 }

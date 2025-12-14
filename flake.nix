@@ -2,7 +2,7 @@
   description = "MarchCraft's nixos config. ein satz mit x, das war wohl nix";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     sops = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +19,6 @@
     impermanence.url = "github:nix-community/impermanence";
     betterfox = {
       url = "github:HeitorAugustoLN/betterfox-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     templates.url = "github:nixos/templates";
     nix-easyroam.url = "github:0x5a4/nix-easyroam";
