@@ -28,11 +28,12 @@
       sops.secrets.wifi = {
         sopsFile = opts.secretsFile;
         format = "binary";
+        mode = "0777";
       };
 
       networking.wireless = {
         enable = true;
-        userControlled.enable = true;
+        userControlled = true;
         secretsFile = config.sops.secrets.wifi.path;
         fallbackToWPA2 = false;
 

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     sops = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,6 +38,7 @@
       self,
       nixpkgs,
       sops,
+      nixpkgs-stable,
       nixvim,
       ...
     }@inputs:
@@ -66,6 +68,10 @@
       mkSystem = hostname: system: {
         "${hostname}" = lib.nixosSystem {
           specialArgs = {
+            pkgs-stable = import nixpkgs-stable {
+              system = system; # Also dynamic
+              config.allowUnfree = true;
+            };
             inherit inputs outputs;
           };
           modules = [ ./nixos/${hostname} ];

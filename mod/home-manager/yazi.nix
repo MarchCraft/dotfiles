@@ -11,7 +11,6 @@
   config = lib.mkIf config.marchcraft.yazi.enable {
     programs.yazi = {
       enable = true;
-      package = inputs.yazi.packages."${pkgs.stdenv.hostPlatform.system}".default;
       enableFishIntegration = true;
       settings = {
         manager = {
@@ -82,7 +81,7 @@
         };
       };
       keymap = {
-        manager = {
+        mgr = {
           prepend_keymap = [
             {
               on = "<C-c>";

@@ -34,7 +34,7 @@
           wlrRandr = lib.concatMapStrings (output: ''
             ${lib.getExe pkgs.wlr-randr} --output ${output.name} ${
               if output.scale != null then "--scale " + toString output.scale else ""
-            } 
+            }
           '') outputs;
         in
         ''
@@ -63,7 +63,7 @@
           ];
           tags = lib.zipListsWith (name: mask: { inherit name mask; }) tagNames tagBits;
 
-          spawn = cmd: "spawn \"${cmd}\"";
+          spawn = command: "spawn '${command}'";
 
           superKey = config.marchcraft.desktop.wmconfig.superKey;
 
@@ -139,8 +139,8 @@
 
           map.power = {
             "None Escape" = "enter-mode normal";
-            "None E" = spawn "riverctl exit";
-            "None L" = spawn "loginctl lock-session";
+            "None E" = "exit";
+            "None L" = spawn "loginctl lock-session && enter-mode normal";
           };
 
           map.display = {

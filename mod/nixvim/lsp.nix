@@ -9,6 +9,75 @@
     enable = true;
   };
 
+  plugins.conform-nvim = {
+    enable = true;
+    autoInstall.enable = true;
+    settings = {
+      formatters_by_ft = {
+        bash = [
+          "shellcheck"
+          "shellharden"
+          "shfmt"
+        ];
+        cpp = [ "clang_format" ];
+        javascript = {
+          __unkeyed-1 = "prettierd";
+          __unkeyed-2 = "prettier";
+          timeout_ms = 2000;
+          stop_after_first = true;
+        };
+        html = [
+          "prettier"
+        ];
+        "_" = [
+          "squeeze_blanks"
+          "trim_whitespace"
+          "trim_newlines"
+        ];
+      };
+      format_on_save = # Lua
+        ''
+          function(bufnr)
+            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+              return
+            end
+
+            return { timeout_ms = 200, lsp_fallback = true }, on_format
+           end
+        '';
+      format_after_save = # Lua
+        ''
+          function(bufnr)
+            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+              return
+            end
+
+            return { lsp_fallback = true }
+          end
+        '';
+      log_level = "warn";
+      notify_on_error = false;
+      notify_no_formatters = false;
+      formatters = {
+        shellcheck = {
+          command = lib.getExe pkgs.shellcheck;
+        };
+        shfmt = {
+          command = lib.getExe pkgs.shfmt;
+        };
+        shellharden = {
+          command = lib.getExe pkgs.shellharden;
+        };
+        squeeze_blanks = {
+          command = lib.getExe' pkgs.coreutils "cat";
+        };
+        prettier = {
+          command = lib.getExe pkgs.prettier;
+        };
+      };
+    };
+  };
+
   plugins.flutter-tools = {
     enable = true;
   };

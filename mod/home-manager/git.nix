@@ -15,7 +15,7 @@
     programs.git = {
       enable = true;
 
-      userName = "Felix Nilles";
+      userName = "MarchCraft";
       userEmail = "felix@dienilles.de";
 
       signing = {

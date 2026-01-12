@@ -1,6 +1,8 @@
 {
   pkgs,
+  pkgs-stable,
   outputs,
+  config,
   ...
 }:
 {
@@ -22,7 +24,7 @@
   environment.systemPackages = [
     outputs.packages."${pkgs.stdenv.system}".nixvim
     pkgs.tailscale
-    pkgs.thunderbird
+    pkgs-stable.thunderbird
     pkgs.moonlight-qt
     pkgs.brave
     pkgs.tidal
@@ -36,6 +38,8 @@
     pkgs.ldns
     pkgs.busybox
     pkgs.libreoffice-qt
+    pkgs.wasistlos
+    pkgs.signal-desktop
   ];
 
   programs.java.enable = true;
@@ -52,7 +56,10 @@
     "olm-3.2.16"
   ];
 
-  users.users.felix.extraGroups = [ "docker" ];
+  users.users.felix.extraGroups = [
+    "docker"
+    "wpa_supplicant"
+  ];
   virtualisation.docker.storageDriver = "btrfs";
 
   stylix = {
@@ -99,4 +106,20 @@
   };
 
   services.tailscale.enable = true;
+
+  sops.secrets.openvpn_config = {
+    sopsFile = ../secrets/openvpn_config;
+    format = "binary";
+  };
+
+  sops.secrets.openvpn-credentials = {
+    sopsFile = ../secrets/openvpn_credentials;
+    format = "binary";
+  };
+
+  services.openvpn.servers = {
+    uniVPN = {
+      config = ''config ${config.sops.secrets.openvpn_config.path}'';
+    };
+  };
 }

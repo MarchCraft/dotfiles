@@ -65,5 +65,24 @@
     };
     startServices = true;
   };
+  home.packages = with pkgs; [
+    libnotify
+  ];
+
+  services.mako = {
+    enable = true;
+
+    settings = {
+      default-timeout = 5000;
+      output = "eDp-1";
+      width = 400;
+
+      "urgency=high" = {
+        layer = "overlay";
+        default-timeout = 0;
+        ignore-timeout = true;
+      };
+    };
+  };
 
 }

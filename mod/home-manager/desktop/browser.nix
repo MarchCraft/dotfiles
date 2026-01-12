@@ -160,6 +160,10 @@
                     (defineNamed "nixpkgs doc" "ryantm.github.io/nixpkgs/")
                     (defineNamed "nixvim" "nix-community.github.io/nixvim/")
                   ])
+                  (folder "asta" [
+                    (defineNamed "astahhu" "astahhu.de")
+                    (defineNamed "cloud" "cloud.astahhu.de")
+                  ])
                 ];
               }
             ];
