@@ -2,6 +2,7 @@
   inputs,
   outputs,
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -22,6 +23,8 @@
 
     outputs.nixosModules.marchcraft
   ];
+
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 
   boot.loader.grub.fontSize = 48;
   nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
@@ -116,6 +119,8 @@
     enable = true;
     ip = "100.10.0.3";
     secretsFile = ../secrets/wireguard-client;
+    secretsFile2 = ../secrets/wireguard-client2;
+    secretsFile3 = ../secrets/wireguard-client3;
   };
 
   networking.hostName = "MacBook-Pro";
@@ -156,6 +161,15 @@
 
   # services.open-webui.enable = true;
   # services.ollama.enable = true;
+  environment.systemPackages = with pkgs; [
+    #tidal-hifi
+    box64
+  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "castlabs-electron"
+    ];
 
   system.stateVersion = "23.11";
 }

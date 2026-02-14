@@ -6,7 +6,6 @@
 {
   imports = [
     ../../mod/home-manager # if accessed via output, infinite recursion occurs
-    inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.nur.modules.homeManager.default
     inputs.nixcord.homeModules.nixcord
     ./share.nix

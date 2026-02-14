@@ -18,8 +18,6 @@
       pkgs.slurp
     ];
 
-    services.hyprpaper.enable = true;
-
     home.sessionVariables = {
       XDG_CURRENT_DESKTOP = "river";
       WAYLAND_DISPLAY = "wayland-1";
@@ -39,10 +37,12 @@
         in
         ''
           ${lib.traceValSeq wlrRandr}
+          ${pkgs.swww}/bin/swww-daemon &
           rivercarro \
           -main-ratio 0.6 \
           -no-smart-gaps \
           -per-tag &
+
         '';
 
       settings =
@@ -112,6 +112,7 @@
           map.normal = {
             "${superKey} Return" = spawn "kitty -e tmux a";
             "${superKey} R" = spawn "${lib.getExe pkgs.rofi} -show drun -show-icons";
+            "${superKey} B" = spawn "${lib.getExe pkgs.rofi-bluetooth}";
             "${superKey}+Shift R" = spawn "${lib.getExe pkgs.rofi-rbw-wayland}";
             "${superKey} W" = spawn "${lib.getExe pkgs.firefox}";
             "${superKey} C" = spawn "riverctl close";

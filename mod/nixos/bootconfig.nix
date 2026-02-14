@@ -17,7 +17,7 @@
       boot.loader.systemd-boot.enable = false;
       boot.loader.efi.canTouchEfiVariables = true;
       boot.kernelParams = [
-        "apple_dcp.show_notch=1"
+        "appledrm.show_notch=1"
         "quiet"
         "loglevel=3"
         "udev.log-priority=3"

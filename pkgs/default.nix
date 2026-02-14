@@ -1,6 +1,7 @@
 pkgs: {
   # pkg = pkgs.callPackage ./pkg.nix {};
   tidal = pkgs.callPackage ./tidal.nix { };
+  tidal-hifi = pkgs.callPackage ./tidal-hifi.nix { };
   pixdecor = pkgs.callPackage ./pixdecor.nix { };
   hyprland-cursor-intersects = pkgs.callPackage ./hyprland-cursor-intersects.nix { };
   hyprland-dpms-toggle = pkgs.callPackage ./hyprland-dpms-toggle.nix { };
