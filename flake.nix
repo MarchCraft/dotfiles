@@ -31,6 +31,15 @@
     yazi.url = "github:sxyazi/yazi";
     nixvim.url = "github:nix-community/nixvim";
     nixcord.url = "github:KaylorBen/nixcord";
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
   };
 
   outputs =

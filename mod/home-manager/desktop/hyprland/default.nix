@@ -37,6 +37,8 @@
         env = NVD_BACKEND,direct
         windowrulev2 = float, title:^(Picture in picture)$
         windowrulev2 = pin, title:^(Picture in picture)$
+        gesture = 3, horizontal, workspace
+        monitor = eDP-1, 3456x2234@60, 0x0, 2
       '';
       enable = true;
       settings = {
@@ -104,11 +106,6 @@
         dwindle = {
           pseudotile = true;
           preserve_split = true;
-        };
-
-        gestures = {
-          workspace_swipe = true;
-          workspace_swipe_forever = true;
         };
       };
     };

@@ -11,7 +11,7 @@
     enable = true;
   };
 
-  marchcraft.desktop.river = {
+  marchcraft.desktop.hyprland = {
     enable = true;
   };
 

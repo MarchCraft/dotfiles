@@ -95,7 +95,7 @@
   marchcraft.greeter = {
     enable = true;
     defaultUser = "felix";
-    command = "river";
+    command = "Hyprland";
   };
 
   sops.secrets.nextcloud = {
@@ -119,7 +119,7 @@
 
   services.openvpn.servers = {
     uniVPN = {
-      config = ''config ${config.sops.secrets.openvpn_config.path}'';
+      config = "config ${config.sops.secrets.openvpn_config.path}";
     };
   };
 }

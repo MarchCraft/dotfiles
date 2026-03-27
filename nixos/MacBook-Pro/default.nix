@@ -24,6 +24,15 @@
     outputs.nixosModules.marchcraft
   ];
 
+  nix.settings = {
+    extra-substituters = [
+      "https://nixos-apple-silicon.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nixos-apple-silicon.cachix.org-1:8psDu5SA5dAD7qA0zMy5UT292TxeEPzIz8VVEr2Js20="
+    ];
+  };
+
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 
   boot.loader.grub.fontSize = 48;
@@ -96,6 +105,7 @@
           phase2="auth=MSCHAPV2"
         '';
       };
+      "Vodafone-6F04" = "Robert";
     };
   };
 
@@ -105,6 +115,8 @@
   marchcraft.misc.enable = true;
   marchcraft.servermounts.enable = true;
   marchcraft.backup.enable = true;
+  marchcraft.backup.name = "MacBook Pro Felix";
+  marchcraft.backup.passFile = ../secrets/borg;
 
   marchcraft.services.openssh.enable = true;
   marchcraft.services.pika.enable = true;
@@ -164,6 +176,7 @@
   environment.systemPackages = with pkgs; [
     #tidal-hifi
     box64
+    distrobox
   ];
   nixpkgs.config.allowUnfreePredicate =
     pkg:

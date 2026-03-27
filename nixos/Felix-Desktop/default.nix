@@ -11,8 +11,10 @@
     ../locale.nix
     ../share/nixos.nix
     ./nat.nix
+    ./disko.nix
 
     inputs.sops.nixosModules.sops
+    inputs.disko.nixosModules.disko
     inputs.hm.nixosModules.home-manager
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nur.modules.nixos.default
@@ -84,8 +86,6 @@
       enable = true;
       qemu = {
         swtpm.enable = true;
-        ovmf.enable = true;
-        ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
     spiceUSBRedirection.enable = true;
@@ -94,7 +94,6 @@
   marchcraft.services.printing.enable = true;
 
   marchcraft.greeter.enable = true;
-  marchcraft.greeter.command = "Hyprland";
   marchcraft.greeter.defaultUser = "felix";
   marchcraft.desktop.swaylock.enable = true;
 

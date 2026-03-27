@@ -1,8 +1,10 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
+
 let
   borgbackupMonitor =
     {
@@ -11,67 +13,137 @@ let
       lib,
       ...
     }:
+    let
+      user = "felix";
+      uid = config.users.users.${user}.uid;
+    in
     with lib;
     {
       key = "borgbackupMonitor";
       _file = "borgbackupMonitor";
-      config.systemd.services =
-        {
-          "notify-problems@" = {
-            enable = true;
-            serviceConfig.User = "felix";
-            environment.SERVICE = "%i";
-            script = ''
-              ${pkgs.libnotify}/bin/notify-send -u critical "$SERVICE FAILED!" "Run journalctl -u $SERVICE for details"
-            '';
-          };
-        }
-        // flip mapAttrs' config.services.borgbackup.jobs (
-          name: value:
+
+      config = {
+
+        systemd.services =
+          let
+            # Notify Service
+            notifyService = {
+              "notify-problems@" = {
+                description = "Desktop notification for failed service %i";
+
+                serviceConfig = {
+                  Type = "oneshot";
+                  User = user;
+                  Environment = [
+                    "XDG_RUNTIME_DIR=/run/user/${toString uid}"
+                    "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${toString uid}/bus"
+                  ];
+                };
+
+                script = ''
+                  ${pkgs.libnotify}/bin/notify-send \
+                    -u critical \
+                    "Service %N failed" \
+                    "Run: journalctl -u %N -e"
+                '';
+              };
+            };
+
+            # Borg Modifications
+            borgFailureHooks = flip mapAttrs' config.services.borgbackup.jobs (
+              name: _:
+              nameValuePair "borgbackup-job-${name}" {
+                unitConfig.OnFailure = "notify-problems@%n.service";
+
+                preStart = mkBefore ''
+                  until ${pkgs.iputils}/bin/ping -c1 -q google.com >/dev/null; do
+                    sleep 2
+                  done
+                '';
+              }
+            );
+
+          in
+          notifyService // borgFailureHooks;
+
+        systemd.timers = flip mapAttrs' config.services.borgbackup.jobs (
+          name: _:
           nameValuePair "borgbackup-job-${name}" {
-            unitConfig.OnFailure = "notify-problems@%i.service";
-            preStart = lib.mkBefore ''
-              # waiting for internet after resume-from-suspend
-              until /run/current-system/sw/bin/ping google.com -c1 -q >/dev/null; do :; done
-            '';
+            timerConfig.Persistent = mkForce true;
           }
         );
 
-      # optional, but this actually forces backup after boot in case laptop was powered off during scheduled event
-      # for example, if you scheduled backups daily, your laptop should be powered on at 00:00
-      config.systemd.timers = flip mapAttrs' config.services.borgbackup.jobs (
-        name: value:
-        nameValuePair "borgbackup-job-${name}" {
-          timerConfig.Persistent = lib.mkForce true;
-        }
-      );
+        users.users.${user}.linger = true;
+      };
     };
+
 in
 {
   imports = [ borgbackupMonitor ];
+
   options.marchcraft.backup = {
     enable = lib.mkEnableOption "Enable backups";
+
     name = lib.mkOption {
       description = "Name of the backup";
       type = lib.types.str;
       default = config.networking.hostName;
     };
+
+    passFile = lib.mkOption {
+      type = lib.types.path;
+      description = "Path to the pass file for encryption";
+    };
   };
+
   config = lib.mkIf config.marchcraft.backup.enable {
-    services.borgbackup = {
-      jobs."${config.marchcraft.backup.name}" = {
-        paths = "/home/felix";
-        encryption.mode = "none";
-        repo = "/mnt/backup/PCs/Felix/borg/${config.marchcraft.backup.name}";
-        compression = "auto,lz4";
-        startAt = "hourly";
-        prune.keep = {
-          within = "1d"; # Keep all archives from the last day
-          daily = 7;
-          weekly = 4;
-          monthly = -1; # Keep at least one archive for each month
+
+    sops.secrets.borg-backup-pass = {
+      owner = "felix";
+      sopsFile = config.marchcraft.backup.passFile;
+      format = "binary";
+    };
+
+    services.borgbackup.jobs =
+      let
+        common-excludes = [
+          ".cache"
+          "*/cache2"
+          "*/Cache"
+          ".config/Slack/logs"
+          ".config/Code/CachedData"
+          ".container-diff"
+          ".npm/_cacache"
+          "*/node_modules"
+          "*/bower_components"
+          "*/_build"
+          "*/.tox"
+          "*/venv"
+          "*/.venv"
+        ];
+
+        basicBorgJob = name: {
+          encryption.mode = "repokey-blake2";
+          encryption.passCommand = "cat ${config.sops.secrets.borg-backup-pass.path}";
+
+          environment.BORG_RSH = "ssh -i /home/felix/.ssh/id_ed25519";
+
+          extraCreateArgs = "--verbose --stats --checkpoint-interval 600 ";
+          extraArgs = "--remote-path=/usr/local/bin/borg";
+
+          repo = "ssh://backup@rz:5006/volume1/borg-backup/${name}";
+
+          compression = "lz4";
+          startAt = "hourly";
+          user = "felix";
+        };
+      in
+      {
+        backup = basicBorgJob "${config.marchcraft.backup.name}" // rec {
+          paths = "/home/felix";
+
+          exclude = map (x: paths + "/" + x) (common-excludes ++ [ "Downloads" ]);
         };
       };
-    };
   };
 }

@@ -37,22 +37,6 @@
 
   security.polkit.enable = true;
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/18935d9a-b8e9-4e09-a866-485a33279503";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/5D92-F7D4";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
-  };
-
-  swapDevices = [ { device = "/dev/disk/by-uuid/ba8355d0-aff9-48e8-8700-ffa72a68c985"; } ];
-
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
