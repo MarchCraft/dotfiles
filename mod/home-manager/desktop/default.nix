@@ -15,5 +15,6 @@
     ./nixcord.nix
     ./ghostty.nix
     ./wmconfig.nix
+    ./i3.nix
   ];
 }

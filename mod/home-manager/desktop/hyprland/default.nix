@@ -15,7 +15,7 @@
     cursor_warps = lib.mkEnableOption "enable cursor warps";
     keyboard_layout = lib.mkOption {
       type = lib.types.str;
-      default = "de";
+      default = "uk";
     };
   };
 
@@ -35,8 +35,6 @@
         env = LIBVA_DRIVER_NAME,nvidia
         env = __GLX_VENDOR_LIBRARY_NAME,nvidia
         env = NVD_BACKEND,direct
-        windowrulev2 = float, title:^(Picture in picture)$
-        windowrulev2 = pin, title:^(Picture in picture)$
         gesture = 3, horizontal, workspace
         monitor = eDP-1, 3456x2234@60, 0x0, 2
       '';

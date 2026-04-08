@@ -12,7 +12,15 @@
   };
 
   marchcraft.desktop.hyprland = {
+    enable = false;
+  };
+
+  marchcraft.desktop.river = {
     enable = true;
+  };
+
+  marchcraft.desktop.i3 = {
+    enable = false;
   };
 
   marchcraft.desktop.wmconfig = {

@@ -95,7 +95,7 @@
   marchcraft.greeter = {
     enable = true;
     defaultUser = "felix";
-    command = "Hyprland";
+    command = "river";
   };
 
   sops.secrets.nextcloud = {

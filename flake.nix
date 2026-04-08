@@ -40,6 +40,7 @@
         };
       };
     };
+    mmuvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
   };
 
   outputs =

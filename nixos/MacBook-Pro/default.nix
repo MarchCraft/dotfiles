@@ -31,6 +31,12 @@
     extra-trusted-public-keys = [
       "nixos-apple-silicon.cachix.org-1:8psDu5SA5dAD7qA0zMy5UT292TxeEPzIz8VVEr2Js20="
     ];
+    trusted-users = [
+      "root"
+      "felix"
+    ];
+    narinfo-cache-negative-ttl = 600;
+    narinfo-cache-positive-ttl = 600;
   };
 
   boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
