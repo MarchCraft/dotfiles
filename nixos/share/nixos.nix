@@ -62,11 +62,16 @@
   ];
   virtualisation.docker.storageDriver = "btrfs";
 
+  fonts.packages = [
+    pkgs.monocraft
+    pkgs.noto-fonts
+  ];
+
   stylix = {
     fonts = {
       monospace = {
         package = pkgs.monocraft;
-        name = "Monocraft Nerd Font Complete";
+        name = "Monocraft";
       };
 
       sansSerif = {
@@ -79,7 +84,7 @@
         name = "Noto Serif";
       };
       sizes = {
-        terminal = 9;
+        terminal = 10;
       };
     };
 

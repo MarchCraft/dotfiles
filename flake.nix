@@ -40,6 +40,7 @@
         };
       };
     };
+    steam-asahi.url = "github:sm-idk/steam-asahi";
     mmuvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
   };
 

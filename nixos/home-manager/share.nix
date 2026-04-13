@@ -23,6 +23,8 @@
     enable = false;
   };
 
+  programs.ghostty.enable = true;
+
   marchcraft.desktop.wmconfig = {
     outputs = [
       {

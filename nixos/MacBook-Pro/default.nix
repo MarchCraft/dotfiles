@@ -20,6 +20,7 @@
     inputs.nur.modules.nixos.default
     inputs.nix-easyroam.nixosModules.nix-easyroam
     inputs.stylix.nixosModules.stylix
+    inputs.steam-asahi.nixosModules.default
 
     outputs.nixosModules.marchcraft
   ];
@@ -135,10 +136,7 @@
 
   marchcraft.services.wireguard = {
     enable = true;
-    ip = "100.10.0.3";
-    secretsFile = ../secrets/wireguard-client;
-    secretsFile2 = ../secrets/wireguard-client2;
-    secretsFile3 = ../secrets/wireguard-client3;
+    secretsFile = ../secrets/wireguard-macbook.yml;
   };
 
   networking.hostName = "MacBook-Pro";
@@ -184,6 +182,9 @@
     box64
     distrobox
   ];
+
+  programs.steam-asahi.enable = true;
+
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [

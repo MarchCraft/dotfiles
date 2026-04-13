@@ -129,9 +129,8 @@ in
           environment.BORG_RSH = "ssh -i /home/felix/.ssh/id_ed25519";
 
           extraCreateArgs = "--verbose --stats --checkpoint-interval 600 ";
-          extraArgs = "--remote-path=/usr/local/bin/borg";
 
-          repo = "ssh://backup@rz:5006/volume1/borg-backup/${name}";
+          repo = "ssh://borg@xalir.net:2222/~/backups/FelixLaptop/${name}";
 
           compression = "lz4";
           startAt = "hourly";

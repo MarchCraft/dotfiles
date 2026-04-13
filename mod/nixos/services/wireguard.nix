@@ -7,19 +7,7 @@
 {
   options.marchcraft.services.wireguard = {
     enable = lib.mkEnableOption "wireguard client";
-    ip = lib.mkOption {
-      type = lib.types.str;
-      description = "The IP address of the client to use for the WireGuard interface.";
-    };
     secretsFile = lib.mkOption {
-      type = lib.types.path;
-      description = "Path to the private key file for the WireGuard interface.";
-    };
-    secretsFile2 = lib.mkOption {
-      type = lib.types.path;
-      description = "Path to the private key file for the WireGuard interface.";
-    };
-    secretsFile3 = lib.mkOption {
       type = lib.types.path;
       description = "Path to the private key file for the WireGuard interface.";
     };
@@ -33,63 +21,77 @@
         allowedUDPPorts = [ 51820 ];
       };
 
-      sops.secrets.wireguard-client = {
-        format = "binary";
+      sops.secrets.wireguard-private-key = {
         sopsFile = opts.secretsFile;
+        key = "private-key";
       };
 
-      sops.secrets.wireguard-client2 = {
-        format = "binary";
-        sopsFile = opts.secretsFile2;
+      sops.secrets.wireguard-psk = {
+        sopsFile = opts.secretsFile;
+        key = "preshared-key";
       };
 
-      sops.secrets.wireguard-client3 = {
-        format = "binary";
-        sopsFile = opts.secretsFile3;
+      sops.secrets.wireguard-asta-private-key = {
+        sopsFile = opts.secretsFile;
+        key = "asta-private-key";
       };
 
-      networking.wireguard.interfaces = {
-        # wg0 = {
-        #   ips = [ "${opts.ip}/24" ];
-        #   listenPort = 51820;
-        #
-        #   privateKeyFile = "${config.sops.secrets.wireguard-client.path}";
-        #
-        #   peers = [
-        #     {
-        #       publicKey = "ec10Bfi+qCpHGyUtwkPkFKKYggUIaOf+r10el9pKMyQ=";
-        #
-        #       allowedIPs = [ "100.10.0.0/24" ];
-        #
-        #       endpoint = "78.46.251.145:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
-        #
-        #       persistentKeepalive = 25;
-        #     }
-        #   ];
-        # };
-        wg0 = {
-          ips = [ "10.11.12.4/24" ];
-          listenPort = 51820;
-
-          privateKeyFile = "${config.sops.secrets.wireguard-client2.path}";
-
-          peers = [
-            {
-              publicKey = "EJmqUzZLX3nEHXST7+q4FSAOUtCQ8hie0tyS9KLIIQM=";
-
-              allowedIPs = [
-                "100.10.0.0/24"
-                "134.99.154.0/24"
-              ];
-
-              endpoint = "134.99.154.242:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
-
-              presharedKeyFile = "${config.sops.secrets.wireguard-client3.path}";
-
-              persistentKeepalive = 25;
-            }
-          ];
-        };
+      sops.secrets.wireguard-asta-psk = {
+        sopsFile = opts.secretsFile;
+        key = "asta-preshared-key";
       };
+
+      networking.wg-quick.interfaces.wg0 = {
+        address = [ "172.16.0.101/32" ];
+
+        autostart = false;
+
+        listenPort = 51820;
+
+        privateKeyFile = config.sops.secrets.wireguard-private-key.path;
+
+        peers = [
+          {
+            # vps
+            publicKey = "ec10Bfi+qCpHGyUtwkPkFKKYggUIaOf+r10el9pKMyQ=";
+            presharedKeyFile = config.sops.secrets.wireguard-psk.path;
+            allowedIPs = [
+              "172.16.0.1/32"
+              "10.42.0.0/16"
+            ];
+            persistentKeepalive = 25;
+            endpoint = "vpn.xalir.net:51820";
+          }
+        ];
+      };
+
+      networking.wg-quick.interfaces.wg1 = {
+        address = [
+          "10.11.12.4/32"
+          "fdfd:d3ad:c0de:1234::4/128"
+        ];
+
+        autostart = false;
+
+        listenPort = 51820;
+
+        privateKeyFile = config.sops.secrets.wireguard-asta-private-key.path;
+
+        peers = [
+          {
+            # vps
+            publicKey = "EJmqUzZLX3nEHXST7+q4FSAOUtCQ8hie0tyS9KLIIQM=";
+            presharedKeyFile = config.sops.secrets.wireguard-asta-psk.path;
+            allowedIPs = [
+              "10.11.12.0/24"
+              "fdfd:d3ad:c0de:1234::/64"
+              "134.99.154.0/24"
+            ];
+            persistentKeepalive = 25;
+            endpoint = "134.99.154.242:51820";
+          }
+        ];
+      };
+
     };
 }
