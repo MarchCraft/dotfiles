@@ -107,6 +107,7 @@
           package = pkgs.jdt-language-server;
         };
         zls.enable = true;
+        clangd.enable = true;
       };
   };
 

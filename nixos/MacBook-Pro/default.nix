@@ -10,6 +10,7 @@
   imports = [
     ./hardware-configuration.nix
     ../locale.nix
+    ./firefox.nix
     ../share/nixos.nix
 
     inputs.sops.nixosModules.sops
@@ -95,10 +96,11 @@
     secretsFile = ../secrets/wifi;
     networks = {
       "iPhone von Felix" = "FelixPhonePass";
-      HHUD-Y = "HHUDY";
+      HHUD-Y-5G = "HHUDY";
       MonkeyIsland = "MonkeyIsland";
       "99 Problems but WiFi ain't one" = "99Problems";
       LAN5 = "Rauer";
+      fscs-mgmt = "fscs-mgmt";
       "UdoLandenberg" = "UdoLandenberg";
       "WiFi Winkler" = { };
       "c4" = { };
@@ -177,11 +179,40 @@
 
   # services.open-webui.enable = true;
   # services.ollama.enable = true;
-  environment.systemPackages = with pkgs; [
-    #tidal-hifi
-    box64
-    distrobox
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      chromium = pkgs.chromium.override {
+        enableWideVine = true;
+      };
+    };
+  };
+
+  nixpkgs.config.allowUnsupportedSystem = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "qtwebengine-5.15.19"
   ];
+  environment.systemPackages =
+    with pkgs;
+    let
+      teamspeak-fex = pkgs.writeShellApplication {
+        name = "teamspeak3";
+        runtimeInputs = [ pkgs.muvm ];
+        text = ''
+          exec ${pkgs.muvm}/bin/muvm -- \
+            ${pkgs.teamspeak3}/bin/ts3client "$@"
+        '';
+      };
+    in
+    [
+      #tidal-hifi
+      box64
+      distrobox
+      chromium
+      nfs-utils
+      vesktop
+      ts6
+      libXScrnSaver
+    ];
 
   programs.steam-asahi.enable = true;
 
@@ -190,6 +221,8 @@
     builtins.elem (lib.getName pkg) [
       "castlabs-electron"
     ];
+
+  services.davfs2.enable = true;
 
   system.stateVersion = "23.11";
 }

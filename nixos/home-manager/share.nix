@@ -77,6 +77,7 @@
   };
   home.packages = with pkgs; [
     libnotify
+    fluffychat
   ];
 
   services.mako = {

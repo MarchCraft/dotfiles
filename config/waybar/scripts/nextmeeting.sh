@@ -1,61 +1,65 @@
 #!/usr/bin/env bash
 #
-# Show next calendar event for waybar
+# Show next calendar event for waybar (CalDAV via khal)
 #
 
-set -e 
+set -euo pipefail
 
-if ! command -v gcalcli &>/dev/null; then
-	echo "Please install gcalcli (https://github.com/insanum/gcalcli)"
-	exit 1
+if ! command -v khal &>/dev/null; then
+  echo "Please install khal (CalDAV frontend for vdirsyncer)"
+  exit 1
 fi
 
-# TODO only use events that are not whole days
-events=$(gcalcli agenda --military --nodeclined --details end --tsv $(date +%H:%M))
+# Get next events (today onward, TSV-like output)
+events=$(khal list now 7d --format "{start}\t{end}\t{title}" 2>/dev/null | head -n 1)
 
+if [[ -z "$events" ]]; then
+  echo '{"text": "No events", "tooltip": ""}'
+  exit 0
+fi
 
-start_date=$(date +"%s" -d "$(echo -e "$events" | head -n 1 | cut -d$'\t' -f 1-2 | sed 's/\t/ /g')")
-echo test
-end_date=$(date +"%s" -d "$(echo -e "$events" | head -n 1 | cut -d$'\t' -f 3-4 | sed 's/\t/ /g')")
-event=$(echo -e "$events" | head -n 1 | cut -d$'\t' -f 5)
+start_raw=$(echo "$events" | cut -f1)
+end_raw=$(echo "$events" | cut -f2)
+event=$(echo "$events" | cut -f3)
 
+start_date=$(date +"%s" -d "$start_raw")
+end_date=$(date +"%s" -d "$end_raw")
 current_date=$(date +"%s")
+
 text=""
 
 if [[ $((start_date - current_date)) -gt 0 ]]; then
-	hours=$((($start_date - $current_date) / 60/ 60))
-	minutes=$((($start_date - $current_date) / 60 - ($hours * 60)))
-	if [[ $hours -eq 0 ]]; then
-		text="$event starts in $minutes minutes"
-	else
-		text="$event starts in $hours hours and $minutes minutes"
-	fi
+  diff=$((start_date - current_date))
+  hours=$((diff / 3600))
+  minutes=$(((diff % 3600) / 60))
+
+  if [[ $hours -eq 0 ]]; then
+    text="$event starts in $minutes minutes"
+  else
+    text="$event starts in $hours hours and $minutes minutes"
+  fi
 else
-	hours=$((($end_date - $current_date) / 60/ 60))
-	minutes=$((($end_date - $current_date) / 60 - ($hours * 60)))
-	if [[ $hours -eq 0 ]]; then
-		text="$event ends in $minutes minutes"
-	else
-		text="$event ends in $hours hours and $minutes minutes"
-	fi
+  diff=$((end_date - current_date))
+  hours=$((diff / 3600))
+  minutes=$(((diff % 3600) / 60))
+
+  if [[ $hours -eq 0 ]]; then
+    text="$event ends in $minutes minutes"
+  else
+    text="$event ends in $hours hours and $minutes minutes"
+  fi
 fi
 
-
-case $1 in
-"open")
-	default_browser=$(xdg-settings get default-web-browser | cut -d '.' -f1)
-	xdg-open https://calendar.google.com/calendar/u/0/r/week
-	swaymsg "[app_id=$default_browser] focus"
-;;
-"waybar")
-	cat <<EOF 
-	{"text": "$text", "tooltip": "$(echo $events | sed 's/\\n/\n/g')"}
+case "${1:-}" in
+  open)
+    xdg-open "https://calendar.google.com"  # fallback web view
+    ;;
+  waybar)
+    cat <<EOF
+{"text": "$text", "tooltip": "$event"}
 EOF
-;;
-*)
-	echo $text
-;;
+    ;;
+  *)
+    echo "$text"
+    ;;
 esac
-
-# TODO return type https://man.archlinux.org/man/community/waybar/waybar-custom.5.en#RETURN-TYPE
-# gcalcli agenda --military --nodeclined --details end 

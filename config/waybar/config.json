@@ -63,21 +63,6 @@
       "return-type": "json",
       "tooltip": true
     },
-    "wlr/workspaces": {
-  "format": "{icon}",
-  "on-click": "activate",
-  "format-icons": {
-    "1": "",
-    "2": "",
-    "3": "",
-    "4": "",
-    "5": "",
-    "urgent": "",
-    "active": "",
-    "default": ""
-  },
-  "sort-by-number": true
-},
     "memory": {
       "format": "{used:0.1f}G/{total:0.1f}G ",
       "interval": 30
@@ -132,12 +117,5 @@
     "tray": {
       "icon-size": 13,
       "spacing": 10
-    },
-    "custom/wlinhibit": {
-      "tooltip": false,
-      "exec": "~/.config/waybar/scripts/wlinhibit.sh",
-      "return-type": "json",
-      "restart-interval": 3,
-      "on-click": "killall wlinhibit || wlinhibit"
-  }
+    }
   }

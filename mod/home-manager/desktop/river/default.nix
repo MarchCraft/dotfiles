@@ -29,6 +29,10 @@
       extraConfig =
         let
           outputs = config.marchcraft.desktop.wmconfig.outputs;
+          image = builtins.fetchurl {
+            url = "https://github.com/NixOS/nixos-artwork/blob/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png?raw=true";
+            sha256 = "sha256-fmKFYw2gYAYFjOv4lr8IkXPtZfE1+88yKQ4vjEcax1s=";
+          };
           wlrRandr = lib.concatMapStrings (output: ''
             ${lib.getExe pkgs.wlr-randr} --output ${output.name} ${
               if output.scale != null then "--scale " + toString output.scale else ""
@@ -37,7 +41,12 @@
         in
         ''
           ${lib.traceValSeq wlrRandr}
+          sleep 0.1
           ${pkgs.swww}/bin/swww-daemon &
+          sleep 0.1
+          ${pkgs.swww}/bin/swww img ${image}
+          sleep 0.1
+          ${pkgs.swww}/bin/swww img ${image}
           rivercarro \
           -main-ratio 0.6 \
           -no-smart-gaps \
@@ -110,7 +119,7 @@
           keyboard-layout = config.marchcraft.desktop.wmconfig.keyboardLayout;
 
           map.normal = {
-            "${superKey} Return" = spawn "kitty -e tmux a";
+            "${superKey} Return" = spawn "kitty ";
             "${superKey} R" = spawn "${lib.getExe pkgs.rofi} -show drun -show-icons";
             "${superKey} B" = spawn "${lib.getExe pkgs.rofi-bluetooth}";
             "${superKey}+Shift R" = spawn "${lib.getExe pkgs.rofi-rbw-wayland}";

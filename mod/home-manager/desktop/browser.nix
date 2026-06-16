@@ -88,7 +88,7 @@
               "https://hhu-fscs.de"
               "https://hhu.de"
               "https://phynix-hhu.de"
-              "https://chaos.social"
+              "https://tech.lgbt"
               "https://youtube.com"
             ];
             "Behaviour" = "reject";

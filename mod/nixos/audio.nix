@@ -12,5 +12,17 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+
+    services.avahi.enable = true;
+
+    services.pulseaudio.zeroconf.discovery.enable = true;
+
+    services.pipewire.extraConfig.pipewire."90-zeroconf-discover" = {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-zeroconf-discover";
+        }
+      ];
+    };
   };
 }

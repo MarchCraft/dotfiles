@@ -19,6 +19,8 @@
 
   stylix.targets.fish.enable = false;
 
+  services.deluge.enable = true;
+
   virtualisation.docker.enable = true;
 
   environment.systemPackages = [
@@ -40,7 +42,10 @@
     pkgs.libreoffice-qt
     pkgs.wasistlos
     pkgs.signal-desktop
+    pkgs.jetbrains.idea
   ];
+
+  fonts.fontconfig.enable = true;
 
   programs.java.enable = true;
 
@@ -112,19 +117,4 @@
 
   services.tailscale.enable = true;
 
-  sops.secrets.openvpn_config = {
-    sopsFile = ../secrets/openvpn_config;
-    format = "binary";
-  };
-
-  sops.secrets.openvpn-credentials = {
-    sopsFile = ../secrets/openvpn_credentials;
-    format = "binary";
-  };
-
-  services.openvpn.servers = {
-    uniVPN = {
-      config = "config ${config.sops.secrets.openvpn_config.path}";
-    };
-  };
 }

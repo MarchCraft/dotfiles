@@ -36,6 +36,11 @@
         key = "asta-private-key";
       };
 
+      sops.secrets.wireguard-proton-private-key = {
+        sopsFile = opts.secretsFile;
+        key = "proton-private-key";
+      };
+
       sops.secrets.wireguard-asta-psk = {
         sopsFile = opts.secretsFile;
         key = "asta-preshared-key";
@@ -44,7 +49,7 @@
       networking.wg-quick.interfaces.wg0 = {
         address = [ "172.16.0.101/32" ];
 
-        autostart = false;
+        autostart = true;
 
         listenPort = 51820;
 
@@ -89,6 +94,37 @@
             ];
             persistentKeepalive = 25;
             endpoint = "134.99.154.242:51820";
+          }
+        ];
+      };
+
+      networking.wg-quick.interfaces.wg2 = {
+        address = [
+          "10.2.0.2/32"
+          "2a07:b944::2:2/128"
+        ];
+
+        dns = [
+          "10.2.0.1"
+          "2a07:b944::2:1"
+        ];
+
+        autostart = false;
+
+        listenPort = 51820;
+
+        privateKeyFile = config.sops.secrets.wireguard-proton-private-key.path;
+
+        peers = [
+          {
+            # vps
+            publicKey = "RxTOGGgZ2B+YEmqV+uJDWb2vlcFTi9FYK5gwKBHEbSo=";
+            allowedIPs = [
+              "0.0.0.0/0"
+              "::/0"
+            ];
+            persistentKeepalive = 25;
+            endpoint = "79.127.141.1:51820";
           }
         ];
       };

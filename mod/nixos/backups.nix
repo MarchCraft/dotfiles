@@ -128,13 +128,21 @@ in
 
           environment.BORG_RSH = "ssh -i /home/felix/.ssh/id_ed25519";
 
-          extraCreateArgs = "--verbose --stats --checkpoint-interval 600 ";
+          extraCreateArgs = "--verbose --stats --checkpoint-interval 600";
 
-          repo = "ssh://borg@xalir.net:2222/~/backups/FelixLaptop/${name}";
+          repo = "ssh://backup@10.42.30.40/backups/Felix/${name}";
 
           compression = "lz4";
           startAt = "hourly";
           user = "felix";
+          prune = {
+            keep = {
+              within = "1d"; # keep all hourly backups for 1 day
+              daily = 7; # keep 7 daily backups
+              weekly = 4; # keep 4 weekly backups
+              monthly = 12; # keep 12 monthly backups (~1 year)
+            };
+          };
         };
       in
       {
